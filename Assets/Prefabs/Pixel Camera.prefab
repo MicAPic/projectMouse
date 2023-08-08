@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1971633253078135497}
   - component: {fileID: 1971633253078135498}
   - component: {fileID: 1971633253078135349}
+  - component: {fileID: 4910288126596069760}
   m_Layer: 0
   m_Name: Pixel Camera
   m_TagString: MainCamera
@@ -126,7 +127,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1971633253078135496}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c88f5cead0c0b2a4eb05b5900433f8d1, type: 3}
   m_Name: 
@@ -136,9 +137,24 @@ MonoBehaviour:
   m_RefResolutionX: 398
   m_RefResolutionY: 224
   m_CropFrame: 0
-  m_GridSnapping: 1
+  m_GridSnapping: 0
   m_UpscaleRT: 0
   m_PixelSnapping: 0
   m_CropFrameX: 0
   m_CropFrameY: 0
   m_StretchFill: 0
+--- !u!114 &4910288126596069760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1971633253078135496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69026d73ac221d94d884cfc83b7388f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  smoothing: 0.25
+  maxDistanceFromPlayer: 5
