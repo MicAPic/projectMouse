@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class CameraController : MonoBehaviour
 {
@@ -34,7 +35,7 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        Vector2 mousePos = _camera.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 mousePos = _camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         Vector2 playerPosition = player.position;
         var midpoint = Vector2.Lerp(playerPosition, mousePos, 0.5f);
 

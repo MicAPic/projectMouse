@@ -1,15 +1,12 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    [Header("Physics")]
+    [Header("Physics & Movement")]
     public float movementSpeed;
 
-    private float _horizontalInput;
-    private float _verticalInput;
+    private Vector2 _movementValue;
 
     private Rigidbody2D _rb;
     private SpriteRenderer _sprite;
@@ -27,17 +24,18 @@ public class PlayerController : MonoBehaviour
     // }
 
     // Update is called once per frame
-    private void Update()
+    // private void Update()
+    // {
+    //     
+    // }
+
+    void OnMove(InputValue value)
     {
-        _horizontalInput = Input.GetAxisRaw("Horizontal");
-        _verticalInput = Input.GetAxisRaw("Vertical");
-        
-        // var temp = new Vector2(_horizontalInput, _verticalInput).normalized * movementSpeed ; 
-        // transform.Translate(temp * Time.deltaTime);
+        _movementValue = value.Get<Vector2>();
     }
 
     void FixedUpdate()
     {
-        _rb.velocity = new Vector2(_horizontalInput, _verticalInput).normalized * movementSpeed;
+        _rb.velocity = _movementValue * movementSpeed;
     }
 }
