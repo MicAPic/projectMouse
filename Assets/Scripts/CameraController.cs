@@ -3,6 +3,9 @@ using UnityEngine.InputSystem;
 
 public class CameraController : MonoBehaviour
 {
+    public static CameraController Instance;
+    
+    public Vector3 mousePos;
     [SerializeField]
     private Transform player;
     [SerializeField]
@@ -16,6 +19,14 @@ public class CameraController : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        
         if (player == null)
         {
             Debug.LogError("No Player is assigned to the camera");
@@ -35,7 +46,7 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        Vector2 mousePos = _camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        mousePos = _camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         Vector2 playerPosition = player.position;
         var midpoint = Vector2.Lerp(playerPosition, mousePos, 0.5f);
 
