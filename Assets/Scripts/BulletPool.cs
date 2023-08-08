@@ -6,7 +6,7 @@ public class BulletPool : MonoBehaviour
     public static BulletPool Instance;
 
     public Queue<Bullet>[] ObjectPools = new[] { new Queue<Bullet>(), new Queue<Bullet>() };
-    public GameObject objectsToPool;
+    public GameObject[] objectsToPool;
 
     void Awake()
     {
@@ -23,7 +23,7 @@ public class BulletPool : MonoBehaviour
     {
         if (!ObjectPools[poolIndex].TryDequeue(out var result))
         {
-            result = Instantiate(objectsToPool, transform).GetComponent<Bullet>();
+            result = Instantiate(objectsToPool[poolIndex], transform).GetComponent<Bullet>();
         }
 
         return result;
