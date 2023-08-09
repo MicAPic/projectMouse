@@ -1,21 +1,9 @@
 using UnityEngine;
 
-public class Health : MonoBehaviour
+public abstract class Health : MonoBehaviour
 {
     [SerializeField]
     private float healthPoints;
-
-    // Start is called before the first frame update
-    // void Start()
-    // {
-    //     
-    // }
-
-    // Update is called once per frame
-    // void Update()
-    // {
-    //     
-    // }
 
     public float GetCurrentHealth()
     {
@@ -30,7 +18,7 @@ public class Health : MonoBehaviour
             Die();
         }
         
-        //TODO: animate taking damage here
+        //TODO: animate taking damage here or in the children 
     }
 
     protected virtual void Die()
