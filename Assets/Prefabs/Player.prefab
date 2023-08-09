@@ -87,13 +87,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 10
-  dodgeSpeedModifier: 2
+  dodgeSpeedModifier: 3
   dodgeAccelerationTime: 0.35
   dodgeDecelerationTime: 0.35
   fireRate: 1
   firePower: 20
   shootingPoint: {fileID: 1490496431234418896}
-  bulletPrefab: {fileID: 5982652535607382190, guid: c80c2805464b67248bd80b2386367bad, type: 3}
   enemyLayer: 6
   enemyBulletLayer: 8
 --- !u!114 &7434023018259043841

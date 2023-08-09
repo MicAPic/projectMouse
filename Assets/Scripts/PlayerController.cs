@@ -10,6 +10,10 @@ public class PlayerController : MonoBehaviour
     public float dodgeAccelerationTime;
     public float dodgeDecelerationTime;
 
+    // grace period after pressing dodge where a dodge will be automatically performed once the requirements are met:
+    private const float DodgeInputBufferTime = 0.15f;
+    
+    private float _lastDodgePressedTime;
     private bool _isDodging;
     private Vector2 _movementValue;
     private Vector2 _cachedMovementValue;
@@ -20,8 +24,6 @@ public class PlayerController : MonoBehaviour
     
     [SerializeField]
     private Transform shootingPoint;
-    [SerializeField]
-    private GameObject bulletPrefab;
     private float _lastFireTime;
 
     [Header("Layers")]
@@ -52,21 +54,29 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Input processing
         if (_playerInput.actions["Shoot"].IsPressed() && Time.time - _lastFireTime >= fireRate)
         {
             Shoot();
         }
-        else if (_playerInput.actions["Dodge"].WasPressedThisFrame() && !_isDodging)
+        else if (_playerInput.actions["Dodge"].WasPressedThisFrame())
+        {
+            _lastDodgePressedTime = Time.time;
+        }
+        
+        // Dodge
+        if (!_isDodging && Time.time - _lastDodgePressedTime <= DodgeInputBufferTime)
         {
             Dodge();
         }
         
-        // Rotate shooting point:
+        // Rotate the shooting point
         shootingPoint.right = Mouse.current.position.ReadValue() - (Vector2)shootingPoint.position;
     }
 
     void FixedUpdate()
     {
+        // Movement
         _rb.velocity = _movementValue * movementSpeed;
     }
     
@@ -95,7 +105,7 @@ public class PlayerController : MonoBehaviour
     private void Dodge()
     {
         if (_movementValue == Vector2.zero) return;
-        Debug.Log("Dodged");
+        // Debug.Log("Dodged");
         
         _isDodging = true;
         Physics2D.IgnoreLayerCollision(_playerLayer, enemyLayer, true);
