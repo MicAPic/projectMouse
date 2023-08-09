@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class CameraController : MonoBehaviour
 {
-    public static CameraController Instance;
+    public static CameraController Instance { get; private set; }
     
     public Vector3 mousePos;
     [SerializeField]
