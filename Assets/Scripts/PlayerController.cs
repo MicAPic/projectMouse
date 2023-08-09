@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     [Header("Shooting")] 
     public float fireRate = 1.0f;
     public float firePower = 1.0f;
+    public float damageToDeal = 34f;
     
     [SerializeField]
     private Transform shootingPoint;
@@ -97,7 +98,7 @@ public class PlayerController : MonoBehaviour
         var direction = CameraController.Instance.mousePos - sPosition;
         
         bullet.transform.position = sPosition;
-        bullet.Enable(direction.normalized, firePower);
+        bullet.Enable(direction.normalized, firePower, damageToDeal);
         
         _lastFireTime = Time.time;
     }

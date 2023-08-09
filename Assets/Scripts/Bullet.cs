@@ -3,6 +3,8 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [SerializeField] 
+    private float damage;
+    [SerializeField] 
     private int poolIndex;
     private Rigidbody2D _rb;
 
@@ -13,11 +15,16 @@ public class Bullet : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
+        if (col.gameObject.TryGetComponent(out Health healthController))
+        {
+            healthController.TakeDamage(damage);
+        }
         Disable();
     }
 
-    public void Enable(Vector2 direction, float firePower)
+    public void Enable(Vector2 direction, float firePower, float damageToDeal)
     {
+        damage = damageToDeal;
         gameObject.SetActive(true);
         _rb.AddForce(direction * firePower, ForceMode2D.Impulse);
         

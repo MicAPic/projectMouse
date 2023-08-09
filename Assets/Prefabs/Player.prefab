@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2199356244425464425}
   - component: {fileID: 8952843269107361336}
   - component: {fileID: 7434023018259043841}
+  - component: {fileID: 8826732396876333723}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -92,6 +93,7 @@ MonoBehaviour:
   dodgeDecelerationTime: 0.35
   fireRate: 1
   firePower: 20
+  damageToDeal: 34
   shootingPoint: {fileID: 1490496431234418896}
   enemyLayer: 6
   enemyBulletLayer: 8
@@ -125,6 +127,19 @@ MonoBehaviour:
   m_DefaultActionMap: InGame
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &8826732396876333723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 698593812946203270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7a18d2962ee9384eb92ae7844c91c87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthPoints: 100
 --- !u!1 &2969619596571680592
 GameObject:
   m_ObjectHideFlags: 0
