@@ -12,6 +12,8 @@ public class CameraController : MonoBehaviour
     private float smoothing = 0.1f;
     [SerializeField]
     private float maxDistanceFromPlayer = 5.0f;
+    [SerializeField] [Range(0, 1)] 
+    private float focusPoint = 0.5f;
     
     private Vector3 _velocity = Vector3.zero;
     private float _defaultZCoordinate;
@@ -48,7 +50,7 @@ public class CameraController : MonoBehaviour
     {
         mousePos = _camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         Vector2 playerPosition = player.position;
-        var midpoint = Vector2.Lerp(playerPosition, mousePos, 0.5f);
+        var midpoint = Vector2.Lerp(playerPosition, mousePos, focusPoint);
 
         var difference = midpoint - playerPosition;
         difference = Vector2.ClampMagnitude(difference, maxDistanceFromPlayer);
