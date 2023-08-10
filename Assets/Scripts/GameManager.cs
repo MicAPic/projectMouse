@@ -1,8 +1,13 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
+
+    [SerializeField] 
+    public PlayerInput[] playerInputs; 
 
     void Awake()
     {
@@ -30,10 +35,20 @@ public class GameManager : MonoBehaviour
     public void Pause()
     {
         // TODO: pause the game here
+        foreach (var playerInput in playerInputs)
+        {
+            playerInput.enabled = false;
+            CameraController.Instance.focusPoint = 0.0f;
+        }
     }
     
     public void Unpause()
     {
         // TODO: unpause the game here
+        foreach (var playerInput in playerInputs)
+        {
+            playerInput.enabled = true;
+            CameraController.Instance.focusPoint = CameraController.Instance.defaultFocusPoint;
+        }
     }
 }

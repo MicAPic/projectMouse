@@ -94,6 +94,7 @@ public class ExperienceManager : MonoBehaviour
         {
             Instantiate(powerUps[i], powerUpSelection.transform);
         }
+        powerUpSelection.transform.GetChild(0).GetComponent<Button>().Select();
         powerUpSelection.SetActive(true);
         
         GameManager.Instance.Pause();

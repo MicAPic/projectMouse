@@ -6,14 +6,17 @@ public class CameraController : MonoBehaviour
     public static CameraController Instance { get; private set; }
     
     public Vector3 mousePos;
+    [Range(0, 1)] 
+    public float focusPoint = 0.5f;
+
+    public float defaultFocusPoint { get; private set; }
+
     [SerializeField]
     private Transform player;
     [SerializeField]
     private float smoothing = 0.1f;
     [SerializeField]
     private float maxDistanceFromPlayer = 5.0f;
-    [SerializeField] [Range(0, 1)] 
-    private float focusPoint = 0.5f;
     
     private Vector3 _velocity = Vector3.zero;
     private float _defaultZCoordinate;
@@ -37,6 +40,7 @@ public class CameraController : MonoBehaviour
         }
 
         _camera = GetComponent<Camera>();
+        defaultFocusPoint = focusPoint;
     }
 
     // Start is called before the first frame update
