@@ -1,13 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class EnemyController : MonoBehaviour
 {
 
-    public int experiencePointWorth;
+    public float experiencePointWorth = 10f;
+    public float damageToDeal = 34f;
 
-    //TODO: make PlayerController singleton
+    //TODO: make PlayerController singleton OR assign this in Awake()
     [SerializeField] private PlayerController _playerController;
     [SerializeField] private Transform _shootingPoint;
     [SerializeField] private float _firePower = 20;
@@ -19,7 +19,7 @@ public class EnemyController : MonoBehaviour
         ROAMING,
         CHASE,
         ATTACK,
-        RETRATE,
+        RETREAT,
     }
 
     private State _currentState;
@@ -36,18 +36,17 @@ public class EnemyController : MonoBehaviour
     [Header("Chasing")]
     [SerializeField] private float _chasingMovementSpeed;
 
-    [Header("Attack")]
+    [Header("Attacking")]
     [SerializeField] private float _attackDistance = 5f;
     [SerializeField] private float _fireTemp = 3f;
 
-    [Header("Retarte")]
-    [SerializeField] private float _retrateDistance = 5f;
-    [SerializeField ]private float _retrateSpeed = 20f;
-
-
-
-
-
+    [Header("Retreating")]
+    [FormerlySerializedAs("_retrateDistance")]
+    [SerializeField] 
+    private float _retreatDistance = 5f;
+    [FormerlySerializedAs("_retrateSpeed")] 
+    [SerializeField]
+    private float _retreatSpeed = 20f;
 
     void Start()
     {
@@ -84,14 +83,14 @@ public class EnemyController : MonoBehaviour
             case State.ATTACK:
                 if (_playerDistance > _attackDistance)
                     _currentState = State.CHASE;
-                if (_playerDistance < _retrateDistance)
-                    _currentState = State.RETRATE;
+                if (_playerDistance < _retreatDistance)
+                    _currentState = State.RETREAT;
                 Shoot();
                 break;
-            case State.RETRATE:
-                if (_playerDistance > _retrateDistance)
+            case State.RETREAT:
+                if (_playerDistance > _retreatDistance)
                     _currentState = State.ATTACK;
-                transform.position = Vector3.MoveTowards(transform.position, _playerController.transform.position, -_retrateSpeed * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, _playerController.transform.position, -_retreatSpeed * Time.deltaTime);
                 //Shoot();
                 break;
         }
@@ -115,7 +114,7 @@ public class EnemyController : MonoBehaviour
         Vector3 direction = (_playerController.transform.position - sPosition).normalized;
 
         bullet.transform.position = sPosition;
-        bullet.Enable(direction.normalized, _firePower);
+        bullet.Enable(direction.normalized, _firePower, damageToDeal);
         _lastFireTime = Time.time;
 
     }
