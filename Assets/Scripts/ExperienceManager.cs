@@ -17,6 +17,7 @@ public class ExperienceManager : MonoBehaviour
 
     private int _currentLevel = 1;
     private float _experienceToLevelUp;
+    private float _previousExperienceToLevelUp = 0.0f;
     private float _totalExperiencePoints;
     
     [Header("UI")]
@@ -32,7 +33,7 @@ public class ExperienceManager : MonoBehaviour
     
     [Header("Animation")]
     [SerializeField]
-    private float experienceGainAnimationDuration;
+    private float experienceGainAnimationMaxDuration;
 
     void Awake()
     {
@@ -65,6 +66,8 @@ public class ExperienceManager : MonoBehaviour
         }
         
         GameManager.Instance.Unpause();
+        ReevaluateExpGoal();
+        FillExperienceBar();
     }
 
     public void AddExperience(float expToAdd)
@@ -72,21 +75,18 @@ public class ExperienceManager : MonoBehaviour
         currentExperienceText.DOCounter(
             (int)(_totalExperiencePoints * 100),
             (int)((_totalExperiencePoints + expToAdd) * 100),
-            experienceGainAnimationDuration);
+            (expToAdd / _experienceToLevelUp) * experienceGainAnimationMaxDuration);
         
         _totalExperiencePoints += expToAdd;
-        
-        if (_totalExperiencePoints >= _experienceToLevelUp)
-        {
-            LevelUp();
-        }
-        
+
         // TODO: animate this stuff more!
         FillExperienceBar();
     }
 
     private void LevelUp()
     {
+        experienceBarFill.fillAmount = 0.0f;
+        
         _currentLevel++;
         
         powerUps.Shuffle();
@@ -102,21 +102,32 @@ public class ExperienceManager : MonoBehaviour
         {
             Debug.LogWarning("Maximum level has been reached. The EXP curve is now a flat line");
         }
-        ReevaluateExpGoal();
     }
 
     private void ReevaluateExpGoal()
     {
+        _previousExperienceToLevelUp = _experienceToLevelUp;
         _experienceToLevelUp = experienceCurve.Evaluate(_currentLevel);
         
         experienceGoalText.DOCounter(
-            (int)(experienceCurve.Evaluate(_currentLevel - 1) * 100), 
-            (int)(experienceCurve.Evaluate(_currentLevel) * 100), 
-            experienceGainAnimationDuration);
+            (int)(_previousExperienceToLevelUp * 100), 
+            (int)(_experienceToLevelUp * 100), 
+            experienceGainAnimationMaxDuration);
     }
 
     private void FillExperienceBar()
     {
-        experienceBarFill.DOFillAmount(_totalExperiencePoints / _experienceToLevelUp, experienceGainAnimationDuration);
+        var levelUpCondition = _totalExperiencePoints >= _experienceToLevelUp;
+        var fillAmount =  levelUpCondition
+            ? 1.0f 
+            : 1.0f - (_experienceToLevelUp - _totalExperiencePoints) / 
+                     (_experienceToLevelUp - _previousExperienceToLevelUp);
+        var animationDuration = (fillAmount - experienceBarFill.fillAmount) * experienceGainAnimationMaxDuration;
+        var tween = experienceBarFill.DOFillAmount(fillAmount, animationDuration);
+        if (levelUpCondition)
+        {
+            tween.SetUpdate(true);
+            tween.OnComplete(LevelUp);
+        }
     }
 }

@@ -944,7 +944,7 @@ MonoBehaviour:
   experienceBarFill: {fileID: 3015840709111772915}
   currentExperienceText: {fileID: 8974630425866266157}
   experienceGoalText: {fileID: 8971963839157457998}
-  experienceGainAnimationDuration: 2
+  experienceGainAnimationMaxDuration: 2
 --- !u!1 &8951781446173462087
 GameObject:
   m_ObjectHideFlags: 0
