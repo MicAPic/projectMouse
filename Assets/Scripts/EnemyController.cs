@@ -7,14 +7,15 @@ public class EnemyController : MonoBehaviour
     public float experiencePointWorth = 10f;
     public float damageToDeal = 34f;
 
-    //TODO: make PlayerController singleton OR assign this in Awake()
-    [SerializeField] private PlayerController _playerController;
-    [SerializeField] private Transform _shootingPoint;
-    [SerializeField] private float _firePower = 20;
 
-    private float _playerDistance;
+    [SerializeField] protected PlayerController _playerController;
+    [SerializeField] protected Transform _shootingPoint;
+    [SerializeField] protected float _firePower = 20;
+    protected Rigidbody2D _rigidbody;
 
-    private enum State
+    protected float _playerDistance;
+
+    protected enum State
     {
         ROAMING,
         CHASE,
@@ -22,7 +23,12 @@ public class EnemyController : MonoBehaviour
         RETREAT,
     }
 
-    private State _currentState;
+    protected State _currentState;
+
+    protected void Awake()
+    {
+        _rigidbody = GetComponent<Rigidbody2D>();
+    }
 
 
     [Header("Roaming")]
@@ -38,62 +44,31 @@ public class EnemyController : MonoBehaviour
 
     [Header("Attacking")]
     [SerializeField] private float _attackDistance = 5f;
-    [SerializeField] private float _fireTemp = 3f;
+    [SerializeField] protected float _fireTemp = 3f;
 
     [Header("Retreating")]
-    [FormerlySerializedAs("_retrateDistance")]
     [SerializeField] 
-    private float _retreatDistance = 5f;
-    [FormerlySerializedAs("_retrateSpeed")] 
+    private float _retrateDistance = 5f;
     [SerializeField]
-    private float _retreatSpeed = 20f;
+    private float _retrateSpeed = 20f;
 
-    void Start()
+    protected void Start()
     {
         _currentState = State.ROAMING;
         _currentRoamPosition = GetNextRandomPosition();
     }
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         _playerDistance = Vector2.Distance(_playerController.transform.position, transform.position);
-        switch (_currentState)
-        {
-            case State.ROAMING:
-                if (_playerDistance < _detectionDistance)
-                {
-                    _currentState = State.CHASE;
-                    break;
-                }
-                transform.position = Vector3.MoveTowards(transform.position, _currentRoamPosition, _roamingMovementSpeed * Time.deltaTime);
-                if(Vector3.Distance(transform.position, _currentRoamPosition) < 0.1f)
-                    _currentRoamPosition = GetNextRandomPosition();
-                break;
-            case State.CHASE:
-                transform.position = Vector3.MoveTowards(transform.position, _playerController.transform.position, _chasingMovementSpeed * Time.deltaTime);
-                if(_playerDistance > _detectionDistance)
-                {
-                    _currentRoamPosition = GetNextRandomPosition();
-                    _currentState = State.ROAMING;
-                }
-                if(_playerDistance < _attackDistance)
-                    _currentState = State.ATTACK;
-                Shoot();
-                break;
-            case State.ATTACK:
-                if (_playerDistance > _attackDistance)
-                    _currentState = State.CHASE;
-                if (_playerDistance < _retreatDistance)
-                    _currentState = State.RETREAT;
-                Shoot();
-                break;
-            case State.RETREAT:
-                if (_playerDistance > _retreatDistance)
-                    _currentState = State.ATTACK;
-                transform.position = Vector3.MoveTowards(transform.position, _playerController.transform.position, -_retreatSpeed * Time.deltaTime);
-                //Shoot();
-                break;
-        }
+        Shoot();
+    }
+
+
+
+    private void FixedUpdate()
+    {
+        Move();
     }
 
     private Vector3 GetNextRandomPosition()
@@ -102,10 +77,56 @@ public class EnemyController : MonoBehaviour
         return transform.position + direction;
     }
 
-    private float _lastFireTime = 0f;
-    private void Shoot()
+    protected float _lastFireTime = 0f;
+
+    private void Move()
     {
-        if (Time.time - _lastFireTime <= _fireTemp)
+        switch (_currentState)
+        {
+            case State.ROAMING:
+                if (_playerDistance < _detectionDistance)
+                {
+                    _currentState = State.CHASE;
+                    break;
+                }
+                
+                _rigidbody.velocity = (Vector2)(_currentRoamPosition - transform.position).normalized * _roamingMovementSpeed; 
+                if (Vector3.Distance(transform.position, _currentRoamPosition) < 0.1f)
+                    _currentRoamPosition = GetNextRandomPosition();
+                break;
+            case State.CHASE:
+                _rigidbody.velocity = (Vector2)(_playerController.transform.position - transform.position).normalized * _chasingMovementSpeed;
+                if (_playerDistance > _detectionDistance)
+                {
+                    _currentRoamPosition = GetNextRandomPosition();
+                    _currentState = State.ROAMING;
+                }
+                if (_playerDistance < _attackDistance)
+                {
+                    _rigidbody.velocity = Vector2.zero;
+                    _currentState = State.ATTACK;
+                }
+                break;
+            case State.ATTACK:
+                if (_playerDistance > _attackDistance)
+                    _currentState = State.CHASE;
+                if (_playerDistance < _retrateDistance)
+                    _currentState = State.RETREAT;
+                break;
+            case State.RETREAT:
+                if (_playerDistance > _retrateDistance)
+                {
+                    _currentState = State.ATTACK;
+                    _rigidbody.velocity = Vector2.zero;
+                    break;
+                }
+                _rigidbody.velocity = (Vector2)(_playerController.transform.position - transform.position).normalized * -_retrateSpeed;
+                break;
+        }
+    }
+    protected virtual void Shoot()
+    {
+        if (Time.time - _lastFireTime <= _fireTemp || _currentState == State.ROAMING || _currentState == State.RETREAT)
             return;
 
         var bullet = BulletPool.Instance.GetBulletFromPool(1);
@@ -116,9 +137,6 @@ public class EnemyController : MonoBehaviour
         bullet.transform.position = sPosition;
         bullet.Enable(direction.normalized, _firePower, damageToDeal);
         _lastFireTime = Time.time;
-
     }
-
-
 
 }
