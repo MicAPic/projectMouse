@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] 
     private int enemyBulletLayer = 8;
     private int _playerLayer;
+    
     private PlayerInput _playerInput;
     private Rigidbody2D _rb;
     private SpriteRenderer _sprite;
@@ -98,7 +99,7 @@ public class PlayerController : MonoBehaviour
         var direction = CameraController.Instance.mousePos - sPosition;
         
         bullet.transform.position = sPosition;
-        bullet.Enable(direction.normalized, firePower, damageToDeal);
+        bullet.Enable(direction, firePower, damageToDeal);
         
         _lastFireTime = Time.time;
     }

@@ -137,7 +137,7 @@ namespace Enemy
             Vector3 direction = (_playerController.transform.position - sPosition).normalized;
 
             bullet.transform.position = sPosition;
-            bullet.Enable(direction.normalized, _firePower, damageToDeal);
+            bullet.Enable(direction, _firePower, damageToDeal);
             _lastFireTime = Time.time;
         }
     }

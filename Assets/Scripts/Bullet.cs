@@ -1,3 +1,4 @@
+using HealthControllers;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -22,11 +23,14 @@ public class Bullet : MonoBehaviour
         Disable();
     }
 
-    public void Enable(Vector2 direction, float firePower, float damageToDeal)
+    public void Enable(Vector3 direction, float firePower, float damageToDeal)
     {
+        var normalizedDirection = (Vector2) direction;
+        normalizedDirection.Normalize();
+        
         damage = damageToDeal;
         gameObject.SetActive(true);
-        _rb.AddForce(direction * firePower, ForceMode2D.Impulse);
+        _rb.AddForce(normalizedDirection * firePower, ForceMode2D.Impulse);
         
         //TODO: if we make the levels with no borders, call Disable on a timer
     }
