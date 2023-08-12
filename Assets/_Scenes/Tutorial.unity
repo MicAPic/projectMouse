@@ -394,6 +394,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CameraSystem
       objectReference: {fileID: 0}
+    - target: {fileID: 4910288126596069760, guid: 1f2259667d4c67242ad96772283b3117, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1824196156}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1f2259667d4c67242ad96772283b3117, type: 3}
 --- !u!1001 &1131259112
@@ -515,6 +519,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 74e853823cd0ea34fb4ad69a143c92c8, type: 3}
+--- !u!4 &1824196156 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 698593812946203268, guid: 74e853823cd0ea34fb4ad69a143c92c8, type: 3}
+  m_PrefabInstance: {fileID: 1824196155}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2124930896
 PrefabInstance:
   m_ObjectHideFlags: 0
