@@ -39,7 +39,7 @@ public class CameraController : MonoBehaviour
             return;
         }
 
-        _camera = GetComponent<Camera>();
+        _camera = GetComponentInChildren<Camera>();
         defaultFocusPoint = focusPoint;
     }
 

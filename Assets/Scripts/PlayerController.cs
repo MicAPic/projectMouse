@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] 
     private int enemyBulletLayer = 8;
     private int _playerLayer;
+    
     private PlayerInput _playerInput;
     private Rigidbody2D _rb;
     private SpriteRenderer _sprite;

@@ -1,4 +1,6 @@
-namespace Enemy
+using Enemy;
+
+namespace HealthControllers
 {
     public class EnemyWithMagicHealth : Health
     {
