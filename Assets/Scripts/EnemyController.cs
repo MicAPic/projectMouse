@@ -7,7 +7,7 @@ public class EnemyController : MonoBehaviour
     public float experiencePointWorth = 10f;
     public float damageToDeal = 34f;
 
-
+    //TODO: make PlayerController singleton OR assign this in Awake()
     [SerializeField] protected PlayerController _playerController;
     [SerializeField] protected Transform _shootingPoint;
     [SerializeField] protected float _firePower = 20;
@@ -30,7 +30,6 @@ public class EnemyController : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody2D>();
     }
 
-
     [Header("Roaming")]
 
     [SerializeField] private float _roamingMovementSpeed;
@@ -47,24 +46,25 @@ public class EnemyController : MonoBehaviour
     [SerializeField] protected float _fireTemp = 3f;
 
     [Header("Retreating")]
+    [FormerlySerializedAs("_retrateDistance")]
     [SerializeField] 
-    private float _retrateDistance = 5f;
+    private float _retreatDistance = 5f;
+    [FormerlySerializedAs("_retrateSpeed")] 
     [SerializeField]
-    private float _retrateSpeed = 20f;
+    private float _retreatSpeed = 20f;
 
     protected virtual void Start()
     {
         _currentState = State.ROAMING;
         _currentRoamPosition = GetNextRandomPosition();
     }
+    
     // Update is called once per frame
     protected virtual void Update()
     {
         _playerDistance = Vector2.Distance(_playerController.transform.position, transform.position);
         Shoot();
     }
-
-
 
     private void FixedUpdate()
     {
@@ -88,8 +88,7 @@ public class EnemyController : MonoBehaviour
                 {
                     _currentState = State.CHASE;
                     break;
-                }
-                
+                }        
                 _rigidbody.velocity = (Vector2)(_currentRoamPosition - transform.position).normalized * _roamingMovementSpeed; 
                 if (Vector3.Distance(transform.position, _currentRoamPosition) < 0.1f)
                     _currentRoamPosition = GetNextRandomPosition();
@@ -124,6 +123,7 @@ public class EnemyController : MonoBehaviour
                 break;
         }
     }
+    
     protected virtual void Shoot()
     {
         if (Time.time - _lastFireTime <= _fireTemp || _currentState == State.ROAMING || _currentState == State.RETREAT)
@@ -138,5 +138,4 @@ public class EnemyController : MonoBehaviour
         bullet.Enable(direction.normalized, _firePower, damageToDeal);
         _lastFireTime = Time.time;
     }
-
 }
