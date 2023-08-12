@@ -1,4 +1,6 @@
-﻿public class EnemyHealth : Health
+﻿using Enemy;
+
+public class EnemyHealth : Health
 {
     private EnemyController _enemyController;
     void Awake()
