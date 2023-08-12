@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,30 +8,41 @@ namespace UI
 {
     public class TransitionController : MonoBehaviour
     {
+        public static TransitionController Instance { get; private set; }
+
         [SerializeField]
-        private RawImage transitionSprite;
+        protected RawImage transitionSprite;
+        [SerializeField]
+        protected float transitionDuration;
         [SerializeField] 
         private Color transitionColour;
-        [SerializeField] 
-        private float transitionDuration;
-        
-        // Start is called before the first frame update
-        void Start()
+        private Color _clearColourVariant;
+
+        protected virtual void Awake()
         {
-            transitionSprite.color = transitionColour;
-            transitionSprite.DOColor(Color.clear, transitionDuration).SetUpdate(true);
+            if (Instance != null)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
+            Instance = this;
+            
+            DontDestroyOnLoad(gameObject.transform.parent);
+            _clearColourVariant = new Color(transitionColour.r, transitionColour.g, transitionColour.b, 0.0f);
         }
 
-        // Update is called once per frame
-        // void Update()
-        // {
-        //
-        // }
-
-        public void TransitionAndLoadScene(string sceneToLoad)
+        public virtual void TransitionAndLoadScene(string sceneToLoad)
         {
-            transitionSprite.DOColor(transitionColour, transitionDuration).SetUpdate(true)
-                .OnComplete(() => SceneManager.LoadScene(sceneToLoad));
+            transitionSprite.raycastTarget = true;
+            transitionSprite.DOColor(transitionColour, transitionDuration).SetUpdate(true).SetEase(Ease.Linear)
+                .OnComplete(() =>
+                {
+                    SceneManager.LoadScene(sceneToLoad);
+                    transitionSprite.color = transitionColour;
+                    transitionSprite.DOColor(_clearColourVariant, transitionDuration).SetUpdate(true).SetEase(Ease.Linear)
+                        .OnComplete(() => transitionSprite.raycastTarget = false);
+                });
         }
     }
 }
