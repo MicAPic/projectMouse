@@ -18,8 +18,8 @@ public class EnemyShotGunController : EnemyController
         var sPosition = _shootingPoint.transform.position;
 
         Vector3 direction = (_playerController.transform.position - sPosition).normalized;
-        Vector3 leftDirection = Quaternion.AngleAxis(_shootAngel, Vector3.forward) * direction;
-        Vector3 rightDirection = Quaternion.AngleAxis(-_shootAngel, Vector3.forward) * direction;
+        Vector3 leftDirection = Quaternion.AngleAxis(Random.Range(5f, _shootAngel), Vector3.forward) * direction;
+        Vector3 rightDirection = Quaternion.AngleAxis(-Random.Range(5f, _shootAngel), Vector3.forward) * direction;
 
         bullet.transform.position = sPosition;
         bullet.Enable(direction.normalized, _firePower, damageToDeal);

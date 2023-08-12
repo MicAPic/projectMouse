@@ -25,7 +25,7 @@ public class EnemyController : MonoBehaviour
 
     protected State _currentState;
 
-    protected void Awake()
+    protected virtual void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
     }
@@ -52,13 +52,13 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     private float _retrateSpeed = 20f;
 
-    protected void Start()
+    protected virtual void Start()
     {
         _currentState = State.ROAMING;
         _currentRoamPosition = GetNextRandomPosition();
     }
     // Update is called once per frame
-    private void Update()
+    protected virtual void Update()
     {
         _playerDistance = Vector2.Distance(_playerController.transform.position, transform.position);
         Shoot();
