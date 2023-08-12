@@ -99,7 +99,7 @@ public class PlayerController : MonoBehaviour
         var direction = CameraController.Instance.mousePos - sPosition;
         
         bullet.transform.position = sPosition;
-        bullet.Enable(direction.normalized, firePower, damageToDeal);
+        bullet.Enable(direction, firePower, damageToDeal);
         
         _lastFireTime = Time.time;
     }
