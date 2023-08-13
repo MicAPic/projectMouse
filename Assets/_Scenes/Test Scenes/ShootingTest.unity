@@ -1228,9 +1228,41 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5539310983818433233, guid: 377c7c070ffcd7f4aa62c11971e842f2, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5539310983818433233, guid: 377c7c070ffcd7f4aa62c11971e842f2, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5539310983818433233, guid: 377c7c070ffcd7f4aa62c11971e842f2, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5539310983818433233, guid: 377c7c070ffcd7f4aa62c11971e842f2, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8310373865004482794, guid: 377c7c070ffcd7f4aa62c11971e842f2, type: 3}
       propertyPath: m_Name
       value: ExperienceManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8970153189666293530, guid: 377c7c070ffcd7f4aa62c11971e842f2, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8970153189666293530, guid: 377c7c070ffcd7f4aa62c11971e842f2, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8970153189666293530, guid: 377c7c070ffcd7f4aa62c11971e842f2, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8970153189666293530, guid: 377c7c070ffcd7f4aa62c11971e842f2, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 377c7c070ffcd7f4aa62c11971e842f2, type: 3}
@@ -1405,6 +1437,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1956397327713270691, guid: 07848fab5aa522d408be6d0c0334640f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4770227142879418681, guid: 07848fab5aa522d408be6d0c0334640f, type: 3}
+      propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

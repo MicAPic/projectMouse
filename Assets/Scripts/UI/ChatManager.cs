@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Threading.Tasks;
 using ScriptableObjects;
 using TMPro;
 using UnityEngine;
@@ -20,18 +21,27 @@ namespace UI
         [Tooltip("Delay between comments in seconds")]
         public float commentDelay;
         [SerializeField] 
+        private float spedUpCommentDelay;
+        [SerializeField] 
         private GameObject commentPrefab;
         [SerializeField] 
         private Transform chatContainer;
         [SerializeField] 
         private int maxCommentsOnScreen = 16;
         private GameObject _queuedComment;
+        private float _defaultCommentDelay;
         
         [Header("Data")]
         [SerializeField] 
         private ChatPlayerInfo chatPlayerInfo;
         [SerializeField] 
         private ChatTextInfo generalChatTextInfo;
+        [SerializeField] 
+        private ChatTextInfo startChatTextInfo;
+        [SerializeField] 
+        private ChatTextInfo gameOverChatTextInfo;
+        [SerializeField] 
+        private ChatTextInfo levelUpChatTextInfo;
 
         private ChatTextInfo _currentCTI;
 
@@ -44,12 +54,16 @@ namespace UI
             }
 
             Instance = this;
+            _defaultCommentDelay = commentDelay;
         }
 
         // Start is called before the first frame update
         void Start()
         {
-            _currentCTI = generalChatTextInfo;
+            _currentCTI = startChatTextInfo;
+            commentDelay = spedUpCommentDelay;
+            
+            TransitionToChatInfo(generalChatTextInfo, 10.0f, _defaultCommentDelay);
             StartCoroutine(ShowRandomComments());
         }
 
@@ -83,6 +97,21 @@ namespace UI
             }
         }
 
+        public void EnableLevelUpChatInfo()
+        {
+            TransitionToChatInfo(levelUpChatTextInfo, 0.0f, spedUpCommentDelay);
+        }
+        
+        public void EnableGeneralChatInfo()
+        {
+            TransitionToChatInfo(generalChatTextInfo, 0.0f, _defaultCommentDelay);
+        }
+        
+        public void EnableGameOverChatInfo()
+        {
+            TransitionToChatInfo(gameOverChatTextInfo, 0.0f, spedUpCommentDelay);
+        }
+
         private IEnumerator ShowRandomComments()
         {
             yield return new WaitForSeconds(commentDelay);
@@ -106,11 +135,18 @@ namespace UI
                     break;
                 case CommentType.Random:
                 default:
-                    message = ": " + _currentCTI.messages[Random.Range(0, generalChatTextInfo.messages.Length)];
+                    message = ": " + _currentCTI.messages[Random.Range(0, _currentCTI.messages.Length)];
                     break;
             }
 
             tmp.text = $"<color=#{colourCode}>{nickname}</color>{message}";
+        }
+
+        private async void TransitionToChatInfo(ChatTextInfo chatTextInfo, float transitionTime, float newChatSpeed)
+        {
+            await Task.Delay((int)(transitionTime * 1000));
+            _currentCTI = chatTextInfo;
+            commentDelay = newChatSpeed;
         }
     }
 }

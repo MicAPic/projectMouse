@@ -46,11 +46,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   commentDelay: 5
+  spedUpCommentDelay: 1
   commentPrefab: {fileID: 728666850560395928, guid: 2b2601d6c367b564ea64d80f3f7df754, type: 3}
   chatContainer: {fileID: 4770227142879418681}
   maxCommentsOnScreen: 15
   chatPlayerInfo: {fileID: 11400000, guid: 6f9acae2d68d0b149aaa2aa2829e753e, type: 2}
   generalChatTextInfo: {fileID: 11400000, guid: d4cfdf027cf04a441955d933fcddf7f7, type: 2}
+  startChatTextInfo: {fileID: 11400000, guid: 0ef5e62b1e902bb4cbd4a30f41c0c060, type: 2}
+  gameOverChatTextInfo: {fileID: 11400000, guid: b1b17e5001292d04c932e3cc50b94018, type: 2}
+  levelUpChatTextInfo: {fileID: 11400000, guid: b2903509739d5e448bcdea15fa4cd63a, type: 2}
 --- !u!1 &1956397329230954273
 GameObject:
   m_ObjectHideFlags: 0

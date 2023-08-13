@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using DG.Tweening;
+using ScriptableObjects;
 using TMPro;
 using UI;
 using UnityEngine;
@@ -86,6 +87,8 @@ public class ExperienceManager : MonoBehaviour
             Destroy(powerUp.gameObject);
         }
         
+        ChatManager.Instance.EnableGeneralChatInfo();
+        
         GameManager.Instance.Unpause();
         ReevaluateExpGoal();
         FillExperienceBar();
@@ -110,6 +113,8 @@ public class ExperienceManager : MonoBehaviour
         }
         powerUpSelection.transform.GetChild(0).GetComponent<Button>().Select();
         powerUpSelection.SetActive(true);
+        
+        ChatManager.Instance.EnableLevelUpChatInfo();
         
         GameManager.Instance.Pause();
         if (_currentLevel > experienceCurve[experienceCurve.length - 1].time)
