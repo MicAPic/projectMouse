@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e439b7d04af769468a1aa7bf68644d8, type: 3}
-  m_Name: ChatTextInfo
+  m_Script: {fileID: 11500000, guid: 09b995a2c6267564aa6e64e8e194cf80, type: 3}
+  m_Name: ChatPlayerInfo
   m_EditorClassIdentifier: 
   nicknames:
   - micapic
@@ -33,6 +33,3 @@ MonoBehaviour:
   - {r: 1, g: 0.41176474, b: 0.7058824, a: 1}
   - {r: 0.5411765, g: 0.16862746, b: 0.8862746, a: 1}
   - {r: 0, g: 1, b: 0.49803925, a: 1}
-  messages:
-  - kill! kill! kill!
-  - ThisIsFine.png

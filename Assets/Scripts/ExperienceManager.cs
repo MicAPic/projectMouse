@@ -1,7 +1,10 @@
+using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
+using UI;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
@@ -30,10 +33,20 @@ public class ExperienceManager : MonoBehaviour
     private TMP_Text currentExperienceText;
     [SerializeField]
     private TMP_Text experienceGoalText;
+    [SerializeField]
+    private RectTransform experienceCanvas;
     
     [Header("Animation")]
     [SerializeField]
     private float experienceGainAnimationMaxDuration;
+    [SerializeField] 
+    private GameObject experienceCirclePrefab;
+    [SerializeField] 
+    private RectTransform experienceCircleDestination;
+    [SerializeField] 
+    private float circleAnimationDuration;
+
+    private Queue<RectTransform> _experienceCircles = new();
 
     void Awake()
     {
@@ -57,6 +70,14 @@ public class ExperienceManager : MonoBehaviour
         ReevaluateExpGoal();
     }
 
+    private void Update()
+    {
+        if (Keyboard.current[Key.T].wasPressedThisFrame)
+        {
+            AnimateExperienceGain(0.0f);
+        }
+    }
+
     public void SelectPowerUp()
     {
         powerUpSelection.SetActive(false);
@@ -72,15 +93,8 @@ public class ExperienceManager : MonoBehaviour
 
     public void AddExperience(float expToAdd)
     {
-        currentExperienceText.DOCounter(
-            (int)(_totalExperiencePoints * 100),
-            (int)((_totalExperiencePoints + expToAdd) * 100),
-            (expToAdd / _experienceToLevelUp) * experienceGainAnimationMaxDuration);
-        
-        _totalExperiencePoints += expToAdd;
-
-        // TODO: animate this stuff more!
-        FillExperienceBar();
+        ChatManager.Instance.DisplayComment(ChatManager.CommentType.Donation, ((int)(expToAdd * 100)).ToString());
+        AnimateExperienceGain(expToAdd);
     }
 
     private void LevelUp()
@@ -129,5 +143,37 @@ public class ExperienceManager : MonoBehaviour
             tween.SetUpdate(true);
             tween.OnComplete(LevelUp);
         }
+    }
+
+    private void AnimateExperienceGain(float expToAdd)
+    {
+        if (!_experienceCircles.TryDequeue(out var result))
+        {
+            result = Instantiate(experienceCirclePrefab, experienceCanvas).GetComponent<RectTransform>();
+        }
+        
+        result.anchoredPosition = experienceCanvas.rect.min + new Vector2(80.0f, -5f);
+        result.gameObject.SetActive(true);
+
+        var sequence = DOTween.Sequence();
+
+        sequence.Append(result.DOAnchorPos(experienceCanvas.rect.min + new Vector2(80.0f, 5f), 0.5f));
+
+        sequence.Append(result.DOAnchorPos(experienceCircleDestination.anchoredPosition, 
+                                           circleAnimationDuration - 0.5f)
+            .SetEase(Ease.InExpo)
+            .OnComplete(() =>
+            {
+                currentExperienceText.DOCounter(
+                    (int)(_totalExperiencePoints * 100),
+                    (int)((_totalExperiencePoints + expToAdd) * 100),
+                    expToAdd / _experienceToLevelUp * experienceGainAnimationMaxDuration);
+
+                _totalExperiencePoints += expToAdd;
+
+                FillExperienceBar();
+                result.gameObject.SetActive(false);
+                _experienceCircles.Enqueue(result);
+            }));
     }
 }

@@ -46,10 +46,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   commentDelay: 5
-  chatTextInfo: {fileID: 11400000, guid: d4cfdf027cf04a441955d933fcddf7f7, type: 2}
   commentPrefab: {fileID: 728666850560395928, guid: 2b2601d6c367b564ea64d80f3f7df754, type: 3}
   chatContainer: {fileID: 4770227142879418681}
-  maxCommentsOnScreen: 16
+  maxCommentsOnScreen: 15
+  chatPlayerInfo: {fileID: 11400000, guid: 6f9acae2d68d0b149aaa2aa2829e753e, type: 2}
+  generalChatTextInfo: {fileID: 11400000, guid: d4cfdf027cf04a441955d933fcddf7f7, type: 2}
 --- !u!1 &1956397329230954273
 GameObject:
   m_ObjectHideFlags: 0
@@ -141,7 +142,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1956397329230954273}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
   m_Name: 
@@ -238,7 +239,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.000015258789, y: 0}
+  m_AnchoredPosition: {x: 0.000030517578, y: 0}
   m_SizeDelta: {x: 100, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &4321337012836016979
@@ -259,7 +260,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 2
   m_ChildAlignment: 6
-  m_Spacing: 0
+  m_Spacing: 0.34
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0

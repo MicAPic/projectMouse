@@ -2,17 +2,23 @@ using System.Collections;
 using ScriptableObjects;
 using TMPro;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace UI
 {
     public class ChatManager : MonoBehaviour
     {
         public static ChatManager Instance { get; private set; }
+        
+        public enum CommentType
+        {
+            Random,
+            Donation
+        }
 
+        [Header("UI & Animation")]
         [Tooltip("Delay between comments in seconds")]
         public float commentDelay;
-        [SerializeField] 
-        private ChatTextInfo chatTextInfo;
         [SerializeField] 
         private GameObject commentPrefab;
         [SerializeField] 
@@ -20,6 +26,14 @@ namespace UI
         [SerializeField] 
         private int maxCommentsOnScreen = 16;
         private GameObject _queuedComment;
+        
+        [Header("Data")]
+        [SerializeField] 
+        private ChatPlayerInfo chatPlayerInfo;
+        [SerializeField] 
+        private ChatTextInfo generalChatTextInfo;
+
+        private ChatTextInfo _currentCTI;
 
         void Awake()
         {
@@ -35,7 +49,8 @@ namespace UI
         // Start is called before the first frame update
         void Start()
         {
-            StartCoroutine(GenerateComments());
+            _currentCTI = generalChatTextInfo;
+            StartCoroutine(ShowRandomComments());
         }
 
         // Update is called once per frame
@@ -43,26 +58,21 @@ namespace UI
         // {
         //
         // }
-
-        private IEnumerator GenerateComments()
+        
+        public void DisplayComment(CommentType commentType=CommentType.Random, string additionalInfo = "")
         {
-            yield return new WaitForSeconds(commentDelay);
-            DisplayRandomComment();
-            StartCoroutine(GenerateComments());
-        }
-
-        private void DisplayRandomComment()
-        {
+            GameObject comment;
             if (_queuedComment == null)
             {
-                var newComment = Instantiate(commentPrefab, chatContainer);
-                PopulateCommentContent(newComment);
+                comment = Instantiate(commentPrefab, chatContainer);
             }
             else
             {
+                comment = _queuedComment;
                 _queuedComment.SetActive(true);
-                PopulateCommentContent(_queuedComment);
             }
+            
+            GenerateCommentContent(comment, commentType, additionalInfo);
 
             if (chatContainer.childCount > maxCommentsOnScreen)
             {
@@ -73,16 +83,34 @@ namespace UI
             }
         }
 
-        private void PopulateCommentContent(GameObject comment)
+        private IEnumerator ShowRandomComments()
+        {
+            yield return new WaitForSeconds(commentDelay);
+            DisplayComment();
+            StartCoroutine(ShowRandomComments());
+        }
+        
+        private void GenerateCommentContent(GameObject comment, CommentType commentType=CommentType.Random, string additionalInfo = "")
         {
             var tmp = comment.GetComponent<TMP_Text>();
-            var randomIndex = Random.Range(0, chatTextInfo.nicknames.Length);
+            var randomIndex = Random.Range(0, chatPlayerInfo.nicknames.Length);
 
-            var nickname = chatTextInfo.nicknames[randomIndex];
-            var colourCode = ColorUtility.ToHtmlStringRGBA(chatTextInfo.nicknameColours[randomIndex]);
-            var message = chatTextInfo.messages[Random.Range(0, chatTextInfo.messages.Length)];
+            var nickname = chatPlayerInfo.nicknames[randomIndex];
+            var colourCode = ColorUtility.ToHtmlStringRGBA(chatPlayerInfo.nicknameColours[randomIndex]);
+            
+            string message;
+            switch (commentType)
+            {
+                case CommentType.Donation:
+                    message = $" just donated ${additionalInfo}";
+                    break;
+                case CommentType.Random:
+                default:
+                    message = ": " + _currentCTI.messages[Random.Range(0, generalChatTextInfo.messages.Length)];
+                    break;
+            }
 
-            tmp.text = $"<color=#{colourCode}>{nickname}</color>: {message}";
+            tmp.text = $"<color=#{colourCode}>{nickname}</color>{message}";
         }
     }
 }
