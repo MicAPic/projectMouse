@@ -1,5 +1,4 @@
 ﻿using CameraShake;
-using UnityEditor;
 
 namespace HealthControllers
 {
@@ -13,7 +12,7 @@ namespace HealthControllers
 
         protected override void Die() 
         {
-            EditorApplication.ExitPlaymode();
+            GameManager.Instance.GameOver();
         }
     }
 }

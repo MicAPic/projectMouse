@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour
         {
             _lastDodgePressedTime = Time.time;
         }
-        
+
         // Dodge
         if (!_isDodging && Time.time - _lastDodgePressedTime <= DodgeInputBufferTime)
         {

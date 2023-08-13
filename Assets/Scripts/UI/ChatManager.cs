@@ -114,7 +114,7 @@ namespace UI
 
         private IEnumerator ShowRandomComments()
         {
-            yield return new WaitForSeconds(commentDelay);
+            yield return new WaitForSecondsRealtime(commentDelay);
             DisplayComment();
             StartCoroutine(ShowRandomComments());
         }

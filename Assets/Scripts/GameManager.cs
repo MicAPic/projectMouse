@@ -1,13 +1,18 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-
+    
+    public PlayerInput[] playerInputs;
+    public InputAction pauseInputAction;
+    
     [SerializeField] 
-    public PlayerInput[] playerInputs; 
+    public GameObject pauseScreen;
+    [SerializeField] 
+    public GameObject gameOverScreen;
+    private bool _isPaused;
 
     void Awake()
     {
@@ -18,8 +23,22 @@ public class GameManager : MonoBehaviour
         }
 
         Instance = this;
+        
+        playerInputs = FindObjectsOfType<PlayerInput>();
+        pauseInputAction.performed += _ => TogglePauseScreen();
     }
     
+    void OnEnable()
+    {
+        pauseInputAction.Enable();
+    }
+
+    void OnDisable()
+    {
+        pauseInputAction.Disable();
+    }
+
+
     // Start is called before the first frame update
     // void Start()
     // {
@@ -34,7 +53,8 @@ public class GameManager : MonoBehaviour
 
     public void Pause()
     {
-        // TODO: pause the game here
+        Time.timeScale = 0.0f;
+        
         foreach (var playerInput in playerInputs)
         {
             playerInput.enabled = false;
@@ -44,11 +64,33 @@ public class GameManager : MonoBehaviour
     
     public void Unpause()
     {
-        // TODO: unpause the game here
+        Time.timeScale = 1.0f;
+        
         foreach (var playerInput in playerInputs)
         {
             playerInput.enabled = true;
             CameraController.Instance.focusPoint = CameraController.Instance.defaultFocusPoint;
+        }
+    }
+
+    public void GameOver()
+    {
+        Pause();
+        gameOverScreen.SetActive(true);
+    }
+
+    private void TogglePauseScreen()
+    {
+        _isPaused = !_isPaused;
+        pauseScreen.SetActive(_isPaused);
+
+        if (_isPaused)
+        {
+            Pause();
+        }
+        else
+        {
+            Unpause();
         }
     }
 }

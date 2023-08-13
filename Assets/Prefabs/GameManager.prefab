@@ -44,3 +44,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eedc2925b716f1e4eaacc2c488ac1eb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerInputs: []
+  pauseInputAction:
+    m_Name: Pause Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 900f8211-356e-4a8a-b8d5-b22a2d489576
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: c49e45e6-8f4f-4fc3-a564-ad2330d1ccce
+      m_Path: <Keyboard>/escape
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Pause Input
+      m_Flags: 0
+    m_Flags: 0
+  pauseScreen: {fileID: 0}
