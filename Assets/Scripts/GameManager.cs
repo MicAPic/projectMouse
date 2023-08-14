@@ -1,6 +1,9 @@
+using System;
 using System.Globalization;
+using Dan.Main;
 using DG.Tweening;
 using TMPro;
+using UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,16 +14,10 @@ public class GameManager : MonoBehaviour
     [Header("Input")]
     public PlayerInput[] playerInputs;
     public InputAction pauseInputAction;
-    
-    [Header("UI")]
+
+    [Header("UI")] 
     [SerializeField] 
-    private GameObject pauseScreen;
-    [SerializeField] 
-    private GameObject gameOverScreen;
-    [SerializeField] 
-    private TMP_Text scoreText;
-    [SerializeField] 
-    private TMP_Text highScoreText;
+    private InGameUI ui;
 
     [Header("Animation")]
     [SerializeField]
@@ -53,12 +50,6 @@ public class GameManager : MonoBehaviour
     {
         pauseInputAction.Enable();
     }
-
-    void OnDisable()
-    {
-        pauseInputAction.Disable();
-    }
-
 
     // Start is called before the first frame update
     // void Start()
@@ -96,8 +87,10 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        pauseInputAction.Disable();
+        
         Pause();
-        gameOverScreen.SetActive(true);
+        ui.gameOverScreen.SetActive(true);
 
         var score = (int)(ExperienceManager.Instance.TotalExperiencePoints * 100);
 
@@ -107,19 +100,44 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetInt("HighScore", _highScore);
         }
         
-        scoreText.DOCounter(
+        ui.scoreText.DOCounter(
             0,
             score,
             scoreCountDuration
             ).SetUpdate(true);
 
-        highScoreText.text = "High score: " + _highScore.ToString("N0", CultureInfo.InvariantCulture);
+        ui.highScoreText.text = "High score: " + _highScore.ToString("N0", CultureInfo.InvariantCulture);
+        
+        PingLeaderboard();
+    }
+
+    public void SubmitHighScore()
+    {
+        var nickname = ui.nicknameInputField.text;
+        if (nickname == string.Empty) return;
+        
+        ui.ToggleButtons(false);
+        
+        LeaderboardCreator.UploadNewEntry(publicKey, nickname, _highScore,
+            _ =>
+            {
+                ui.UpdateLeaderboardContent(publicKey);
+                ui.nicknameInputField.text = string.Empty;
+                ui.ToggleButtons(true);
+            },
+            error =>
+            {
+                if (error != null)
+                    Debug.LogError(error);
+                ui.ToggleButtons(true);
+                ui.ToggleOfflineMode();
+            });
     }
 
     private void TogglePauseScreen()
     {
         _isPaused = !_isPaused;
-        pauseScreen.SetActive(_isPaused);
+        ui.pauseScreen.SetActive(_isPaused);
 
         if (_isPaused)
         {
@@ -129,5 +147,24 @@ public class GameManager : MonoBehaviour
         {
             Unpause();
         }
+    }
+
+    private void PingLeaderboard()
+    {
+        LeaderboardCreator.Ping(isOnline =>
+        {
+            if (!isOnline)
+            {
+                ui.ToggleOfflineMode();
+                ui.buttons[1].Select();
+            }
+            else
+            {
+                ui.UpdateLeaderboardContent(publicKey);
+                ui.buttons[0].interactable = true;
+                ui.nicknameInputField.interactable = true; 
+                ui.nicknameInputField.Select();
+            }
+        });
     }
 }

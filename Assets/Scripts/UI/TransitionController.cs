@@ -39,6 +39,10 @@ namespace UI
                 .OnComplete(() =>
                 {
                     SceneManager.LoadScene(sceneToLoad);
+                    if (Time.timeScale < 1.0f)
+                    {
+                        Time.timeScale = 1.0f;
+                    }
                     transitionSprite.color = transitionColour;
                     transitionSprite.DOColor(_clearColourVariant, transitionDuration).SetUpdate(true).SetEase(Ease.Linear)
                         .OnComplete(() => transitionSprite.raycastTarget = false);
