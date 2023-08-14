@@ -1,3 +1,6 @@
+using System.Globalization;
+using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -5,14 +8,30 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     
+    [Header("Input")]
     public PlayerInput[] playerInputs;
     public InputAction pauseInputAction;
     
+    [Header("UI")]
     [SerializeField] 
-    public GameObject pauseScreen;
+    private GameObject pauseScreen;
     [SerializeField] 
-    public GameObject gameOverScreen;
+    private GameObject gameOverScreen;
+    [SerializeField] 
+    private TMP_Text scoreText;
+    [SerializeField] 
+    private TMP_Text highScoreText;
+
+    [Header("Animation")]
+    [SerializeField]
+    private float scoreCountDuration;
+
+    [Header("Leaderboards")]
+    [SerializeField]
+    private string publicKey;
+    
     private bool _isPaused;
+    private int _highScore;
 
     void Awake()
     {
@@ -26,6 +45,8 @@ public class GameManager : MonoBehaviour
         
         playerInputs = FindObjectsOfType<PlayerInput>();
         pauseInputAction.performed += _ => TogglePauseScreen();
+
+        _highScore = PlayerPrefs.GetInt("HighScore", 0);
     }
     
     void OnEnable()
@@ -77,6 +98,22 @@ public class GameManager : MonoBehaviour
     {
         Pause();
         gameOverScreen.SetActive(true);
+
+        var score = (int)(ExperienceManager.Instance.TotalExperiencePoints * 100);
+
+        if (score > _highScore)
+        {
+            _highScore = score;
+            PlayerPrefs.SetInt("HighScore", _highScore);
+        }
+        
+        scoreText.DOCounter(
+            0,
+            score,
+            scoreCountDuration
+            ).SetUpdate(true);
+
+        highScoreText.text = "High score: " + _highScore.ToString("N0", CultureInfo.InvariantCulture);
     }
 
     private void TogglePauseScreen()

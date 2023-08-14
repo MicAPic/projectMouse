@@ -63,3 +63,8 @@ MonoBehaviour:
       m_Flags: 0
     m_Flags: 0
   pauseScreen: {fileID: 0}
+  gameOverScreen: {fileID: 0}
+  scoreText: {fileID: 0}
+  highScoreText: {fileID: 0}
+  scoreCountDuration: 1
+  publicKey: 
