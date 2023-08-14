@@ -89,6 +89,8 @@ public class GameManager : MonoBehaviour
     {
         pauseInputAction.Disable();
         
+        ChatManager.Instance.EnableGameOverChatInfo();
+        
         Pause();
         ui.gameOverScreen.SetActive(true);
 
