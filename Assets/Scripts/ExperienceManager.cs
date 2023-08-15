@@ -130,4 +130,9 @@ public class ExperienceManager : MonoBehaviour
             tween.OnComplete(LevelUp);
         }
     }
+
+    public int GetCurrentLevel()
+    {
+        return _currentLevel;
+    }
 }

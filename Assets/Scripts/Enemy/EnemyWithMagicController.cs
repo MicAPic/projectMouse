@@ -54,7 +54,7 @@ namespace Enemy
         private int _currentBulletIndex = 0;
         protected override void Shoot()
         {
-            if (Time.time - _lastFireTime <= _fireTemp || _currentState == State.ROAMING || _currentState == State.RETREAT)
+            if (Time.time - _lastFireTime <= _fireTemp  || _currentState is State.RETREAT or State.PATROL)
                 return;
             if (_currentBulletIndex >= _bullets.Count)
             {

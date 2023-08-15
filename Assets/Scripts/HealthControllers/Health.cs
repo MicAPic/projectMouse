@@ -5,7 +5,7 @@ namespace HealthControllers
     public abstract class Health : MonoBehaviour
     {
         [SerializeField]
-        private float healthPoints;
+        protected float healthPoints;
 
         public float GetCurrentHealth()
         {

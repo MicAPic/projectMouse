@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 2647684583350146809}
   - component: {fileID: 2647684583350146802}
   m_Layer: 6
-  m_Name: EnemyWhitAShotGun
+  m_Name: EnemyWithAShotGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

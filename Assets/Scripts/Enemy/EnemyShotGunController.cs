@@ -8,7 +8,7 @@ namespace Enemy
         [SerializeField] private float _shootAngel = 20;
         protected override void Shoot()
         {
-            if (Time.time - _lastFireTime <= _fireTemp || _currentState == State.ROAMING || _currentState == State.RETREAT)
+            if (Time.time - _lastFireTime <= _fireTemp  || _currentState is State.RETREAT or State.PATROL)
                 return;
 
             var bullet = BulletPool.Instance.GetBulletFromPool(1);

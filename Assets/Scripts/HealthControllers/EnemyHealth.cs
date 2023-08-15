@@ -10,10 +10,16 @@ namespace HealthControllers
             _enemyController = GetComponent<EnemyController>();
         }
 
+        private void Start()
+        {
+            healthPoints = SpawnManager.Instance.GetEnemyHealth();
+        }
+
         protected override void Die()
         {
             base.Die();
             ExperienceManager.Instance.AddExperience(_enemyController.experiencePointWorth);
+            SpawnManager.Instance.EnemyDeath();
         }
     }
 }

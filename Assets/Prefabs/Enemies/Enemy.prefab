@@ -103,18 +103,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   experiencePointWorth: 10
   damageToDeal: 34
-  _playerController: {fileID: 0}
   _shootingPoint: {fileID: 2386241474583259510}
   _firePower: 20
   _roamingMovementSpeed: 3
-  _detectionDistance: 20
   _minRoamingDistance: 5
   _maxRoamingDistance: 10
+  _chasingDistance: 15
   _chasingMovementSpeed: 5
   _attackDistance: 10
-  _fireTemp: 1
-  _retrateDistance: 5
-  _retrateSpeed: 10
+  _fireTemp: 4
+  _retreatDistance: 5
+  _retreatSpeed: 10
 --- !u!61 &2386241474200903760
 BoxCollider2D:
   m_ObjectHideFlags: 0
