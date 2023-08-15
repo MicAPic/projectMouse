@@ -182,4 +182,9 @@ public class ExperienceManager : MonoBehaviour
                 _experienceCircles.Enqueue(result);
             }));
     }
+    
+    public int GetCurrentLevel()
+    {
+        return _currentLevel;
+    }
 }

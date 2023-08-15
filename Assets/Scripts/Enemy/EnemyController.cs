@@ -9,8 +9,8 @@ namespace Enemy
         public float experiencePointWorth = 10f;
         public float damageToDeal = 34f;
 
-        //TODO: make PlayerController singleton OR assign this in Awake()
-        [SerializeField] protected PlayerController _playerController;
+
+        protected PlayerController _playerController;
         [SerializeField] protected Transform _shootingPoint;
         [SerializeField] protected float _firePower = 20;
         protected Rigidbody2D _rigidbody;
@@ -19,7 +19,7 @@ namespace Enemy
 
         protected enum State
         {
-            ROAMING,
+            PATROL,
             CHASE,
             ATTACK,
             RETREAT,
@@ -27,15 +27,8 @@ namespace Enemy
 
         protected State _currentState;
 
-        [Header("Roaming")]
-
-        [SerializeField] private float _roamingMovementSpeed;
-        [SerializeField] private float _detectionDistance = 20f;
-        [SerializeField] private float _minRoamingDistance = 5f;
-        [SerializeField] private float _maxRoamingDistance = 15f;
-        private Vector3 _currentRoamPosition;
-
         [Header("Chasing")]
+        [SerializeField] private float _chasingDistance = 15f;
         [SerializeField] private float _chasingMovementSpeed;
 
         [Header("Attacking")]
@@ -53,12 +46,13 @@ namespace Enemy
         protected virtual void Awake()
         {
             _rigidbody = GetComponent<Rigidbody2D>();
+            _playerController = FindAnyObjectByType<PlayerController>();
         }
 
         protected virtual void Start()
         {
-            _currentState = State.ROAMING;
-            _currentRoamPosition = GetNextRandomPosition();
+            _currentState = State.PATROL;
+            damageToDeal = SpawnManager.Instance.GetEnemyDamage();
         }
     
         // Update is called once per frame
@@ -73,11 +67,6 @@ namespace Enemy
             Move();
         }
 
-        private Vector3 GetNextRandomPosition()
-        {
-            Vector3 direction = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0).normalized * Random.Range(_minRoamingDistance, _maxRoamingDistance);
-            return transform.position + direction;
-        }
 
         protected float _lastFireTime = 0f;
 
@@ -85,28 +74,22 @@ namespace Enemy
         {
             switch (_currentState)
             {
-                case State.ROAMING:
-                    if (_playerDistance < _detectionDistance)
+                case State.PATROL:
+                    _rigidbody.velocity = (Vector2)(_playerController.transform.position - transform.position).normalized * _chasingMovementSpeed;
+                    if (_playerDistance < _chasingDistance)
                     {
                         _currentState = State.CHASE;
-                        break;
-                    }        
-                    _rigidbody.velocity = (Vector2)(_currentRoamPosition - transform.position).normalized * _roamingMovementSpeed; 
-                    if (Vector3.Distance(transform.position, _currentRoamPosition) < 0.1f)
-                        _currentRoamPosition = GetNextRandomPosition();
+                    }
                     break;
                 case State.CHASE:
                     _rigidbody.velocity = (Vector2)(_playerController.transform.position - transform.position).normalized * _chasingMovementSpeed;
-                    if (_playerDistance > _detectionDistance)
-                    {
-                        _currentRoamPosition = GetNextRandomPosition();
-                        _currentState = State.ROAMING;
-                    }
                     if (_playerDistance < _attackDistance)
                     {
                         _rigidbody.velocity = Vector2.zero;
                         _currentState = State.ATTACK;
                     }
+                    if (_playerDistance > _chasingDistance)
+                        _currentState = State.PATROL;
                     break;
                 case State.ATTACK:
                     if (_playerDistance > _attackDistance)
@@ -128,7 +111,7 @@ namespace Enemy
     
         protected virtual void Shoot()
         {
-            if (Time.time - _lastFireTime <= _fireTemp || _currentState is State.ROAMING or State.RETREAT)
+            if (Time.time - _lastFireTime <= _fireTemp || _currentState is State.RETREAT or State.PATROL)
                 return;
 
             var bullet = BulletPool.Instance.GetBulletFromPool(1);
