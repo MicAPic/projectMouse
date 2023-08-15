@@ -1,8 +1,6 @@
-using System;
 using System.Globalization;
 using Dan.Main;
 using DG.Tweening;
-using TMPro;
 using UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -26,7 +24,8 @@ public class GameManager : MonoBehaviour
     [Header("Leaderboards")]
     [SerializeField]
     private string publicKey;
-    
+
+    public bool isGameOver;
     private bool _isPaused;
     private int _highScore;
 
@@ -87,6 +86,7 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        isGameOver = true;
         pauseInputAction.Disable();
         
         ChatManager.Instance.EnableGameOverChatInfo();
@@ -138,6 +138,8 @@ public class GameManager : MonoBehaviour
 
     private void TogglePauseScreen()
     {
+        if (ExperienceManager.Instance.isLevelingUp) return;
+        
         _isPaused = !_isPaused;
         ui.pauseScreen.SetActive(_isPaused);
 

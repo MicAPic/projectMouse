@@ -1,29 +1,28 @@
-using System;
 using System.Collections.Generic;
 using DG.Tweening;
-using ScriptableObjects;
 using TMPro;
 using UI;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class ExperienceManager : MonoBehaviour
 {
     public static ExperienceManager Instance { get; private set; }
-    
+
     [Header("Gameplay")]
+    public bool isLevelingUp;
     [SerializeField] 
     private AnimationCurve experienceCurve;
     [SerializeField] 
     private List<GameObject> powerUps;
-    
+
     public float TotalExperiencePoints { get; private set; }
 
     private int _currentLevel = 1;
     private float _experienceToLevelUp;
     private float _previousExperienceToLevelUp = 0.0f;
+
 
     [Header("UI")]
     [FormerlySerializedAs("levelUpMenu")]
@@ -72,16 +71,18 @@ public class ExperienceManager : MonoBehaviour
         ReevaluateExpGoal();
     }
 
-    private void Update()
-    {
-        if (Keyboard.current[Key.T].wasPressedThisFrame)
-        {
-            AnimateExperienceGain(0.0f);
-        }
-    }
+    // private void Update()
+    // {
+    //     if (Keyboard.current[Key.T].wasPressedThisFrame)
+    //     {
+    //         AnimateExperienceGain(0.0f);
+    //     }
+    // }
 
     public void SelectPowerUp()
     {
+        isLevelingUp = false;
+        
         powerUpSelection.SetActive(false);
         foreach (Transform powerUp in powerUpSelection.transform)
         {
@@ -91,6 +92,10 @@ public class ExperienceManager : MonoBehaviour
         ChatManager.Instance.EnableGeneralChatInfo();
         
         GameManager.Instance.Unpause();
+        
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        
         ReevaluateExpGoal();
         FillExperienceBar();
     }
@@ -105,16 +110,21 @@ public class ExperienceManager : MonoBehaviour
 
     private void LevelUp()
     {
+        if (isLevelingUp || GameManager.Instance.isGameOver) return;
+        isLevelingUp = true;
+        
         experienceBarFill.fillAmount = 0.0f;
         
         _currentLevel++;
         
         powerUps.Shuffle();
-        for (var i = 0; i < 3; i++)
+        GameObject button = null;
+        for (var i = 2; i >= 0; i--)
         {
-            Instantiate(powerUps[i], powerUpSelection.transform);
+            button = Instantiate(powerUps[i], powerUpSelection.transform);
+            button.transform.SetAsFirstSibling();
         }
-        powerUpSelection.transform.GetChild(0).GetComponent<Button>().Select();
+        button!.GetComponent<Button>().Select();
         powerUpSelection.SetActive(true);
         
         ChatManager.Instance.EnableLevelUpChatInfo();
@@ -124,6 +134,9 @@ public class ExperienceManager : MonoBehaviour
         {
             Debug.LogWarning("Maximum level has been reached. The EXP curve is now a flat line");
         }
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void ReevaluateExpGoal()
