@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e439b7d04af769468a1aa7bf68644d8, type: 3}
+  m_Name: ChatTextInfo [Start]
+  m_EditorClassIdentifier: 
+  messages:
+  - Hi mouse
+  - Hello
+  - ALOO
+  - ALOOO
+  - Mousey!!!!!!!!!!!!!!
+  - HII MOUSEEE
+  - Sup
+  - hello
+  - Yoooo
+  - 'Hey Mouse! '
+  - Alo!!!!!!!!
+  - How are you my queen
+  - 'HEEEEELLLLLLlllllllliooooooo '
+  - Hi
+  - ooh boy here we go again
+  - WE'RE IN
+  - hewo mousey
+  - IRON MOUSEE
+  - HEWOO
+  - HI MOUSYY
+  - HEAYYAE
+  - Lets go
