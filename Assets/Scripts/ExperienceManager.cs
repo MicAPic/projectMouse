@@ -36,7 +36,7 @@ public class ExperienceManager : MonoBehaviour
     private TMP_Text experienceGoalText;
     [SerializeField]
     private RectTransform experienceCanvas;
-    
+
     [Header("Animation")]
     [SerializeField]
     private float experienceGainAnimationMaxDuration;
@@ -94,7 +94,7 @@ public class ExperienceManager : MonoBehaviour
         GameManager.Instance.Unpause();
         
         Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
+        // Cursor.lockState = CursorLockMode.None;
         
         ReevaluateExpGoal();
         FillExperienceBar();
@@ -136,7 +136,7 @@ public class ExperienceManager : MonoBehaviour
         }
 
         Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        // Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void ReevaluateExpGoal()

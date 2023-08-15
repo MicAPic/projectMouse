@@ -973,6 +973,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4a32947f0e48524db981988cd26a89e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isLevelingUp: 0
   experienceCurve:
     serializedVersion: 2
     m_Curve:
@@ -999,8 +1000,8 @@ MonoBehaviour:
     m_RotationOrder: 4
   powerUps:
   - {fileID: 4170600310587356114, guid: e8357589dfb93484f94b67f38ee244cf, type: 3}
-  - {fileID: 4170600310587356114, guid: 8494808fc8429964b801afb0e1a5c998, type: 3}
-  - {fileID: 4170600310587356114, guid: 8494808fc8429964b801afb0e1a5c998, type: 3}
+  - {fileID: 4170600310587356114, guid: 0a6ae4661683c4e28b47b0998953dea6, type: 3}
+  - {fileID: 4170600310587356114, guid: 10eb128335833437999071b79e73eeac, type: 3}
   powerUpSelection: {fileID: 1674279825933757743}
   experienceBarFill: {fileID: 3015840709111772915}
   currentExperienceText: {fileID: 8974630425866266157}
@@ -1101,7 +1102,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8951781446173462087}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
   m_Name: 

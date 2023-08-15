@@ -1,9 +1,23 @@
-﻿using CameraShake;
+﻿using System;
+using CameraShake;
 
 namespace HealthControllers
 {
     public class PlayerHealth : Health
     {
+        private float _maxHealth;
+
+        // Start is called before the first frame update
+        void Start()
+        {
+            _maxHealth = healthPoints;
+        }
+
+        public void FullHeal()
+        {
+            healthPoints = _maxHealth;
+        }
+        
         public override void TakeDamage(float damagePoints)
         {
             base.TakeDamage(damagePoints);

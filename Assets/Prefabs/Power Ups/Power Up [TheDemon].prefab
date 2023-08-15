@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1091386755210974916, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
       propertyPath: m_Name
-      value: Power Up [Test1]
+      value: Power Up [TheDemon]
       objectReference: {fileID: 0}
     - target: {fileID: 4334202878583021386, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
       propertyPath: m_Pivot.x
@@ -97,13 +97,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8416702152856493180, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
       propertyPath: m_text
-      value: Test 1
+      value: The Demon
       objectReference: {fileID: 0}
     - target: {fileID: 9001928748618290203, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
       propertyPath: m_text
-      value: 'This is a test power up no.1
+      value: 'Increases fire rate by 10%
 
-        Increases fire rate by 50%'
+        Punk attire not included'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
@@ -124,6 +124,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f979ed1905790ea4da23701097952017, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  title: 
-  description: 
-  image: {fileID: 0}
+  modifier: 0.9
