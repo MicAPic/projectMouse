@@ -66,6 +66,8 @@ public class CameraController : MonoBehaviour
             transform.position,
             result,
             ref _velocity,
-            smoothing);
+            smoothing,
+            float.MaxValue,
+            Time.unscaledDeltaTime);
     }
 }
