@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
     public static SpawnManager Instance { get; private set; }
-    public static int EnemyCounter { get; private set; }
+    public int EnemyCount { get; private set; }
     
     [SerializeField] private Transform playerTransfrom;
 
@@ -53,7 +51,7 @@ public class SpawnManager : MonoBehaviour
 
     private void SpawnEnemies()
     {
-        if (EnemyCounter < GetEnemiesMaxNumber() && Time.time - _timeFromLastSpawn > _timeBetweenSpawns)
+        if (EnemyCount < GetEnemiesMaxNumber() && Time.time - _timeFromLastSpawn > _timeBetweenSpawns)
         {
             _currentSpawnDirection = Quaternion.AngleAxis(_spawnRotationAngel, playerTransfrom.forward) * _currentSpawnDirection;
             Vector3 _spawnPosition = playerTransfrom.position + _currentSpawnDirection;
@@ -76,14 +74,14 @@ public class SpawnManager : MonoBehaviour
                     return;
                 Instantiate(_shotGunEnemyPrefab, playerTransfrom.position + _currentSpawnDirection, Quaternion.identity);
             }
-            ++EnemyCounter;
+            ++EnemyCount;
             _timeFromLastSpawn = Time.time;
         }
     }
 
     public void EnemyDeath()
     {
-        --EnemyCounter;
+        --EnemyCount;
     }
 
     public float GetEnemyDamage()
