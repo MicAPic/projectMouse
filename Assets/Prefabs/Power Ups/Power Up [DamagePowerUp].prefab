@@ -1,0 +1,128 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &3946719639766820118
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1091386755210974916, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
+      propertyPath: m_Name
+      value: Power Up [DamagePowerUp]
+      objectReference: {fileID: 0}
+    - target: {fileID: 4334202878583021386, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4334202878583021386, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4334202878583021386, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4334202878583021386, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4334202878583021386, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4334202878583021386, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4334202878583021386, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4334202878583021386, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 4334202878583021386, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 4334202878583021386, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4334202878583021386, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4334202878583021386, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4334202878583021386, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4334202878583021386, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4334202878583021386, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4334202878583021386, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4334202878583021386, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4334202878583021386, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4334202878583021386, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4334202878583021386, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4334202878583021386, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8416702152856493180, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
+      propertyPath: m_text
+      value: Monke Plush
+      objectReference: {fileID: 0}
+    - target: {fileID: 9001928748618290203, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
+      propertyPath: m_text
+      value: 'Deal 15% more damage
+
+        Apes together strong!'
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
+--- !u!1 &4170600310587356114 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1091386755210974916, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
+  m_PrefabInstance: {fileID: 3946719639766820118}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8811916633062033767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4170600310587356114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37cacc05c418471fb537790364cfd007, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  modifier: 1.15
+  maxDamageToDeal: 3.4028235e+38

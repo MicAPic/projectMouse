@@ -1,4 +1,5 @@
 using DG.Tweening;
+using HealthControllers;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public float dodgeSpeedModifier;
     public float dodgeAccelerationTime;
     public float dodgeDecelerationTime;
+    public float dodgeDamage;
 
     // grace period after pressing dodge where a dodge will be automatically performed once the requirements are met:
     private const float DodgeInputBufferTime = 0.15f;
@@ -22,6 +24,7 @@ public class PlayerController : MonoBehaviour
     public float fireRate = 1.0f;
     public float firePower = 1.0f;
     public float damageToDeal = 34f;
+    public float bulletScaleModifier = 1.0f;
     
     [SerializeField]
     private Transform shootingPoint;
@@ -81,7 +84,15 @@ public class PlayerController : MonoBehaviour
         // Movement
         _rb.velocity = _movementValue * movementSpeed;
     }
-    
+
+    private void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.gameObject.TryGetComponent(out EnemyHealth enemyHealth) && _isDodging)
+        {
+            enemyHealth.TakeDamage(dodgeDamage);
+        }
+    }
+
     private void OnMove(InputValue value)
     {
         _cachedMovementValue = value.Get<Vector2>();
@@ -99,7 +110,7 @@ public class PlayerController : MonoBehaviour
         var direction = CameraController.Instance.mousePos - sPosition;
         
         bullet.transform.position = sPosition;
-        bullet.Enable(direction, firePower, damageToDeal);
+        bullet.Enable(direction, firePower, damageToDeal, bulletScaleModifier);
         
         _lastFireTime = Time.time;
     }

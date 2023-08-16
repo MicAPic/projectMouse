@@ -2,22 +2,22 @@ using UnityEngine;
 
 namespace PowerUps
 {
-    public class FireRatePowerUp : PowerUpBase
+    public class FirePowerPowerUp : PowerUpBase
     {
         [SerializeField]
-        private float modifier = 0.9f;
+        private float modifier = 1.12f;
         [SerializeField]
-        private float maxFireRate = 0.1f;
+        private float maxFirePower = 40.0f;
         
         protected override void Activate()
         {
             var playerControllers = FindObjectsOfType<PlayerController>();
             foreach (var playerController in playerControllers)
             {
-                playerController.fireRate *= modifier;
+                playerController.firePower *= modifier;
             }
             
-            if (playerControllers[0].fireRate <= maxFireRate)
+            if (playerControllers[0].fireRate >= maxFirePower)
             {
                 ExperienceManager.Instance.RemoveFromPowerUps(this);
             }

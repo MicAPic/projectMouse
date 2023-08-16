@@ -6,6 +6,8 @@ namespace PowerUps
     {
         [SerializeField]
         private float modifier = 1.15f;
+        [SerializeField]
+        private float maxDamageToDeal = float.MaxValue;
         
         protected override void Activate()
         {
@@ -13,6 +15,11 @@ namespace PowerUps
             foreach (var playerController in playerControllers)
             {
                 playerController.damageToDeal *= modifier;
+            }
+
+            if (playerControllers[0].damageToDeal > maxDamageToDeal)
+            {
+                ExperienceManager.Instance.RemoveFromPowerUps(this);
             }
         }
     }

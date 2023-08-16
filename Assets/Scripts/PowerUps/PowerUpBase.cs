@@ -7,7 +7,7 @@ namespace PowerUps
     {
         private Button _button;
 
-        void Awake()
+        protected virtual void Awake()
         {
             _button = GetComponent<Button>();
             _button.onClick.AddListener(Activate);

@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1091386755210974916, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
       propertyPath: m_Name
-      value: Power Up [MonkePlush]
+      value: Power Up [MovementPowerUp]
       objectReference: {fileID: 0}
     - target: {fileID: 4334202878583021386, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
       propertyPath: m_Pivot.x
@@ -97,13 +97,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8416702152856493180, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
       propertyPath: m_text
-      value: Monke Plush
+      value: Tungsten Boots
       objectReference: {fileID: 0}
     - target: {fileID: 9001928748618290203, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
       propertyPath: m_text
-      value: 'Deal 15% more damage
+      value: 'Move 10% faster
 
-        Apes together strong!'
+        Forged by legendary rat masters'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
@@ -121,7 +121,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 4170600310587356114}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37cacc05c418471fb537790364cfd007, type: 3}
+  m_Script: {fileID: 11500000, guid: a3477cae9e904bb3a5bf6a806e4c5830, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  modifier: 1.15
+  modifier: 1.1
+  maxSpeed: 20

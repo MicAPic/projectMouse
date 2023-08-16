@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using DG.Tweening;
+using PowerUps;
 using TMPro;
 using UI;
 using UnityEngine;
@@ -100,6 +102,13 @@ public class ExperienceManager : MonoBehaviour
         FillExperienceBar();
     }
 
+    public void RemoveFromPowerUps(PowerUpBase powerUpBase)
+    {
+        var powerUpName = powerUpBase.GetType().Name;
+        Debug.Log(powerUpName);
+        powerUps.RemoveAll(powerUp => powerUp.name.Contains(powerUpName));
+    }
+
     public void AddExperience(float expToAdd)
     {
         TotalExperiencePoints += expToAdd;
@@ -121,8 +130,15 @@ public class ExperienceManager : MonoBehaviour
         GameObject button = null;
         for (var i = 2; i >= 0; i--)
         {
-            button = Instantiate(powerUps[i], powerUpSelection.transform);
-            button.transform.SetAsFirstSibling();
+            try
+            {
+                button = Instantiate(powerUps[i], powerUpSelection.transform);
+                button.transform.SetAsFirstSibling();
+            }
+            catch (IndexOutOfRangeException)
+            {
+                continue;
+            }
         }
         button!.GetComponent<Button>().Select();
         powerUpSelection.SetActive(true);

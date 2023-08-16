@@ -8,6 +8,7 @@ namespace PowerUps
         {
             var playerHealth = FindObjectOfType<PlayerHealth>();
             playerHealth.FullHeal();
+            // ExperienceManager.Instance.RemoveFromPowerUps(this);
         }
     }
 }
