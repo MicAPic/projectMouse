@@ -7,6 +7,8 @@ using UnityEngine;
 
 public class TextManager : MonoBehaviour
 {
+    public static TextManager Instance { get; private set; }
+
     [Header("Parameters")] 
     [SerializeField]
     private float textSpeed = 0.08f;
@@ -24,7 +26,7 @@ public class TextManager : MonoBehaviour
     [Header("Ink")]
     [SerializeField] 
     private TextAsset inkScript;
-    private Story _story;
+    public Story story;
     
     private const string AutoTag = "auto";
     
@@ -38,43 +40,58 @@ public class TextManager : MonoBehaviour
     // [SerializeField]
     // private bool stopAudioSource;
     
-    // private bool _isPlaying;
+    protected bool isPlaying;
+    protected bool canContinue;
     private bool _isDisplayingRichText;
     private int _maxLineLength;
-    private bool _canContinue;
 
-    // Start is called before the first frame update
-    // void Start()
-    // {
-    //     
-    // }
-
-    public void StartDialogue()
+    void Awake()
     {
-        _story = new Story(inkScript.text);
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+    }
+
+    public virtual void StartDialogue()
+    {
+        story = new Story(inkScript.text);
 
         StartCoroutine(WaitBeforeDisplayingText());
     }
-    
+
+    public void ContinueStory()
+    {
+        Debug.Log('?');
+        if (story.canContinue)
+        {
+            string nextLine = story.Continue();
+            HandleTags(story.currentTags);
+
+            isPlaying = true;
+            StartCoroutine(DisplayLine(nextLine));
+        }
+        else
+        {
+            if (transitionController != null)
+            {
+                transitionController.TransitionAndLoadScene(nextSceneName);
+            }
+            else
+            {
+                TransitionController.Instance.TransitionAndLoadScene(nextSceneName);
+            }
+        }
+    }
+
     private IEnumerator WaitBeforeDisplayingText()
     {
         yield return new WaitForSeconds(1.05f);
         ContinueStory();
         // _isPlaying = true;
-    }
-    
-    private void ContinueStory()
-    {
-        if (_story.canContinue)
-        {
-            string nextLine = _story.Continue();
-            HandleTags(_story.currentTags);
-            StartCoroutine(DisplayLine(nextLine));
-        }
-        else
-        {
-            transitionController.TransitionAndLoadScene(nextSceneName);
-        }
     }
 
     private IEnumerator DisplayLine(string line)
@@ -105,8 +122,8 @@ public class TextManager : MonoBehaviour
             // PlayDialogueSound(i, dialogueText.text[i]);
             dialogueText.maxVisibleCharacters++;
             yield return dialogueText.text[i] == ' ' && dialogueText.text[i - 1] == '.'
-                ? new WaitForSeconds(autoModeWaitTime)
-                : new WaitForSeconds(textSpeed);
+                ? new WaitForSecondsRealtime(autoModeWaitTime)
+                : new WaitForSecondsRealtime(textSpeed);
         }
 
         StartCoroutine(FinishDisplayingLine());
@@ -114,11 +131,12 @@ public class TextManager : MonoBehaviour
 
     private IEnumerator FinishDisplayingLine()
     {
+        isPlaying = false;
         _isDisplayingRichText = false;
-        if (_canContinue)
+        if (canContinue)
         {
-            _canContinue = false;
-            yield return new WaitForSeconds(autoModeWaitTime);
+            canContinue = false;
+            yield return new WaitForSecondsRealtime(autoModeWaitTime);
             ContinueStory();
         }
     }
@@ -172,7 +190,7 @@ public class TextManager : MonoBehaviour
             switch (key)
             {
                 case AutoTag:
-                    _canContinue = true;
+                    canContinue = true;
                     break;
                 default:
                     Debug.LogWarning("Given tag is not implemented:" + key);

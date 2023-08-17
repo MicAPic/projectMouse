@@ -100,6 +100,11 @@ public class ExperienceManager : MonoBehaviour
         
         ReevaluateExpGoal();
         FillExperienceBar();
+
+        if (TextManager.Instance != null)
+        {
+            TextManager.Instance.ContinueStory();
+        }
     }
 
     public void RemoveFromPowerUps(PowerUpBase powerUpBase)

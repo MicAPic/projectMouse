@@ -4,6 +4,7 @@ using DG.Tweening;
 using UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -92,7 +93,15 @@ public class GameManager : MonoBehaviour
         ChatManager.Instance.EnableGameOverChatInfo();
         
         Pause();
-        ui.gameOverScreen.SetActive(true);
+        if (ui != null)
+        {
+            ui.gameOverScreen.SetActive(true);
+        }
+        else
+        {
+            TransitionController.Instance.TransitionAndLoadScene(SceneManager.GetActiveScene().name);
+            return;
+        }
 
         var score = (int)(ExperienceManager.Instance.TotalExperiencePoints * 100);
 

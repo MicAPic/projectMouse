@@ -8,8 +8,7 @@ namespace Enemy
 
         public float experiencePointWorth = 10f;
         public float damageToDeal = 34f;
-
-
+        
         protected PlayerController _playerController;
         [SerializeField] protected Transform _shootingPoint;
         [SerializeField] protected float _firePower = 20;
@@ -52,7 +51,7 @@ namespace Enemy
         protected virtual void Start()
         {
             _currentState = State.PATROL;
-            damageToDeal = SpawnManager.Instance.GetEnemyDamage();
+            damageToDeal = SpawnManager.Instance != null ? SpawnManager.Instance.GetEnemyDamage() : 1.0f;
         }
     
         // Update is called once per frame
