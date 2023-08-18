@@ -1,4 +1,5 @@
 using System;
+using Audio;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -34,6 +35,8 @@ namespace UI
 
         public virtual void TransitionAndLoadScene(string sceneToLoad)
         {
+            AudioManager.Instance.FadeOutAll(transitionDuration);
+            
             transitionSprite.raycastTarget = true;
             transitionSprite.DOColor(transitionColour, transitionDuration).SetUpdate(true).SetEase(Ease.Linear)
                 .OnComplete(() =>
