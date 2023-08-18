@@ -132,20 +132,35 @@ public class ExperienceManager : MonoBehaviour
         _currentLevel++;
         
         powerUps.Shuffle();
-        GameObject button = null;
+
+        var buttons = new List<Button>();
         for (var i = 2; i >= 0; i--)
         {
             try
             {
-                button = Instantiate(powerUps[i], powerUpSelection.transform);
+                var button = Instantiate(powerUps[i], powerUpSelection.transform);
                 button.transform.SetAsFirstSibling();
+                buttons.Add(button.GetComponent<Button>());
             }
             catch (IndexOutOfRangeException)
             {
                 continue;
             }
         }
-        button!.GetComponent<Button>().Select();
+
+        for (var i = 0; i < buttons.Count; i++)
+        {
+            var navigation = new Navigation
+            {
+                mode = Navigation.Mode.Explicit,
+                selectOnUp = buttons[(i + 1).Modulo(buttons.Count)],
+                selectOnDown = buttons[(i - 1).Modulo(buttons.Count)]
+            };
+            buttons[i].navigation = navigation;
+        }
+
+        buttons[^1].Select();
+        
         powerUpSelection.SetActive(true);
         
         ChatManager.Instance.EnableLevelUpChatInfo();

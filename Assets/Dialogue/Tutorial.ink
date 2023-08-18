@@ -32,7 +32,7 @@ Defeat him in battle, and we will wrap it up.#auto:
 Oh, you're worried about fighting my cousin?#auto: 
 Don't sweat it, that bird brain owes me a grand.#auto: 
 ~ UnlockAim()
-You can shoot with the <u>Left Mouse Button</b>. Go ahead! {ActivarMiguel()}
+You can shoot by holding the <u>Left Mouse Button</b>. Go ahead! {ActivarMiguel()}
 That will teach him a lesson or two!#auto:
 Look! Somebody from your chat donated $100, and it was enough to meet the stream goal.#auto: 
 Each time this happens, you can choose one of the three random power-ups.#auto: 

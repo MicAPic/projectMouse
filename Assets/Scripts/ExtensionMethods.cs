@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 public static class ExtensionMethods
 {
@@ -15,4 +16,9 @@ public static class ExtensionMethods
             (ts[i], ts[r]) = (ts[r], ts[i]);
         }
     }
+
+    public static int Modulo(this int a, int b)
+    {
+        return (Mathf.Abs(a * b) + a) % b;
+    } 
 }
