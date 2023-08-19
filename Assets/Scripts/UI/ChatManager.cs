@@ -17,6 +17,9 @@ namespace UI
             Donation
         }
 
+        [SerializeField]
+        private bool generateComments = true;
+
         [Header("UI & Animation")]
         [Tooltip("Delay between comments in seconds")]
         public float commentDelay;
@@ -63,6 +66,8 @@ namespace UI
             _currentCTI = startChatTextInfo;
             commentDelay = spedUpCommentDelay;
             
+            if (!generateComments) return;
+
             TransitionToChatInfo(generalChatTextInfo, 10.0f, _defaultCommentDelay);
             StartCoroutine(ShowRandomComments());
         }
