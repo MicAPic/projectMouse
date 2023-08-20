@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 5252557544126129367}
   - component: {fileID: 5252557544126129193}
   - component: {fileID: 5252557544126129192}
+  - component: {fileID: -8086221032445973976}
+  - component: {fileID: 432480476633642919}
   m_Layer: 6
   m_Name: EnemyWithMagicController
   m_TagString: Untagged
@@ -97,7 +99,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 5252557544126129373}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 8b5afb484d09e294192caf0a963daeda, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -149,18 +151,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   experiencePointWorth: 10
   damageToDeal: 34
-  _playerController: {fileID: 0}
   _shootingPoint: {fileID: 0}
   _firePower: 20
-  _roamingMovementSpeed: 3
-  _detectionDistance: 20
-  _minRoamingDistance: 5
-  _maxRoamingDistance: 10
+  _chasingDistance: 20
   _chasingMovementSpeed: 5
-  _attackDistance: 10
+  _attackDistance: 15
   _fireTemp: 2
-  _retrateDistance: 5
-  _retrateSpeed: 10
+  _retreatDistance: 10
+  _retreatSpeed: 10
   _numberOfBullets: 5
   _radius: 4
   _bulletsRotationSpeed: 20
@@ -177,3 +175,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthPoints: 100
+--- !u!58 &-8086221032445973976
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5252557544126129373}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 1
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1.5
+--- !u!250 &432480476633642919
+PointEffector2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5252557544126129373}
+  m_Enabled: 1
+  m_UseColliderMask: 1
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 64
+  m_ForceMagnitude: 20
+  m_ForceVariation: 0
+  m_DistanceScale: 1
+  m_ForceSource: 0
+  m_ForceTarget: 0
+  m_ForceMode: 0
+  m_Drag: 0
+  m_AngularDrag: 0

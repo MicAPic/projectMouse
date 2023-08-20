@@ -24,18 +24,18 @@ namespace Enemy
         private void SetUpBullets()
         {
             _mainRotationVector = Vector3.up * _radius;
-            for (int i = 0; i < _bullets.Count; ++i)
+            for (int i = 0; i < _bullets.Capacity; ++i)
             {
                 Vector3 offset = Quaternion.Euler(0,0, (360 / _numberOfBullets) * i) * _mainRotationVector;
                 _bullets[i] = BulletPool.Instance.GetBulletFromPool(1);
                 _bullets[i].transform.position = transform.position + offset;
-                _bullets[i].gameObject.SetActive(true);
+                _bullets[i].EnableWithoutForce(damageToDeal);
             }
         }
         private void RotateBullets()
         {
             _mainRotationVector = Quaternion.AngleAxis(_bulletsRotationSpeed*Time.deltaTime, Vector3.forward) * _mainRotationVector;
-            for (int i = 0; i < _bullets.Count; ++i)
+            for (int i = 0; i < _bullets.Capacity; ++i)
             {
                 Vector3 offset = Quaternion.Euler(0, 0, (360 / _numberOfBullets) * i) * _mainRotationVector;
                 if(_bullets[i] != null)
@@ -56,13 +56,25 @@ namespace Enemy
         {
             if (Time.time - _lastFireTime <= _fireTemp  || _currentState is State.RETREAT or State.PATROL)
                 return;
-            if (_currentBulletIndex >= _bullets.Count)
+            if (_currentBulletIndex >= _bullets.Capacity)
             {
                 SetUpBullets();
                 _currentBulletIndex = 0;
             }
             else
             {
+                if(_bullets[_currentBulletIndex] == null)
+                {
+                    ++_currentBulletIndex;
+                    return;
+                }
+                if(!_bullets[_currentBulletIndex].gameObject.activeSelf)
+                {
+                    _bullets[_currentBulletIndex] = null;
+                    ++_currentBulletIndex;
+                    return;
+                }
+                
                 Vector3 direction = _playerController.transform.position - _bullets[_currentBulletIndex].transform.position;
                 _bullets[_currentBulletIndex].Enable(direction, _firePower, damageToDeal);
                 _bullets[_currentBulletIndex] = null;

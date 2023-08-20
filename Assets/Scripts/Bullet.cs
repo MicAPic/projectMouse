@@ -37,6 +37,12 @@ public class Bullet : MonoBehaviour
         //TODO: if we make the levels with no borders, call Disable on a timer
     }
 
+    public void EnableWithoutForce(float damageToDeal)
+    {
+        damage = damageToDeal;
+        gameObject.SetActive(true);
+    }
+
     private void Disable()
     {
         BulletPool.Instance.ObjectPools[poolIndex].Enqueue(this);

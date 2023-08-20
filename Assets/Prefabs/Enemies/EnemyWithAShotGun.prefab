@@ -45,6 +45,8 @@ GameObject:
   - component: {fileID: 2647684583350146808}
   - component: {fileID: 2647684583350146809}
   - component: {fileID: 2647684583350146802}
+  - component: {fileID: 4755506330477024965}
+  - component: {fileID: 3852025156779113595}
   m_Layer: 6
   m_Name: EnemyWithAShotGun
   m_TagString: Untagged
@@ -129,7 +131,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 2647684583350146803}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 8b5afb484d09e294192caf0a963daeda, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -194,16 +196,48 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   experiencePointWorth: 10
   damageToDeal: 34
-  _playerController: {fileID: 0}
   _shootingPoint: {fileID: 2647684582631497689}
   _firePower: 20
-  _roamingMovementSpeed: 3
-  _detectionDistance: 20
-  _minRoamingDistance: 5
-  _maxRoamingDistance: 10
+  _chasingDistance: 20
   _chasingMovementSpeed: 5
-  _attackDistance: 10
+  _attackDistance: 15
   _fireTemp: 3
-  _retrateDistance: 5
-  _retrateSpeed: 10
+  _retreatDistance: 10
+  _retreatSpeed: 10
   _shootAngel: 20
+--- !u!58 &4755506330477024965
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2647684583350146803}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 1
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1.5
+--- !u!250 &3852025156779113595
+PointEffector2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2647684583350146803}
+  m_Enabled: 1
+  m_UseColliderMask: 1
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 64
+  m_ForceMagnitude: 20
+  m_ForceVariation: 0
+  m_DistanceScale: 1
+  m_ForceSource: 0
+  m_ForceTarget: 0
+  m_ForceMode: 0
+  m_Drag: 0
+  m_AngularDrag: 0
