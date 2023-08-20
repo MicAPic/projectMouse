@@ -15,9 +15,8 @@ namespace UI
         protected RawImage transitionSprite;
         [SerializeField]
         protected float transitionDuration;
-        [SerializeField] 
-        private Color transitionColour;
-        private Color _clearColourVariant;
+
+        private float _defaultPosX;
 
         protected virtual void Awake()
         {
@@ -30,7 +29,7 @@ namespace UI
             Instance = this;
             
             DontDestroyOnLoad(gameObject.transform.parent);
-            _clearColourVariant = new Color(transitionColour.r, transitionColour.g, transitionColour.b, 0.0f);
+            _defaultPosX = transitionSprite.rectTransform.anchoredPosition.x;
         }
 
         public virtual void TransitionAndLoadScene(string sceneToLoad)
@@ -38,7 +37,9 @@ namespace UI
             AudioManager.Instance.FadeOutAll(transitionDuration);
             
             transitionSprite.raycastTarget = true;
-            transitionSprite.DOColor(transitionColour, transitionDuration).SetUpdate(true).SetEase(Ease.Linear)
+            transitionSprite.rectTransform.DOAnchorPosX(0.0f, transitionDuration)
+                .SetUpdate(true)
+                .SetEase(Ease.Linear)
                 .OnComplete(() =>
                 {
                     SceneManager.LoadScene(sceneToLoad);
@@ -46,8 +47,9 @@ namespace UI
                     {
                         Time.timeScale = 1.0f;
                     }
-                    transitionSprite.color = transitionColour;
-                    transitionSprite.DOColor(_clearColourVariant, transitionDuration).SetUpdate(true).SetEase(Ease.Linear)
+                    transitionSprite.rectTransform.DOAnchorPosX(-_defaultPosX, transitionDuration)
+                        .SetUpdate(true)
+                        .SetEase(Ease.Linear)
                         .OnComplete(() => transitionSprite.raycastTarget = false);
                 });
         }

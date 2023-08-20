@@ -44,9 +44,11 @@ namespace UI
             {
                 case <= 0:
                     leftButton.interactable = false;
+                    rightButton.Select();
                     return;
                 case >= 1:
                     rightButton.interactable = false;
+                    leftButton.Select();
                     return;
             }
 
