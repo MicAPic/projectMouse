@@ -1,29 +1,30 @@
 using System;
 using System.Collections.Generic;
 using DG.Tweening;
-using ScriptableObjects;
+using PowerUps;
 using TMPro;
 using UI;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class ExperienceManager : MonoBehaviour
 {
     public static ExperienceManager Instance { get; private set; }
-    
+
     [Header("Gameplay")]
+    public bool isLevelingUp;
     [SerializeField] 
     private AnimationCurve experienceCurve;
     [SerializeField] 
     private List<GameObject> powerUps;
-    
+
     public float TotalExperiencePoints { get; private set; }
 
     private int _currentLevel = 1;
     private float _experienceToLevelUp;
     private float _previousExperienceToLevelUp = 0.0f;
+
 
     [Header("UI")]
     [FormerlySerializedAs("levelUpMenu")]
@@ -37,7 +38,7 @@ public class ExperienceManager : MonoBehaviour
     private TMP_Text experienceGoalText;
     [SerializeField]
     private RectTransform experienceCanvas;
-    
+
     [Header("Animation")]
     [SerializeField]
     private float experienceGainAnimationMaxDuration;
@@ -72,16 +73,18 @@ public class ExperienceManager : MonoBehaviour
         ReevaluateExpGoal();
     }
 
-    private void Update()
-    {
-        if (Keyboard.current[Key.T].wasPressedThisFrame)
-        {
-            AnimateExperienceGain(0.0f);
-        }
-    }
+    // private void Update()
+    // {
+    //     if (Keyboard.current[Key.T].wasPressedThisFrame)
+    //     {
+    //         AnimateExperienceGain(0.0f);
+    //     }
+    // }
 
     public void SelectPowerUp()
     {
+        isLevelingUp = false;
+        
         powerUpSelection.SetActive(false);
         foreach (Transform powerUp in powerUpSelection.transform)
         {
@@ -91,8 +94,24 @@ public class ExperienceManager : MonoBehaviour
         ChatManager.Instance.EnableGeneralChatInfo();
         
         GameManager.Instance.Unpause();
+        
+        Cursor.visible = true;
+        // Cursor.lockState = CursorLockMode.None;
+        
         ReevaluateExpGoal();
         FillExperienceBar();
+
+        if (TextManager.Instance != null)
+        {
+            TextManager.Instance.ContinueStory();
+        }
+    }
+
+    public void RemoveFromPowerUps(PowerUpBase powerUpBase)
+    {
+        var powerUpName = powerUpBase.GetType().Name;
+        Debug.Log(powerUpName);
+        powerUps.RemoveAll(powerUp => powerUp.name.Contains(powerUpName));
     }
 
     public void AddExperience(float expToAdd)
@@ -105,16 +124,43 @@ public class ExperienceManager : MonoBehaviour
 
     private void LevelUp()
     {
+        if (isLevelingUp || GameManager.Instance.isGameOver) return;
+        isLevelingUp = true;
+        
         experienceBarFill.fillAmount = 0.0f;
         
         _currentLevel++;
         
         powerUps.Shuffle();
-        for (var i = 0; i < 3; i++)
+
+        var buttons = new List<Button>();
+        for (var i = 2; i >= 0; i--)
         {
-            Instantiate(powerUps[i], powerUpSelection.transform);
+            try
+            {
+                var button = Instantiate(powerUps[i], powerUpSelection.transform);
+                button.transform.SetAsFirstSibling();
+                buttons.Add(button.GetComponent<Button>());
+            }
+            catch (IndexOutOfRangeException)
+            {
+                continue;
+            }
         }
-        powerUpSelection.transform.GetChild(0).GetComponent<Button>().Select();
+
+        for (var i = 0; i < buttons.Count; i++)
+        {
+            var navigation = new Navigation
+            {
+                mode = Navigation.Mode.Explicit,
+                selectOnUp = buttons[(i + 1).Modulo(buttons.Count)],
+                selectOnDown = buttons[(i - 1).Modulo(buttons.Count)]
+            };
+            buttons[i].navigation = navigation;
+        }
+
+        buttons[^1].Select();
+        
         powerUpSelection.SetActive(true);
         
         ChatManager.Instance.EnableLevelUpChatInfo();
@@ -124,6 +170,9 @@ public class ExperienceManager : MonoBehaviour
         {
             Debug.LogWarning("Maximum level has been reached. The EXP curve is now a flat line");
         }
+
+        Cursor.visible = false;
+        // Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void ReevaluateExpGoal()

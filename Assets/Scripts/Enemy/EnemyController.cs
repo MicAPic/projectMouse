@@ -59,9 +59,10 @@ namespace Enemy
             else
                 _randRotationDir = 1;
             _currentState = State.PATROL;
-            if(SpawnManager.Instance != null)
-                damageToDeal = SpawnManager.Instance.GetEnemyDamage();
+
+            damageToDeal = SpawnManager.Instance != null ? SpawnManager.Instance.GetEnemyDamage() : 1.0f;
             _startTargetDirection = (transform.position - _playerController.transform.position).normalized * _attackDistance;
+
         }
     
         // Update is called once per frame

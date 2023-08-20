@@ -1,13 +1,17 @@
-﻿Shader "TNTC/Pixelize"{
-    Properties{
+﻿Shader "TNTC/Pixelize"
+{
+    Properties
+    {
         _MainTex ("Texture", 2D) = "white" {}
         _PixelSize ("Pixel Size", Range(0.001, 0.15)) = 0.001
         _FadeScale("Fade Scale", float) = 1
     }
-    SubShader{
+    SubShader
+    {
         Tags { "RenderType"="Opaque" }
  
-        Pass{
+        Pass
+        {
             CGPROGRAM
             #pragma vertex vert_img
             #pragma fragment frag
@@ -17,7 +21,8 @@
             float _PixelSize;
             float _FadeScale;
 
-            fixed4 frag (v2f_img i) : SV_Target {
+            fixed4 frag (v2f_img i) : SV_Target
+            {
                 fixed4 col;
 
                 float ratioX = (int)(i.uv.x/_PixelSize + 0.5) * _PixelSize;

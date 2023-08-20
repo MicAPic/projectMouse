@@ -23,10 +23,12 @@ public class Bullet : MonoBehaviour
         Disable();
     }
 
-    public void Enable(Vector3 direction, float firePower, float damageToDeal)
+    public void Enable(Vector3 direction, float firePower, float damageToDeal, float scaleModifer=1.0f)
     {
         var normalizedDirection = (Vector2) direction;
         normalizedDirection.Normalize();
+        
+        transform.localScale = Vector3.one * scaleModifer; 
         
         damage = damageToDeal;
         gameObject.SetActive(true);

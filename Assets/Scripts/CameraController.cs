@@ -1,3 +1,5 @@
+using System;
+using CameraShake;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -5,6 +7,7 @@ public class CameraController : MonoBehaviour
 {
     public static CameraController Instance { get; private set; }
     
+    [Header("Camera Follow")]
     public Vector3 mousePos;
     [Range(0, 1)] 
     public float focusPoint = 0.5f;
@@ -17,7 +20,11 @@ public class CameraController : MonoBehaviour
     private float smoothing = 0.1f;
     [SerializeField]
     private float maxDistanceFromPlayer = 5.0f;
-    
+
+    [Header("Camera Shake")] 
+    [SerializeField]
+    private CameraShaker cameraShaker;
+
     private Vector3 _velocity = Vector3.zero;
     private float _defaultZCoordinate;
     private Camera _camera;
@@ -41,6 +48,11 @@ public class CameraController : MonoBehaviour
 
         _camera = GetComponentInChildren<Camera>();
         defaultFocusPoint = focusPoint;
+
+        if (!Convert.ToBoolean(PlayerPrefs.GetInt("ShakeCamera", 1)))
+        {
+            cameraShaker.enabled = false;
+        }
     }
 
     // Start is called before the first frame update
