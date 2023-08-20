@@ -14,6 +14,8 @@ namespace Enemy
         [SerializeField] protected float _firePower = 20;
         protected Rigidbody2D _rigidbody;
 
+        private PointEffector2D _pointEffector;
+
         protected float _playerDistance;
         protected enum State
         {
@@ -47,6 +49,7 @@ namespace Enemy
     
         protected virtual void Awake()
         {
+            _pointEffector = GetComponent<PointEffector2D>();
             _rigidbody = GetComponent<Rigidbody2D>();
             _playerController = FindAnyObjectByType<PlayerController>();
         }
@@ -101,6 +104,7 @@ namespace Enemy
                     {
                         _rigidbody.velocity = Vector2.zero;
                         _currentState = State.ATTACK;
+                        _pointEffector.enabled = false;
                     }
                     if (_playerDistance > _chasingDistance)
                         _currentState = State.PATROL;
@@ -108,7 +112,10 @@ namespace Enemy
                 case State.ATTACK:
                     //_rigidbody.velocity = (_currentTargetPosition - transform.position).normalized * _chasingMovementSpeed;
                     if (_playerDistance > _attackDistance)
+                    {
                         _currentState = State.CHASE;
+                        _pointEffector.enabled = true;
+                    }
                     if (_playerDistance < _retreatDistance)
                         _currentState = State.RETREAT;
                     break;
