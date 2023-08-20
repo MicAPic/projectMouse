@@ -9,14 +9,12 @@ namespace Enemy
         public float experiencePointWorth = 10f;
         public float damageToDeal = 34f;
 
-
         protected PlayerController _playerController;
         [SerializeField] protected Transform _shootingPoint;
         [SerializeField] protected float _firePower = 20;
         protected Rigidbody2D _rigidbody;
 
         protected float _playerDistance;
-
         protected enum State
         {
             PATROL,
@@ -28,11 +26,11 @@ namespace Enemy
         protected State _currentState;
 
         [Header("Chasing")]
-        [SerializeField] private float _chasingDistance = 15f;
+        [SerializeField] private float _chasingDistance = 20f;
         [SerializeField] private float _chasingMovementSpeed;
 
         [Header("Attacking")]
-        [SerializeField] private float _attackDistance = 5f;
+        [SerializeField] private float _attackDistance = 15f;
         [SerializeField] protected float _fireTemp = 3f;
 
         [Header("Retreating")]
@@ -42,6 +40,10 @@ namespace Enemy
         [FormerlySerializedAs("_retrateSpeed")] 
         [SerializeField]
         private float _retreatSpeed = 20f;
+
+
+
+        private Vector3 _startTargetDirection;
     
         protected virtual void Awake()
         {
@@ -49,10 +51,17 @@ namespace Enemy
             _playerController = FindAnyObjectByType<PlayerController>();
         }
 
+        private int _randRotationDir;
         protected virtual void Start()
         {
+            if (Random.value < 0.5)
+                _randRotationDir = -1;
+            else
+                _randRotationDir = 1;
             _currentState = State.PATROL;
-            damageToDeal = SpawnManager.Instance.GetEnemyDamage();
+            if(SpawnManager.Instance != null)
+                damageToDeal = SpawnManager.Instance.GetEnemyDamage();
+            _startTargetDirection = (transform.position - _playerController.transform.position).normalized * _attackDistance;
         }
     
         // Update is called once per frame
@@ -70,19 +79,23 @@ namespace Enemy
 
         protected float _lastFireTime = 0f;
 
+
+
         private void Move()
         {
+            RotateTargetPositionVector();
+            Vector3 _currentTargetPosition = FindTargetPosition();
             switch (_currentState)
             {
                 case State.PATROL:
-                    _rigidbody.velocity = (Vector2)(_playerController.transform.position - transform.position).normalized * _chasingMovementSpeed;
+                    _rigidbody.velocity = (_currentTargetPosition - transform.position).normalized * _chasingMovementSpeed;
                     if (_playerDistance < _chasingDistance)
                     {
                         _currentState = State.CHASE;
                     }
                     break;
                 case State.CHASE:
-                    _rigidbody.velocity = (Vector2)(_playerController.transform.position - transform.position).normalized * _chasingMovementSpeed;
+                    _rigidbody.velocity = (_currentTargetPosition - transform.position).normalized * _chasingMovementSpeed;
                     if (_playerDistance < _attackDistance)
                     {
                         _rigidbody.velocity = Vector2.zero;
@@ -92,6 +105,7 @@ namespace Enemy
                         _currentState = State.PATROL;
                     break;
                 case State.ATTACK:
+                    //_rigidbody.velocity = (_currentTargetPosition - transform.position).normalized * _chasingMovementSpeed;
                     if (_playerDistance > _attackDistance)
                         _currentState = State.CHASE;
                     if (_playerDistance < _retreatDistance)
@@ -104,9 +118,20 @@ namespace Enemy
                         _rigidbody.velocity = Vector2.zero;
                         break;
                     }
-                    _rigidbody.velocity = (Vector2)(_playerController.transform.position - transform.position).normalized * -_retreatSpeed;
+                    _rigidbody.velocity = (_playerController.transform.position - transform.position).normalized * -_retreatSpeed;
                     break;
             }
+        }
+
+        private float _targetPositionRotationSpeed = 100f;
+
+        private void RotateTargetPositionVector()
+        {
+            _startTargetDirection = Quaternion.AngleAxis(_randRotationDir * _targetPositionRotationSpeed * Time.deltaTime, _playerController.transform.forward) * _startTargetDirection;
+        }
+        private Vector3 FindTargetPosition()
+        {
+            return _playerController.transform.position + _startTargetDirection;
         }
     
         protected virtual void Shoot()
@@ -123,5 +148,9 @@ namespace Enemy
             bullet.Enable(direction, _firePower, damageToDeal);
             _lastFireTime = Time.time;
         }
+
+
+       
+
     }
 }

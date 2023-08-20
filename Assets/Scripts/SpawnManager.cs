@@ -44,8 +44,29 @@ public class SpawnManager : MonoBehaviour
     private float _secondChanceBound = 0.75f;
 
     private BoxCollider2D[] _spawnCheckArray = new BoxCollider2D[1];
+
+    private bool _stableLevel = false;
     private void Update()
     {
+        if (!_stableLevel)
+        {
+            if (ExperienceManager.Instance.GetCurrentLevel() == 1)
+            {
+                _firstChanceBound = 1;
+                _secondChanceBound = 1;
+            }
+            if (ExperienceManager.Instance.GetCurrentLevel() == 2)
+            {
+                _firstChanceBound = 0;
+                _secondChanceBound = 1;
+            }
+            if (ExperienceManager.Instance.GetCurrentLevel() == 3)
+            {
+                _firstChanceBound = 0.5f;
+                _secondChanceBound = 0.75f;
+                _stableLevel = true;
+            }
+        }
         SpawnEnemies();
     }
 
@@ -61,18 +82,22 @@ public class SpawnManager : MonoBehaviour
                 if (Physics2D.OverlapBoxNonAlloc(_spawnPosition, _simpleEnemyPrefab.GetComponent<BoxCollider2D>().size, 0f, _spawnCheckArray, _obstacleToSpawn.value) > 0)
                     return;
                 Instantiate(_simpleEnemyPrefab, playerTransfrom.position + _currentSpawnDirection, Quaternion.identity);
+                _firstChanceBound -= 0.01f;
             }
             else if (chance > _secondChanceBound)
             {
                 if (Physics2D.OverlapBoxNonAlloc(_spawnPosition, _magicEnemyPrefab.GetComponent<BoxCollider2D>().size, 0f, _spawnCheckArray, _obstacleToSpawn.value) > 0)
                     return;
                 Instantiate(_magicEnemyPrefab, playerTransfrom.position + _currentSpawnDirection, Quaternion.identity);
+                _secondChanceBound += 0.01f;
             }
             else
             {
                 if (Physics2D.OverlapBoxNonAlloc(_spawnPosition, _shotGunEnemyPrefab.GetComponent<BoxCollider2D>().size, 0f, _spawnCheckArray, _obstacleToSpawn.value) > 0)
                     return;
                 Instantiate(_shotGunEnemyPrefab, playerTransfrom.position + _currentSpawnDirection, Quaternion.identity);
+                _firstChanceBound += 0.005f;
+                _secondChanceBound -= 0.005f;
             }
             ++EnemyCount;
             _timeFromLastSpawn = Time.time;
