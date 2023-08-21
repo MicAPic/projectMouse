@@ -1,5 +1,6 @@
 ﻿using CameraShake;
 using DG.Tweening;
+using UI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,12 @@ namespace HealthControllers
         [Header("HP")]
         public float defenceModifier = 1.0f;
         public float MaxHealth { get; private set; }
+        
+        [SerializeField] 
+        [Tooltip("Everything below this percentage is considered low HP")]
+        [Range(0, 1)]
+        private float criticalThreshold = 0.1f;
+        private bool _inCriticalCondition;
 
         [Header("Visuals")]
         [SerializeField] 
@@ -27,6 +34,11 @@ namespace HealthControllers
         {
             healthPoints = MaxHealth;
             UpdateHealthBar();
+
+            if (_inCriticalCondition)
+            {
+                ChatManager.Instance.ToggleCriticalHealthChatInfo();
+            }
         }
 
         public void IncreaseMaxHealth(float increment)
@@ -40,6 +52,12 @@ namespace HealthControllers
             base.TakeDamage(damagePoints * defenceModifier);
             CameraShaker.Presets.Explosion2D(rotationStrength:0.1f);
             UpdateHealthBar();
+
+            if (healthPoints <= criticalThreshold * MaxHealth && !_inCriticalCondition)
+            {
+                ChatManager.Instance.ToggleCriticalHealthChatInfo();
+                _inCriticalCondition = true;
+            }
         }
 
         protected override void Die() 

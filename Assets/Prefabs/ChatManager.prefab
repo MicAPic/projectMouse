@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52b8d42d1dc2c844bae0559d601e7b4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  generateComments: 1
   commentDelay: 5
   spedUpCommentDelay: 1
   commentPrefab: {fileID: 728666850560395928, guid: 2b2601d6c367b564ea64d80f3f7df754, type: 3}
@@ -55,6 +56,7 @@ MonoBehaviour:
   startChatTextInfo: {fileID: 11400000, guid: 0ef5e62b1e902bb4cbd4a30f41c0c060, type: 2}
   gameOverChatTextInfo: {fileID: 11400000, guid: b1b17e5001292d04c932e3cc50b94018, type: 2}
   levelUpChatTextInfo: {fileID: 11400000, guid: b2903509739d5e448bcdea15fa4cd63a, type: 2}
+  criticalHealthChatTextInfo: {fileID: 11400000, guid: 6f65a49fa063d49f48499f7c37a06b1f, type: 2}
 --- !u!1 &1956397329230954273
 GameObject:
   m_ObjectHideFlags: 0

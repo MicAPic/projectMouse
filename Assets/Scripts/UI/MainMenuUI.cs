@@ -1,4 +1,5 @@
 using DG.Tweening;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,6 +11,8 @@ namespace UI
         [Header("Main")]
         [SerializeField]
         private Button startButton;
+        [SerializeField]
+        private Button tutorialButton;
         
         [Header("Settings")]
         [SerializeField]
@@ -20,7 +23,20 @@ namespace UI
         private CanvasGroup settingsContent;
         [SerializeField]
         private float settingsAnimationDuration = 0.5f;
-        
+
+        void Awake()
+        {
+            if (PlayerPrefs.HasKey("PlayedTutorial")) return;
+            
+            startButton.interactable = false;
+            startButton.GetComponentInChildren<TMP_Text>().text = "???";
+            tutorialButton.Select();
+            tutorialButton.onClick.AddListener(() =>
+            {
+                PlayerPrefs.SetInt("PlayedTutorial", 1);
+            });
+        }
+
         public void Quit()
         {
             #if (UNITY_EDITOR)

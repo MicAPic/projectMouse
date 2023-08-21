@@ -2402,6 +2402,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startButton: {fileID: 1264353633}
+  tutorialButton: {fileID: 1642079657}
   settingsSubmenu: {fileID: 886698084}
   settingsCloseButton: {fileID: 1180045686}
   settingsContent: {fileID: 580533288}
