@@ -12,9 +12,11 @@ namespace HealthControllers
 
         protected override void Die()
         {
-            base.Die();
+            if (SpawnManager.Instance != null)
+                SpawnManager.Instance.EnemyDeath();
             ExperienceManager.Instance.AddExperience(_enemyController.experiencePointWorth);
             _enemyController.EnableAllBullets();
+            base.Die();
         }
     }
 }

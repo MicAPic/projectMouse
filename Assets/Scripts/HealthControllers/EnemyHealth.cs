@@ -24,10 +24,10 @@ namespace HealthControllers
 
         protected override void Die()
         {
-            base.Die();
             ExperienceManager.Instance.AddExperience(_enemyController.experiencePointWorth);
-            if (SpawnManager.Instance == null) return;
-            SpawnManager.Instance.EnemyDeath();
+            if (SpawnManager.Instance != null)
+                SpawnManager.Instance.EnemyDeath();
+            base.Die();
         }
     }
 }
