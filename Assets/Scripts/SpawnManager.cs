@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class SpawnManager : MonoBehaviour
 {
@@ -12,17 +14,19 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private GameObject _shotGunEnemyPrefab;
     [SerializeField] private GameObject _magicEnemyPrefab;
 
-
     [Header("Balance Curves")]
     [SerializeField] private AnimationCurve _maxEnemiesOnLevel;
     [SerializeField] private AnimationCurve _levelToHealth;
     [SerializeField] private AnimationCurve _levelToDamage;
 
     [Header("Spawn Settings")]
+    [SerializeField]
+    private float initialDelay = 3.5f;
     [SerializeField] private float _timeBetweenSpawns = 2;
     [SerializeField] private float _spawnRadius;
     [SerializeField] private LayerMask _obstacleToSpawn;
     private Vector3 _currentSpawnDirection;
+    private bool _isSpawning;
 
     private void Awake()
     {
@@ -44,8 +48,14 @@ public class SpawnManager : MonoBehaviour
     private float _secondChanceBound = 0.75f;
 
     private BoxCollider2D[] _spawnCheckArray = new BoxCollider2D[1];
-
     private bool _stableLevel = false;
+
+    private IEnumerator Start()
+    {
+        yield return new WaitForSeconds(initialDelay);
+        _isSpawning = true;
+    }
+    
     private void Update()
     {
         if (!_stableLevel)
@@ -55,6 +65,7 @@ public class SpawnManager : MonoBehaviour
                 _firstChanceBound = 1;
                 _secondChanceBound = 1;
             }
+            //TODO: настроить, на каких уровнях начнут появляться соотв. враги
             if (ExperienceManager.Instance.GetCurrentLevel() == 2)
             {
                 _firstChanceBound = 0;
@@ -72,6 +83,8 @@ public class SpawnManager : MonoBehaviour
 
     private void SpawnEnemies()
     {
+        if (!_isSpawning) return;
+        
         if (EnemyCount < GetEnemiesMaxNumber() && Time.time - _timeFromLastSpawn > _timeBetweenSpawns)
         {
             _currentSpawnDirection = Quaternion.AngleAxis(_spawnRotationAngel, playerTransfrom.forward) * _currentSpawnDirection;

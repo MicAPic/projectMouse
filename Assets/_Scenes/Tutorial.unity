@@ -2529,6 +2529,10 @@ PrefabInstance:
       propertyPath: gameOverChatTextInfo
       value: 
       objectReference: {fileID: 11400000, guid: 2d83f9a22d34948678a46f9dc7db3404, type: 2}
+    - target: {fileID: 6904961883814488814, guid: 07848fab5aa522d408be6d0c0334640f, type: 3}
+      propertyPath: criticalHealthChatTextInfo
+      value: 
+      objectReference: {fileID: 11400000, guid: 2d83f9a22d34948678a46f9dc7db3404, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 07848fab5aa522d408be6d0c0334640f, type: 3}
 --- !u!4 &1956397328268013442 stripped

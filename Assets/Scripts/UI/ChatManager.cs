@@ -45,6 +45,8 @@ namespace UI
         private ChatTextInfo gameOverChatTextInfo;
         [SerializeField] 
         private ChatTextInfo levelUpChatTextInfo;
+        [SerializeField] 
+        private ChatTextInfo criticalHealthChatTextInfo;
 
         private ChatTextInfo _currentCTI;
 
@@ -115,6 +117,12 @@ namespace UI
         public void EnableGameOverChatInfo()
         {
             TransitionToChatInfo(gameOverChatTextInfo, 0.0f, spedUpCommentDelay);
+        }
+        
+        public void ToggleCriticalHealthChatInfo()
+        {
+            (generalChatTextInfo, criticalHealthChatTextInfo) = (criticalHealthChatTextInfo, generalChatTextInfo);
+            EnableGeneralChatInfo();
         }
 
         private IEnumerator ShowRandomComments()

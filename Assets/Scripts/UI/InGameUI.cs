@@ -39,6 +39,7 @@ namespace UI
             {
                 button.interactable = state;
             }
+            buttons[1].Select();
         }
 
         public void UpdateLeaderboardContent(string publicKey)

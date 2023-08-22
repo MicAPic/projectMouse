@@ -10,31 +10,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9e439b7d04af769468a1aa7bf68644d8, type: 3}
-  m_Name: ChatTextInfo [End]
+  m_Name: ChatTextInfo [CriticalHealth]
   m_EditorClassIdentifier: 
   messages:
-  - gg
-  - GG
-  - DIESOFCRINGE
-  - RIP
-  - Rip
-  - Nooooo
-  - Noo
-  - Nooooooo
-  - Gg
+  - you can do it!!
+  - Die for Me!
+  - GO MOUSEY GO
   - monkaW
-  - ironmouseCry
-  - ironmouseF
-  - F
-  - cope
-  - f
-  - HUHH
-  - HUH
-  - ironmouseHELP
-  - o.O
-  - F
-  - F
-  - Nooo
-  - press f
-  - SKILL ISSUE
-  - Connor would do better
+  - aaaaah
+  - GO GO GO
+  - GO MOUSE GO
+  - don't die on us
+  - dont die mousey
+  - aaaah
+  - No pressure at all
+  - MOUSEY I BELIEVE IN YOU
+  - WE BOOLIEVE
+  - oof
+  - hope next power up is a full heal
+  - monkaS
+  - monkaS
+  - monkaS
+  - monkaW
+  - monkaW
+  - monkaW
+  - monkaS NOO

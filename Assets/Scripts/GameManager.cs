@@ -169,15 +169,15 @@ public class GameManager : MonoBehaviour
             if (!isOnline)
             {
                 ui.ToggleOfflineMode();
-                ui.buttons[1].Select();
             }
             else
             {
                 ui.UpdateLeaderboardContent(publicKey);
                 ui.buttons[0].interactable = true;
-                ui.nicknameInputField.interactable = true; 
-                ui.nicknameInputField.Select();
+                ui.nicknameInputField.interactable = true;
             }
+            
+            ui.buttons[1].Select();
         });
     }
 }

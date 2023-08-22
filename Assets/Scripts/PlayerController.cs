@@ -77,6 +77,9 @@ public class PlayerController : MonoBehaviour
         
         // Rotate the shooting point
         shootingPoint.right = Mouse.current.position.ReadValue() - (Vector2)shootingPoint.position;
+        
+        // Flip the sprite towards the mouse
+        _sprite.flipX = CameraController.Instance.mousePos.x < transform.position.x;
     }
 
     void FixedUpdate()
