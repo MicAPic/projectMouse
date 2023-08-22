@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
@@ -9,8 +10,17 @@ namespace UI
 {
     public class TitleScreenUI : UI
     {
+        [SerializeField] 
+        private TMP_Text flashingText;
         private bool _cutsceneIsFinished;
         private IDisposable _eventListener;
+
+        private void Awake()
+        {
+#if (UNITY_WEBGL)
+            flashingText.text = "[Click anywhere]";
+#endif
+        }
 
         IEnumerator Start()
         {

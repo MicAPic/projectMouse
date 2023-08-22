@@ -409,6 +409,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f7666f47afb2df45903f4633e25aa39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flashingText: {fileID: 140643780}
 --- !u!320 &219296950
 PlayableDirector:
   m_ObjectHideFlags: 0
