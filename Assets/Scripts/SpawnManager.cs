@@ -66,12 +66,12 @@ public class SpawnManager : MonoBehaviour
                 _secondChanceBound = 1;
             }
             //TODO: настроить, на каких уровнях начнут появляться соотв. враги
-            if (ExperienceManager.Instance.GetCurrentLevel() == 2)
-            {
-                _firstChanceBound = 0;
-                _secondChanceBound = 1;
-            }
             if (ExperienceManager.Instance.GetCurrentLevel() == 3)
+            {
+                _firstChanceBound = 0.5f;
+                _secondChanceBound = 0.5f;
+            }
+            if (ExperienceManager.Instance.GetCurrentLevel() == 6)
             {
                 _firstChanceBound = 0.5f;
                 _secondChanceBound = 0.75f;
@@ -90,12 +90,13 @@ public class SpawnManager : MonoBehaviour
             _currentSpawnDirection = Quaternion.AngleAxis(_spawnRotationAngel, playerTransfrom.forward) * _currentSpawnDirection;
             Vector3 _spawnPosition = playerTransfrom.position + _currentSpawnDirection;
             float chance = Random.value;
-            if (chance < _firstChanceBound)
+            if (chance <= _firstChanceBound)
             {
                 if (Physics2D.OverlapBoxNonAlloc(_spawnPosition, _simpleEnemyPrefab.GetComponent<BoxCollider2D>().size, 0f, _spawnCheckArray, _obstacleToSpawn.value) > 0)
                     return;
                 Instantiate(_simpleEnemyPrefab, playerTransfrom.position + _currentSpawnDirection, Quaternion.identity);
                 _firstChanceBound -= 0.01f;
+                _secondChanceBound -= 0.005f;
             }
             else if (chance > _secondChanceBound)
             {
@@ -103,6 +104,7 @@ public class SpawnManager : MonoBehaviour
                     return;
                 Instantiate(_magicEnemyPrefab, playerTransfrom.position + _currentSpawnDirection, Quaternion.identity);
                 _secondChanceBound += 0.01f;
+                _firstChanceBound += 0.005f;
             }
             else
             {
