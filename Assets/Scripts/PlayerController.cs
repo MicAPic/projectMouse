@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour
         {
             Shoot();
         }
-        else if (_playerInput.actions["Dodge"].WasPressedThisFrame())
+        if (_playerInput.actions["Dodge"].WasPressedThisFrame())
         {
             _lastDodgePressedTime = Time.time;
         }
