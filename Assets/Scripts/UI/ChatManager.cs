@@ -70,7 +70,7 @@ namespace UI
             
             if (!generateComments) return;
 
-            TransitionToChatInfo(generalChatTextInfo, 10.0f, _defaultCommentDelay);
+            StartCoroutine(TransitionToChatInfo(generalChatTextInfo, 10.0f, _defaultCommentDelay));
             StartCoroutine(ShowRandomComments());
         }
 
@@ -106,17 +106,17 @@ namespace UI
 
         public void EnableLevelUpChatInfo()
         {
-            TransitionToChatInfo(levelUpChatTextInfo, 0.0f, spedUpCommentDelay);
+            StartCoroutine(TransitionToChatInfo(levelUpChatTextInfo, 0.0f, spedUpCommentDelay));
         }
         
         public void EnableGeneralChatInfo()
         {
-            TransitionToChatInfo(generalChatTextInfo, 0.0f, _defaultCommentDelay);
+            StartCoroutine(TransitionToChatInfo(generalChatTextInfo, 0.0f, _defaultCommentDelay));
         }
         
         public void EnableGameOverChatInfo()
         {
-            TransitionToChatInfo(gameOverChatTextInfo, 0.0f, spedUpCommentDelay);
+            StartCoroutine(TransitionToChatInfo(gameOverChatTextInfo, 0.0f, spedUpCommentDelay));
         }
         
         public void ToggleCriticalHealthChatInfo()
@@ -155,9 +155,9 @@ namespace UI
             tmp.text = $"<color=#{colourCode}>{nickname}</color>{message}";
         }
 
-        private async void TransitionToChatInfo(ChatTextInfo chatTextInfo, float transitionTime, float newChatSpeed)
+        private IEnumerator TransitionToChatInfo(ChatTextInfo chatTextInfo, float transitionTime, float newChatSpeed)
         {
-            await Task.Delay((int)(transitionTime * 1000));
+            yield return new WaitForSeconds(transitionTime);
             _currentCTI = chatTextInfo;
             commentDelay = newChatSpeed;
         }
