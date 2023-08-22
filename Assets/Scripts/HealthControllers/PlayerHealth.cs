@@ -67,7 +67,7 @@ namespace HealthControllers
 
         private void UpdateHealthBar()
         {
-            healthBar.DOFillAmount(healthPoints / MaxHealth, healthBarChangeDuration);
+            healthBar.DOFillAmount(healthPoints / MaxHealth, healthBarChangeDuration).SetUpdate(true);
         }
     }
 }

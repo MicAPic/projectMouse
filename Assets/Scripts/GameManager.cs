@@ -43,6 +43,8 @@ public class GameManager : MonoBehaviour
         playerInputs = FindObjectsOfType<PlayerInput>();
         pauseInputAction.performed += _ => TogglePauseScreen();
 
+        //TODO: remove this after the balance testing is over
+        PlayerPrefs.DeleteKey("HighScore");
         _highScore = PlayerPrefs.GetInt("HighScore", 0);
     }
     
