@@ -39,13 +39,14 @@ namespace UI
 
         public void Quit()
         {
-            #if (UNITY_EDITOR)
+#if (UNITY_EDITOR)
             EditorApplication.ExitPlaymode();
-            #elif (UNITY_STANDALONE) 
+#elif (UNITY_STANDALONE)
             Application.Quit();
-            #elif (UNITY_WEBGL)
+#elif (UNITY_WEBGL)
             Application.ExternalEval("window.open('" + "about:blank" + "','_self')");
-            #endif
+            Screen.fullScreen = false;
+#endif
         }
 
         public void ToggleSettings()

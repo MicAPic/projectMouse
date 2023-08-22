@@ -16,6 +16,12 @@
 			margin: 0;
 		}
 
+		@font-face {
+			font-family: monogram-extended;
+			src: url(TemplateData/monogram-extended.woff) format('woff'),
+				 url(TemplateData/monogram-extended.ttf) format('truetype');
+		}
+
 		div#gameContainer {
 			background: transparent !important;
 			position: absolute;
@@ -37,15 +43,47 @@
 			image-rendering: pixelated;
 			-ms-interpolation-mode: nearest-neighbor;
 		}
+
+		#textContainer {
+			position: absolute;
+			top: 50%;
+			height: 2rem;
+			width: 100%;
+		}
+
+		h2 {
+			font-family: monogram-extended, sans-serif;
+			font-weight: normal;
+			color: white;
+			width: 100%;
+			text-align: center;
+		}
+
+		#loading-text {
+			position: absolute;
+			top: -200%;
+			
+		}
+
+		#percent-text {
+			position: absolute;
+			top: 0%;
+		}
 	</style>
 </head>
 
 <body>
 	<div id="gameContainer">
 		<canvas id="unity-canvas" data-pixel-art="{{{ OPTIMIZE_FOR_PIXEL_ART }}}"></canvas>
+		<div id="textContainer">
+			<h2 id="loading-text">Loading...</h2>
+			<h2 id="percent-text">0%</h2>
+		</div>
 		<script src="Build/{{{ LOADER_FILENAME }}}"></script>
 		<script>
 			var canvas = document.querySelector("#unity-canvas");
+			var loadingText = document.querySelector("#loading-text");
+			var percentText = document.querySelector("#percent-text"); 
 			var config = {
 				dataUrl: "Build/{{{ DATA_FILENAME }}}",
 				frameworkUrl: "Build/{{{ FRAMEWORK_FILENAME }}}",
@@ -69,8 +107,18 @@
 			}
 			function progressHandler(progress) {
 				var percent = progress * 100 + '%';
+				percentText.innerText = Math.round(progress * 100) + '%';
+
 				canvas.style.background = 'linear-gradient(to right, white, white ' + percent + ', transparent ' + percent + ', transparent) no-repeat center';
 				canvas.style.backgroundSize = '100% 1rem';
+
+				var currentText = progress <= 0.2 ? 'Loading assets...' :
+								  progress <= 0.4 ? 'Updating the leaderboard...' :
+								  progress <= 0.6 ? 'Doing vocal warm-up...' :
+								  progress <= 0.8 ? 'Inviting monkeys to the chat...' :
+								  progress <= 0.9 ? 'Almost there...' :
+								  'Finishing up...';
+				loadingText.innerText = currentText;
 			}
 			function onResize() {
 				var container = canvas.parentElement;
@@ -97,7 +145,11 @@
 				container.style.top = Math.floor((window.innerHeight - h) / 2) + "px";
 				container.style.left = Math.floor((window.innerWidth - w) / 2) + "px";
 			}
+			loadingText.style.display = "block";
+			percentText.style.display = "block";
 			createUnityInstance(canvas, config, progressHandler).then(function (instance) {
+				loadingText.style.display = "none";
+				percentText.style.display = "none";
 				canvas = instance.Module.canvas;
 				onResize();
 			});
