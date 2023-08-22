@@ -14,7 +14,7 @@ namespace PowerUps
             var playerControllers = FindObjectsOfType<PlayerController>();
             foreach (var playerController in playerControllers)
             {
-                playerController.fireRate *= modifier;
+                playerController.fireRate -= modifier;
             }
             
             if (playerControllers[0].fireRate <= maxFireRate)

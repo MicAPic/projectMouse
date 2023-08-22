@@ -19,6 +19,7 @@ namespace Enemy
         protected float _playerDistance;
         protected enum State
         {
+            BEHINDCAMERA,
             PATROL,
             CHASE,
             ATTACK,
@@ -26,6 +27,10 @@ namespace Enemy
         }
 
         protected State _currentState;
+
+        [Header("Chasing")]
+        [SerializeField] private float _behindCameraSpeed = 30;
+        [SerializeField] private float _behindCameraDistance = 35;
 
         [Header("Chasing")]
         [SerializeField] private float _chasingDistance = 20f;
@@ -61,7 +66,7 @@ namespace Enemy
                 _randRotationDir = -1;
             else
                 _randRotationDir = 1;
-            _currentState = State.PATROL;
+            _currentState = State.BEHINDCAMERA;
 
             damageToDeal = SpawnManager.Instance != null ? SpawnManager.Instance.GetEnemyDamage() : 1.0f;
             _startTargetDirection = (transform.position - _playerController.transform.position).normalized * _attackDistance;
@@ -91,11 +96,22 @@ namespace Enemy
             Vector3 _currentTargetPosition = FindTargetPosition();
             switch (_currentState)
             {
+                case State.BEHINDCAMERA:
+                    _rigidbody.velocity = (_currentTargetPosition - transform.position).normalized * _behindCameraSpeed;
+                    if(_playerDistance < _behindCameraDistance)
+                    {
+                        _currentState = State.PATROL;
+                    }
+                    break;
                 case State.PATROL:
                     _rigidbody.velocity = (_currentTargetPosition - transform.position).normalized * _chasingMovementSpeed;
                     if (_playerDistance < _chasingDistance)
                     {
                         _currentState = State.CHASE;
+                    }
+                    if(_playerDistance > _behindCameraDistance)
+                    {
+                        _currentState = State.BEHINDCAMERA;
                     }
                     break;
                 case State.CHASE:
