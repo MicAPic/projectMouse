@@ -43,6 +43,8 @@ public class GameManager : MonoBehaviour
         playerInputs = FindObjectsOfType<PlayerInput>();
         pauseInputAction.performed += _ => TogglePauseScreen();
 
+        //TODO: remove this after the balance testing is over
+        PlayerPrefs.DeleteKey("HighScore");
         _highScore = PlayerPrefs.GetInt("HighScore", 0);
     }
     
@@ -65,24 +67,18 @@ public class GameManager : MonoBehaviour
 
     public void Pause()
     {
+        playerInputs[0].enabled = false;
+
         Time.timeScale = 0.0f;
-        
-        foreach (var playerInput in playerInputs)
-        {
-            playerInput.enabled = false;
-            CameraController.Instance.focusPoint = 0.0f;
-        }
+        CameraController.Instance.focusPoint = 0.0f;
     }
     
     public void Unpause()
     {
+        playerInputs[0].enabled = true;
+
         Time.timeScale = 1.0f;
-        
-        foreach (var playerInput in playerInputs)
-        {
-            playerInput.enabled = true;
-            CameraController.Instance.focusPoint = CameraController.Instance.defaultFocusPoint;
-        }
+        CameraController.Instance.focusPoint = CameraController.Instance.defaultFocusPoint;
     }
 
     public void GameOver()

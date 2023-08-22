@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -9,6 +10,7 @@ namespace UI
     public class TitleScreenUI : UI
     {
         private bool _cutsceneIsFinished;
+        private IDisposable _eventListener;
 
         IEnumerator Start()
         {
@@ -18,11 +20,16 @@ namespace UI
 
         void OnEnable()
         {
-            InputSystem.onAnyButtonPress.CallOnce(_ =>
+            _eventListener = InputSystem.onAnyButtonPress.Call(_ =>
             {
                 if (_cutsceneIsFinished)
                     SceneManager.LoadScene("Menu");
             });
+        }
+
+        private void OnDisable()
+        {
+            _eventListener.Dispose();
         }
     }
 }

@@ -53,7 +53,7 @@ namespace HealthControllers
             CameraShaker.Presets.Explosion2D(rotationStrength:0.1f);
             UpdateHealthBar();
 
-            if (healthPoints <= criticalThreshold * MaxHealth && !_inCriticalCondition)
+            if (healthPoints <= criticalThreshold * MaxHealth && !_inCriticalCondition && !GameManager.Instance.isGameOver)
             {
                 ChatManager.Instance.ToggleCriticalHealthChatInfo();
                 _inCriticalCondition = true;
@@ -67,7 +67,7 @@ namespace HealthControllers
 
         private void UpdateHealthBar()
         {
-            healthBar.DOFillAmount(healthPoints / MaxHealth, healthBarChangeDuration);
+            healthBar.DOFillAmount(healthPoints / MaxHealth, healthBarChangeDuration).SetUpdate(true);
         }
     }
 }

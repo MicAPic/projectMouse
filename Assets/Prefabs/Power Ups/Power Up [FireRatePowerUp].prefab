@@ -101,7 +101,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9001928748618290203, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
       propertyPath: m_text
-      value: 'Increases fire rate by 10%
+      value: 'Increases fire rate by 20%
 
         Punk attire not included'
       objectReference: {fileID: 0}
