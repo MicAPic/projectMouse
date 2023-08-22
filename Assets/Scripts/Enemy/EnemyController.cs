@@ -160,7 +160,7 @@ namespace Enemy
     
         protected virtual void Shoot()
         {
-            if (Time.time - _lastFireTime <= _fireTemp || _currentState is State.RETREAT or State.PATROL)
+            if (Time.time - _lastFireTime <= _fireTemp || _currentState is State.RETREAT or State.PATROL or State.BEHINDCAMERA)
                 return;
 
             var bullet = BulletPool.Instance.GetBulletFromPool(1);
