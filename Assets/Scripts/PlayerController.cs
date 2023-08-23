@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using DG.Tweening;
 using HealthControllers;
 using UnityEngine;
@@ -30,6 +31,10 @@ public class PlayerController : MonoBehaviour
     private Transform shootingPoint;
     private float _lastFireTime;
 
+    [Header("Animation")] 
+    private List<SpriteRenderer> _trailElementSprites  = new();
+    private SpriteRenderer _sprite;
+    
     [Header("Layers")]
     [SerializeField] 
     private int enemyLayer = 6;
@@ -39,7 +44,6 @@ public class PlayerController : MonoBehaviour
     
     private PlayerInput _playerInput;
     private Rigidbody2D _rb;
-    private SpriteRenderer _sprite;
 
     void Awake()
     {
@@ -48,6 +52,11 @@ public class PlayerController : MonoBehaviour
         _sprite = GetComponentInChildren<SpriteRenderer>();
 
         _playerLayer = gameObject.layer;
+        
+        foreach (var trailElement in FindObjectsOfType<TrailElement>())
+        {
+            _trailElementSprites.Add(trailElement.GetComponent<SpriteRenderer>());
+        }
     }
 
     // Start is called before the first frame update
@@ -59,6 +68,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.Instance.isGameOver) return;
+        
         // Input processing
         if (_playerInput.actions["Shoot"].IsPressed() && Time.time - _lastFireTime >= fireRate)
         {
@@ -79,7 +90,12 @@ public class PlayerController : MonoBehaviour
         shootingPoint.right = Mouse.current.position.ReadValue() - (Vector2)shootingPoint.position;
         
         // Flip the sprite towards the mouse
-        _sprite.flipX = CameraController.Instance.mousePos.x < transform.position.x;
+        var spriteFlipX = CameraController.Instance.mousePos.x < transform.position.x;
+        _sprite.flipX = spriteFlipX;
+        foreach (var trailElement in _trailElementSprites)
+        {
+            trailElement.flipX = spriteFlipX;
+        }
     }
 
     void FixedUpdate()
