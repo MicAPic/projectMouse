@@ -3,7 +3,6 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.UI;
 using UnityEngine.InputSystem.Utilities;
 
 namespace UI
@@ -13,7 +12,7 @@ namespace UI
         [SerializeField]
         private TextManager introTextManager;
         [SerializeField]
-        private InputSystemUIInputModule uiInputModule;
+        private PlayerInput inputModule;
         
         [Header("Skipping the intro")]
         [SerializeField]
@@ -33,7 +32,7 @@ namespace UI
 
         void Update()
         {
-            if (uiInputModule.actionsAsset["Cancel"].WasPressedThisFrame())
+            if (inputModule.actions["Skip"].WasPressedThisFrame())
             {
                 introTextManager.Transition();
             }

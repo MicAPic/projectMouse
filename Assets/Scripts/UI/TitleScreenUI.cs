@@ -4,7 +4,6 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.UI;
 using UnityEngine.InputSystem.Utilities;
 using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
@@ -14,7 +13,7 @@ namespace UI
     public class TitleScreenUI : UI
     {
         [SerializeField]
-        private InputSystemUIInputModule uiInputModule;
+        private PlayerInput inputModule;
         [SerializeField]
         private PlayableDirector director;
         [SerializeField]
@@ -40,7 +39,7 @@ namespace UI
 
         private void Update()
         {
-            if (uiInputModule.actionsAsset["Cancel"].WasPressedThisFrame() && !_cutsceneIsFinished)
+            if (inputModule.actions["Skip"].WasPressedThisFrame() && !_cutsceneIsFinished)
             {
                 director.time = director.duration;
                 spotlightAnimator.enabled = false;
