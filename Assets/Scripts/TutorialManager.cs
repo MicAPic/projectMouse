@@ -1,5 +1,6 @@
 using System;
 using Enemy;
+using HealthControllers;
 using PowerUps;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -64,7 +65,9 @@ public class TutorialManager : TextManager
         });
         story.BindExternalFunction("ActivarMiguel", () =>
         {
+            _miguel.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
             _miguel.GetComponent<EnemyController>().enabled = true;
+            _miguel.GetComponent<Health>().enabled = true;
         });
     }
 }

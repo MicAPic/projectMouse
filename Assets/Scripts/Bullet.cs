@@ -16,7 +16,7 @@ public class Bullet : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.TryGetComponent(out Health healthController))
+        if (col.gameObject.TryGetComponent(out Health healthController) && healthController.enabled)
         {
             healthController.TakeDamage(damage);
         }
