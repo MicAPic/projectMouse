@@ -78,13 +78,18 @@ public class TextManager : MonoBehaviour
         {
             if (transitionController != null)
             {
-                transitionController.TransitionAndLoadScene(nextSceneName);
+                Transition();
             }
             else
             {
                 TransitionController.Instance.TransitionAndLoadScene(nextSceneName);
             }
         }
+    }
+
+    public void Transition()
+    {
+        transitionController.TransitionAndLoadScene(nextSceneName);
     }
 
     private IEnumerator WaitBeforeDisplayingText()
