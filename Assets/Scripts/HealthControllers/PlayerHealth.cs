@@ -1,5 +1,5 @@
-﻿using CameraShake;
-using DG.Tweening;
+﻿using System.Collections.Generic;
+using CameraShake;
 using UI;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,20 +20,46 @@ namespace HealthControllers
 
         [Header("Visuals")]
         [SerializeField] 
-        private Image healthBar;
+        private GameObject heartPrefab;
         [SerializeField] 
-        private float healthBarChangeDuration;
+        private Sprite heartSprite;
+        [SerializeField] 
+        private Sprite brokenHeartSprite;
+        [SerializeField] 
+        private RectTransform heartsContainer;
+
+        private List<Image> _currentHearts;
+        private List<Image> _currentBrokenHearts;
+
+        private const int HealthPointToHeartRatio = 30;
 
         // Start is called before the first frame update
         void Start()
         {
             MaxHealth = healthPoints;
+
+            _currentHearts = new List<Image>();
+            _currentBrokenHearts = new List<Image>();
+            for (var i = 0; i < healthPoints; i += HealthPointToHeartRatio)
+            {
+                AddAHeart();
+            }
         }
 
         public void FullHeal()
         {
             healthPoints = MaxHealth;
-            UpdateHealthBar();
+
+            for (var i = _currentBrokenHearts.Count - 1; i >= 0; i--)
+            {
+                var brokenHeart = _currentBrokenHearts[i];
+                _currentBrokenHearts.RemoveAt(i);
+            
+                brokenHeart.sprite = heartSprite;
+                brokenHeart.SetNativeSize();
+            
+                _currentHearts.Add(brokenHeart);
+            }
 
             if (_inCriticalCondition)
             {
@@ -43,15 +69,21 @@ namespace HealthControllers
 
         public void IncreaseMaxHealth(float increment)
         {
+            healthPoints += increment;
             MaxHealth += increment;
-            UpdateHealthBar();
+            
+            AddAHeart();
         }
-        
+
         public override void TakeDamage(float damagePoints)
         {
             base.TakeDamage(damagePoints * defenceModifier);
             CameraShaker.Presets.Explosion2D(rotationStrength:0.1f);
-            UpdateHealthBar();
+
+            for (var i = 1; i <= damagePoints / HealthPointToHeartRatio; i++)
+            {
+                BreakAHeartAt(i);
+            }
 
             if (healthPoints <= criticalThreshold * MaxHealth && !_inCriticalCondition && !GameManager.Instance.isGameOver)
             {
@@ -65,9 +97,21 @@ namespace HealthControllers
             GameManager.Instance.GameOver();
         }
 
-        private void UpdateHealthBar()
+        private void AddAHeart()
         {
-            healthBar.DOFillAmount(healthPoints / MaxHealth, healthBarChangeDuration).SetUpdate(true);
+            var heart = Instantiate(heartPrefab, heartsContainer);
+            _currentHearts.Add(heart.GetComponent<Image>());
+        }
+
+        private void BreakAHeartAt(int reverseIndex)
+        {
+            var heart = _currentHearts[^reverseIndex];
+            _currentHearts.RemoveAt(_currentHearts.Count - reverseIndex);
+            
+            heart.sprite = brokenHeartSprite;
+            heart.SetNativeSize();
+            
+            _currentBrokenHearts.Add(heart);
         }
     }
 }

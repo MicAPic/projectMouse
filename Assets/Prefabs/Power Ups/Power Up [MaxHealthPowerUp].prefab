@@ -101,7 +101,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9001928748618290203, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
       propertyPath: m_text
-      value: 'Gives +10 max HP
+      value: 'Gives an additional heart
 
         Smells like dogs and cinnamon'
       objectReference: {fileID: 0}
@@ -124,5 +124,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a8b122b60464d1aabccddb1fee0971b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  increment: 10
-  maxHealth: 200
+  increment: 30
+  maxHealth: 210
