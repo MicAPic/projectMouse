@@ -43,6 +43,11 @@ namespace HealthControllers
         private int shakeVibratio = 12;
         [SerializeField] 
         private float shakeRandomness = 0.0f;
+        [Space]
+        [SerializeField] 
+        private float intervalBetweenHeartFills = 0.5f;
+
+        private Sequence _fullHealSequence;
 
         private const int HealthPointToHeartRatio = 30;
 
@@ -63,15 +68,22 @@ namespace HealthControllers
         {
             healthPoints = MaxHealth;
 
+            _fullHealSequence = DOTween.Sequence();
             for (var i = _currentBrokenHearts.Count - 1; i >= 0; i--)
             {
-                var brokenHeart = _currentBrokenHearts[i];
-                _currentBrokenHearts.RemoveAt(i);
+                var localIdx = i;
+                _fullHealSequence.AppendCallback(() =>
+                {
+                    // TODO: play a sound
+                    var heartToHeal = _currentBrokenHearts[localIdx];
+                    _currentBrokenHearts.RemoveAt(localIdx);
             
-                brokenHeart.sprite = heartSprite;
-                brokenHeart.SetNativeSize();
+                    heartToHeal.sprite = heartSprite;
+                    heartToHeal.SetNativeSize();
 
-                _currentHearts.Add(brokenHeart);
+                    _currentHearts.Add(heartToHeal);
+                });
+                _fullHealSequence.AppendInterval(intervalBetweenHeartFills);
             }
 
             if (_inCriticalCondition)
@@ -90,6 +102,11 @@ namespace HealthControllers
 
         public override void TakeDamage(float damagePoints)
         {
+            if (_fullHealSequence is { active: true })
+            {
+                _fullHealSequence.Complete();
+            }
+            
             if (canDie || healthPoints - damagePoints * defenceModifier > 0)
             {
                 base.TakeDamage(damagePoints * defenceModifier);
@@ -128,18 +145,21 @@ namespace HealthControllers
         private void AddAHeart()
         {
             var heart = Instantiate(heartPrefab, heartsContainer);
+            heart.transform.SetSiblingIndex(_currentHearts.Count);
             _currentHearts.Add(heart.GetComponent<Image>());
+            
+            // TODO: play a sound
         }
 
         private void BreakAHeartAt(int reverseIndex)
         {
-            var heart = _currentHearts[^reverseIndex];
+            var heartToBreak = _currentHearts[^reverseIndex];
             _currentHearts.RemoveAt(_currentHearts.Count - reverseIndex);
             
-            heart.sprite = brokenHeartSprite;
-            heart.SetNativeSize();
+            heartToBreak.sprite = brokenHeartSprite;
+            heartToBreak.SetNativeSize();
 
-            _currentBrokenHearts.Add(heart);
+            _currentBrokenHearts.Add(heartToBreak);
         }
     }
 }
