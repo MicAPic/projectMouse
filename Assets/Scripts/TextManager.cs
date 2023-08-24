@@ -44,6 +44,8 @@ public class TextManager : MonoBehaviour
     protected bool canContinue;
     private bool _isDisplayingRichText;
     private int _maxLineLength;
+    private Coroutine _currentDisplayLineCoroutine;
+    private Coroutine _currentFinishDisplayLineCoroutine;
 
     void Awake()
     {
@@ -66,13 +68,22 @@ public class TextManager : MonoBehaviour
     public void ContinueStory()
     {
         Debug.Log('?');
+        if (_currentFinishDisplayLineCoroutine != null)
+        {
+            StopCoroutine(_currentFinishDisplayLineCoroutine);
+        }
+        
         if (story.canContinue)
         {
             string nextLine = story.Continue();
             HandleTags(story.currentTags);
 
+            if (isPlaying)
+            {
+                StopCoroutine(_currentDisplayLineCoroutine);
+            }
             isPlaying = true;
-            StartCoroutine(DisplayLine(nextLine));
+            _currentDisplayLineCoroutine = StartCoroutine(DisplayLine(nextLine));
         }
         else
         {
@@ -131,11 +142,13 @@ public class TextManager : MonoBehaviour
                 : new WaitForSecondsRealtime(textSpeed);
         }
 
-        StartCoroutine(FinishDisplayingLine());
+        _currentFinishDisplayLineCoroutine = StartCoroutine(FinishDisplayingLine());
     }
 
     private IEnumerator FinishDisplayingLine()
     {
+        _currentDisplayLineCoroutine = null;
+        
         isPlaying = false;
         _isDisplayingRichText = false;
         if (canContinue)

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4498054730416342794}
   - component: {fileID: 3612481661362029061}
-  - component: {fileID: 6463964619907874146}
+  - component: {fileID: 20646070298057246}
   m_Layer: 5
   m_Name: Heart
   m_TagString: Untagged
@@ -46,7 +46,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2597685922690783564}
   m_CullTransparentMesh: 1
---- !u!114 &6463964619907874146
+--- !u!114 &20646070298057246
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

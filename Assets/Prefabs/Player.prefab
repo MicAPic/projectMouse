@@ -226,10 +226,15 @@ MonoBehaviour:
   healthPoints: 120
   defenceModifier: 1
   criticalThreshold: 0.1
+  canDie: 1
   heartPrefab: {fileID: 2597685922690783564, guid: cdd48978a25414543bd59954d7ac8a8f, type: 3}
   heartSprite: {fileID: 21300000, guid: 84f3075cf66c3ce4ca660e8dcd62af79, type: 3}
   brokenHeartSprite: {fileID: 21300000, guid: 6005f3860deab974bb218f7d6f264540, type: 3}
   heartsContainer: {fileID: 3938784664135768920}
+  shakeDuration: 0.485
+  shakeStrength: {x: 0, y: 0.75}
+  shakeVibratio: 50
+  shakeRandomness: 0
 --- !u!1 &2969619596571680592
 GameObject:
   m_ObjectHideFlags: 0

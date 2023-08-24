@@ -68,7 +68,7 @@ namespace Enemy
                 _randRotationDir = 1;
             _currentState = State.BEHINDCAMERA;
 
-            damageToDeal = SpawnManager.Instance != null ? SpawnManager.Instance.GetEnemyDamage() : 1.0f;
+            damageToDeal = SpawnManager.Instance != null ? SpawnManager.Instance.GetEnemyDamage() : 30.0f;
             _startTargetDirection = (transform.position - _playerController.transform.position).normalized * _attackDistance;
 
         }

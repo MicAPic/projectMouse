@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using CameraShake;
+using DG.Tweening;
 using UI;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,6 +17,8 @@ namespace HealthControllers
         [Tooltip("Everything below this percentage is considered low HP")]
         [Range(0, 1)]
         private float criticalThreshold = 0.1f;
+        [SerializeField]
+        private bool canDie = true;
         private bool _inCriticalCondition;
 
         [Header("Visuals")]
@@ -30,6 +33,16 @@ namespace HealthControllers
 
         private List<Image> _currentHearts;
         private List<Image> _currentBrokenHearts;
+        
+        [Header("Animation")]
+        [SerializeField] 
+        private float shakeDuration = 0.485f;
+        [SerializeField] 
+        private Vector2 shakeStrength = new(0.0f, 0.004341f);
+        [SerializeField] 
+        private int shakeVibratio = 12;
+        [SerializeField] 
+        private float shakeRandomness = 0.0f;
 
         private const int HealthPointToHeartRatio = 30;
 
@@ -57,7 +70,7 @@ namespace HealthControllers
             
                 brokenHeart.sprite = heartSprite;
                 brokenHeart.SetNativeSize();
-            
+
                 _currentHearts.Add(brokenHeart);
             }
 
@@ -77,13 +90,28 @@ namespace HealthControllers
 
         public override void TakeDamage(float damagePoints)
         {
-            base.TakeDamage(damagePoints * defenceModifier);
-            CameraShaker.Presets.Explosion2D(rotationStrength:0.1f);
-
-            for (var i = 1; i <= damagePoints / HealthPointToHeartRatio; i++)
+            if (canDie || healthPoints - damagePoints * defenceModifier > 0)
             {
-                BreakAHeartAt(i);
+                base.TakeDamage(damagePoints * defenceModifier);
+                for (var i = 1; i <= damagePoints / HealthPointToHeartRatio; i++)
+                {
+                    BreakAHeartAt(i);
+                }
             }
+            else
+            {
+                heartsContainer.GetComponent<HorizontalLayoutGroup>().enabled = false;
+                _currentHearts[0].rectTransform.DOShakeAnchorPos(shakeDuration,
+                    shakeStrength,
+                    shakeVibratio,
+                    shakeRandomness, 
+                    false, 
+                    true, 
+                    ShakeRandomnessMode.Harmonic
+                );
+            }
+            
+            CameraShaker.Presets.Explosion2D(rotationStrength:0.1f);
 
             if (healthPoints <= criticalThreshold * MaxHealth && !_inCriticalCondition && !GameManager.Instance.isGameOver)
             {
@@ -110,7 +138,7 @@ namespace HealthControllers
             
             heart.sprite = brokenHeartSprite;
             heart.SetNativeSize();
-            
+
             _currentBrokenHearts.Add(heart);
         }
     }
