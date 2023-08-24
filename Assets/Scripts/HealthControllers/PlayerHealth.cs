@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using CameraShake;
 using DG.Tweening;
 using UI;
@@ -21,7 +22,7 @@ namespace HealthControllers
         private bool canDie = true;
         private bool _inCriticalCondition;
 
-        [Header("Visuals")]
+        [Header("UI")]
         [SerializeField] 
         private GameObject heartPrefab;
         [SerializeField] 
@@ -46,7 +47,6 @@ namespace HealthControllers
         [Space]
         [SerializeField] 
         private float intervalBetweenHeartFills = 0.5f;
-
         private Sequence _fullHealSequence;
 
         private const int HealthPointToHeartRatio = 30;
@@ -62,6 +62,14 @@ namespace HealthControllers
             {
                 AddAHeart();
             }
+        }
+
+        public void GrantInvincibility(float duration)
+        {
+            PlayerController.Instance.ToggleInvincibilityMaterial();
+            defenceModifier = 0.0f;
+            
+            StartCoroutine(WaitAndDisableInvincibility(duration));
         }
 
         public void FullHeal()
@@ -102,6 +110,8 @@ namespace HealthControllers
 
         public override void TakeDamage(float damagePoints)
         {
+            if (defenceModifier <= 0.0f) return;
+            
             if (_fullHealSequence is { active: true })
             {
                 _fullHealSequence.Complete();
@@ -160,6 +170,14 @@ namespace HealthControllers
             heartToBreak.SetNativeSize();
 
             _currentBrokenHearts.Add(heartToBreak);
+        }
+
+        private IEnumerator WaitAndDisableInvincibility(float effectTime)
+        {
+            yield return new WaitForSeconds(effectTime);
+            
+            PlayerController.Instance.ToggleInvincibilityMaterial();
+            defenceModifier = 1.0f;
         }
     }
 }

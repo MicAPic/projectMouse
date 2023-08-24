@@ -8,8 +8,7 @@ namespace Enemy
 
         public float experiencePointWorth = 10f;
         public float damageToDeal = 34f;
-
-        protected PlayerController _playerController;
+        
         [SerializeField] protected Transform _shootingPoint;
         [SerializeField] protected float _firePower = 20;
         protected Rigidbody2D _rigidbody;
@@ -56,7 +55,6 @@ namespace Enemy
         {
             _pointEffector = GetComponent<PointEffector2D>();
             _rigidbody = GetComponent<Rigidbody2D>();
-            _playerController = FindAnyObjectByType<PlayerController>();
         }
 
         private int _randRotationDir;
@@ -69,14 +67,14 @@ namespace Enemy
             _currentState = State.BEHINDCAMERA;
 
             damageToDeal = SpawnManager.Instance != null ? SpawnManager.Instance.GetEnemyDamage() : 30.0f;
-            _startTargetDirection = (transform.position - _playerController.transform.position).normalized * _attackDistance;
+            _startTargetDirection = (transform.position - PlayerController.Instance.transform.position).normalized * _attackDistance;
 
         }
     
         // Update is called once per frame
         protected virtual void Update()
         {
-            _playerDistance = Vector2.Distance(_playerController.transform.position, transform.position);
+            _playerDistance = Vector2.Distance(PlayerController.Instance.transform.position, transform.position);
             Shoot();
         }
 
@@ -142,7 +140,7 @@ namespace Enemy
                         _rigidbody.velocity = Vector2.zero;
                         break;
                     }
-                    _rigidbody.velocity = (_playerController.transform.position - transform.position).normalized * -_retreatSpeed;
+                    _rigidbody.velocity = (PlayerController.Instance.transform.position - transform.position).normalized * -_retreatSpeed;
                     break;
             }
         }
@@ -151,11 +149,13 @@ namespace Enemy
 
         private void RotateTargetPositionVector()
         {
-            _startTargetDirection = Quaternion.AngleAxis(_randRotationDir * _targetPositionRotationSpeed * Time.deltaTime, _playerController.transform.forward) * _startTargetDirection;
+            _startTargetDirection = Quaternion.AngleAxis(
+                _randRotationDir * _targetPositionRotationSpeed * Time.deltaTime, 
+                PlayerController.Instance.transform.forward) * _startTargetDirection;
         }
         private Vector3 FindTargetPosition()
         {
-            return _playerController.transform.position + _startTargetDirection;
+            return PlayerController.Instance.transform.position + _startTargetDirection;
         }
     
         protected virtual void Shoot()
@@ -169,7 +169,7 @@ namespace Enemy
             var bullet = BulletPool.Instance.GetBulletFromPool(1);
             var sPosition = _shootingPoint.transform.position;
 
-            Vector3 direction = (_playerController.transform.position - sPosition).normalized;
+            Vector3 direction = (PlayerController.Instance.transform.position - sPosition).normalized;
 
             bullet.transform.position = sPosition;
             bullet.Enable(direction, _firePower, damageToDeal);

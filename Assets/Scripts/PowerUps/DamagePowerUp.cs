@@ -11,13 +11,9 @@ namespace PowerUps
         
         protected override void Activate()
         {
-            var playerControllers = FindObjectsOfType<PlayerController>();
-            foreach (var playerController in playerControllers)
-            {
-                playerController.damageToDeal *= modifier;
-            }
+            PlayerController.Instance.damageToDeal *= modifier;
 
-            if (playerControllers[0].damageToDeal > maxDamageToDeal)
+            if (PlayerController.Instance.damageToDeal > maxDamageToDeal)
             {
                 ExperienceManager.Instance.RemoveFromPowerUps(this);
             }

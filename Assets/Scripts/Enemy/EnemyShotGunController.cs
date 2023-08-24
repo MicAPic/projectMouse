@@ -17,7 +17,7 @@ namespace Enemy
 
             var sPosition = _shootingPoint.transform.position;
 
-            Vector3 direction = (_playerController.transform.position - sPosition);
+            Vector3 direction = PlayerController.Instance.transform.position - sPosition;
             direction.Normalize();
             Vector3 leftDirection = Quaternion.AngleAxis(Random.Range(5f, _shootAngel), Vector3.forward) * direction;
             Vector3 rightDirection = Quaternion.AngleAxis(-Random.Range(5f, _shootAngel), Vector3.forward) * direction;

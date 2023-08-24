@@ -179,6 +179,7 @@ MonoBehaviour:
   damageToDeal: 50
   bulletScaleModifier: 1
   shootingPoint: {fileID: 1490496431234418896}
+  invincibilityMaterial: {fileID: 2100000, guid: ea6c48cbc3ecbbe4998c4a5b3d3d6a5f, type: 2}
   enemyLayer: 6
   enemyBulletLayer: 8
 --- !u!114 &7434023018259043841
@@ -235,6 +236,7 @@ MonoBehaviour:
   shakeStrength: {x: 0, y: 0.75}
   shakeVibratio: 50
   shakeRandomness: 0
+  intervalBetweenHeartFills: 0.5
 --- !u!1 &2969619596571680592
 GameObject:
   m_ObjectHideFlags: 0

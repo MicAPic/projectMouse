@@ -18,13 +18,11 @@ namespace PowerUps
         private string newDescription = "Increase dash damage by 15%\nMake you look hornier";
 
         private bool _wasActivated;
-        private PlayerController[] playerControllers;
 
         protected override void Awake()
         {
             base.Awake();
-            playerControllers = FindObjectsOfType<PlayerController>();
-            if (playerControllers[0].dodgeDamage > 0)
+            if (PlayerController.Instance.dodgeDamage > 0)
             {
                 _wasActivated = true;
                 descriptionTMP.text = newDescription;
@@ -35,14 +33,14 @@ namespace PowerUps
         {
             if (_wasActivated)
             {
-                playerControllers[0].dodgeDamage *= modifier;
+                PlayerController.Instance.dodgeDamage *= modifier;
             }
             else
             {
-                playerControllers[0].dodgeDamage = initialValue;
+                PlayerController.Instance.dodgeDamage = initialValue;
             }
 
-            if (playerControllers[0].dodgeDamage > maxDamageToDeal)
+            if (PlayerController.Instance.dodgeDamage > maxDamageToDeal)
             {
                 ExperienceManager.Instance.RemoveFromPowerUps(this);
             }

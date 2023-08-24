@@ -101,7 +101,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9001928748618290203, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
       propertyPath: m_text
-      value: "Take 10% less damage \nWorn by legendary VShojoPink"
+      value: 'Grants temporary invincibility
+
+        Worn by legendary VShojoPink'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ba321776b79994478d339e7a1466f27, type: 3}

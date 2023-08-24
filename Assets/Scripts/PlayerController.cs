@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController Instance { get; private set; }
+
     [Header("Physics & Movement")] 
     public float movementSpeed;
     public float dodgeSpeedModifier;
@@ -31,9 +33,13 @@ public class PlayerController : MonoBehaviour
     private Transform shootingPoint;
     private float _lastFireTime;
 
-    [Header("Animation")] 
+    [Header("Animation")]
+    [SerializeField]
+    private Material invincibilityMaterial;
+    private Material _defaultMaterial;
     private List<SpriteRenderer> _trailElementSprites  = new();
     private SpriteRenderer _sprite;
+    private bool _isInvincible;
     
     [Header("Layers")]
     [SerializeField] 
@@ -47,9 +53,18 @@ public class PlayerController : MonoBehaviour
 
     void Awake()
     {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        
         _playerInput = GetComponent<PlayerInput>();
         _rb = GetComponent<Rigidbody2D>();
         _sprite = GetComponentInChildren<SpriteRenderer>();
+        _defaultMaterial = _sprite.material;
 
         _playerLayer = gameObject.layer;
         
@@ -102,6 +117,12 @@ public class PlayerController : MonoBehaviour
     {
         // Movement
         _rb.velocity = _movementValue * movementSpeed;
+    }
+
+    public void ToggleInvincibilityMaterial()
+    {
+        _isInvincible = !_isInvincible;
+        _sprite.material = _isInvincible ? invincibilityMaterial : _defaultMaterial;
     }
 
     private void OnCollisionEnter2D(Collision2D col)
