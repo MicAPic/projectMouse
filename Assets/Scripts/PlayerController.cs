@@ -88,6 +88,16 @@ public class PlayerController : MonoBehaviour
     {
         if (GameManager.Instance.isGameOver) return;
         
+        // Animation
+        // if (_playerInput.actions["Move"].WasPressedThisFrame())
+        // {
+        //     // TODO: set Animator to Moving
+        // }
+        // else if (_playerInput.actions["Move"].WasReleasedThisFrame())
+        // {
+        //     // TODO: set Animator to Idle
+        // }
+        
         // Input processing
         if (_playerInput.actions["Shoot"].IsPressed() && Time.time - _lastFireTime >= fireRate)
         {
@@ -122,6 +132,25 @@ public class PlayerController : MonoBehaviour
         _rb.velocity = _movementValue * movementSpeed;
     }
 
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        // Contact damage to enemies
+        if (col.gameObject.TryGetComponent(out EnemyHealth enemyHealth) && _isDodging)
+        {
+            enemyHealth.TakeDamage(dodgeDamage);
+        }
+    }
+    
+    void OnMove(InputValue value)
+    {
+        _cachedMovementValue = value.Get<Vector2>();
+        if (_isDodging)
+        {
+            return;
+        }
+        _movementValue = _cachedMovementValue;
+    }
+    
     public void ToggleInvincibilityMaterial()
     {
         _isInvincible = !_isInvincible;
@@ -140,24 +169,6 @@ public class PlayerController : MonoBehaviour
         flashingSequence.SetLoops(noOfFlashes);
 
         flashingSequence.OnComplete(() => isFlashing = false);
-    }
-
-    private void OnCollisionEnter2D(Collision2D col)
-    {
-        if (col.gameObject.TryGetComponent(out EnemyHealth enemyHealth) && _isDodging)
-        {
-            enemyHealth.TakeDamage(dodgeDamage);
-        }
-    }
-
-    private void OnMove(InputValue value)
-    {
-        _cachedMovementValue = value.Get<Vector2>();
-        if (_isDodging)
-        {
-            return;
-        }
-        _movementValue = _cachedMovementValue;
     }
 
     private void Shoot()
