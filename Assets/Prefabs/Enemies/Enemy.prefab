@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 7543429509380403300}
   m_Layer: 6
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -114,7 +114,7 @@ MonoBehaviour:
   _attackDistance: 10
   _fireTemp: 4
   _retreatDistance: 5
-  _retreatSpeed: 10
+  _retreatSpeed: 12
 --- !u!61 &2386241474200903760
 BoxCollider2D:
   m_ObjectHideFlags: 0

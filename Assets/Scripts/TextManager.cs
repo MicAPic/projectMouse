@@ -67,7 +67,6 @@ public class TextManager : MonoBehaviour
 
     public void ContinueStory()
     {
-        Debug.Log('?');
         if (_currentFinishDisplayLineCoroutine != null)
         {
             StopCoroutine(_currentFinishDisplayLineCoroutine);
