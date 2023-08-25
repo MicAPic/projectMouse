@@ -131,6 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12fa8adc8f978714395941931e2afab0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 0
   poolIndex: 0
 --- !u!58 &5615952910566029326
 CircleCollider2D:
@@ -168,4 +169,4 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4

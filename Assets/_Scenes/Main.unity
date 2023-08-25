@@ -3569,18 +3569,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 8826732396876333723, guid: 74e853823cd0ea34fb4ad69a143c92c8, type: 3}
-      propertyPath: healthPoints
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 8952843269107361336, guid: 74e853823cd0ea34fb4ad69a143c92c8, type: 3}
-      propertyPath: fireRate
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8952843269107361336, guid: 74e853823cd0ea34fb4ad69a143c92c8, type: 3}
-      propertyPath: damageToDeal
-      value: 50
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 74e853823cd0ea34fb4ad69a143c92c8, type: 3}
 --- !u!114 &1824196156 stripped

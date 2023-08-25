@@ -11,13 +11,9 @@ namespace PowerUps
         
         protected override void Activate()
         {
-            var playerControllers = FindObjectsOfType<PlayerController>();
-            foreach (var playerController in playerControllers)
-            {
-                playerController.dodgeSpeedModifier *= modifier;
-            }
+            PlayerController.Instance.dodgeSpeedModifier *= modifier;
 
-            if (playerControllers[0].dodgeSpeedModifier > maxSpeed)
+            if (PlayerController.Instance.dodgeSpeedModifier > maxSpeed)
             {
                 ExperienceManager.Instance.RemoveFromPowerUps(this);
             }

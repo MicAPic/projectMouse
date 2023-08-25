@@ -75,7 +75,7 @@ namespace Enemy
                     return;
                 }
                 
-                Vector3 direction = _playerController.transform.position - _bullets[_currentBulletIndex].transform.position;
+                Vector3 direction = PlayerController.Instance.transform.position - _bullets[_currentBulletIndex].transform.position;
                 _bullets[_currentBulletIndex].Enable(direction, _firePower, damageToDeal);
                 _bullets[_currentBulletIndex] = null;
                 ++_currentBulletIndex;
@@ -89,7 +89,7 @@ namespace Enemy
             {
                 if (_bullets[i] != null)
                 {
-                    Vector3 direction = _playerController.transform.position - _bullets[i].transform.position;
+                    Vector3 direction = PlayerController.Instance.transform.position - _bullets[i].transform.position;
                     _bullets[i].Enable(direction, _firePower, damageToDeal);
                 }
             }

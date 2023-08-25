@@ -11,13 +11,10 @@ namespace PowerUps
         
         protected override void Activate()
         {
-            var playerControllers = FindObjectsOfType<PlayerController>();
-            foreach (var playerController in playerControllers)
-            {
-                playerController.fireRate -= modifier;
-            }
             
-            if (playerControllers[0].fireRate <= maxFireRate)
+            PlayerController.Instance.fireRate -= modifier;
+
+            if (PlayerController.Instance.fireRate <= maxFireRate)
             {
                 ExperienceManager.Instance.RemoveFromPowerUps(this);
             }

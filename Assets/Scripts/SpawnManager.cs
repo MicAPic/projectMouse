@@ -65,7 +65,7 @@ public class SpawnManager : MonoBehaviour
                 _firstChanceBound = 1;
                 _secondChanceBound = 1;
             }
-            //TODO: настроить, на каких уровнях начнут появляться соотв. враги
+            
             if (ExperienceManager.Instance.GetCurrentLevel() == 3)
             {
                 _firstChanceBound = 0.5f;

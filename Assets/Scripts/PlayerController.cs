@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using DG.Tweening;
 using HealthControllers;
 using UnityEngine;
@@ -5,6 +6,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController Instance { get; private set; }
+
     [Header("Physics & Movement")] 
     public float movementSpeed;
     public float dodgeSpeedModifier;
@@ -30,6 +33,17 @@ public class PlayerController : MonoBehaviour
     private Transform shootingPoint;
     private float _lastFireTime;
 
+    [Header("Animation")]
+    public bool isFlashing;
+    [SerializeField]
+    private Color flashingColour;
+    [SerializeField]
+    private Material invincibilityMaterial;
+    private Material _defaultMaterial;
+    private List<SpriteRenderer> _trailElementSprites  = new();
+    private SpriteRenderer _sprite;
+    private bool _isInvincible;
+    
     [Header("Layers")]
     [SerializeField] 
     private int enemyLayer = 6;
@@ -39,15 +53,28 @@ public class PlayerController : MonoBehaviour
     
     private PlayerInput _playerInput;
     private Rigidbody2D _rb;
-    private SpriteRenderer _sprite;
 
     void Awake()
     {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        
         _playerInput = GetComponent<PlayerInput>();
         _rb = GetComponent<Rigidbody2D>();
         _sprite = GetComponentInChildren<SpriteRenderer>();
+        _defaultMaterial = _sprite.material;
 
         _playerLayer = gameObject.layer;
+        
+        foreach (var trailElement in FindObjectsOfType<TrailElement>())
+        {
+            _trailElementSprites.Add(trailElement.GetComponent<SpriteRenderer>());
+        }
     }
 
     // Start is called before the first frame update
@@ -59,6 +86,18 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.Instance.isGameOver) return;
+        
+        // Animation
+        // if (_playerInput.actions["Move"].WasPressedThisFrame())
+        // {
+        //     // TODO: set Animator to Moving
+        // }
+        // else if (_playerInput.actions["Move"].WasReleasedThisFrame())
+        // {
+        //     // TODO: set Animator to Idle
+        // }
+        
         // Input processing
         if (_playerInput.actions["Shoot"].IsPressed() && Time.time - _lastFireTime >= fireRate)
         {
@@ -79,7 +118,12 @@ public class PlayerController : MonoBehaviour
         shootingPoint.right = Mouse.current.position.ReadValue() - (Vector2)shootingPoint.position;
         
         // Flip the sprite towards the mouse
-        _sprite.flipX = CameraController.Instance.mousePos.x < transform.position.x;
+        var spriteFlipX = CameraController.Instance.mousePos.x < transform.position.x;
+        _sprite.flipX = spriteFlipX;
+        foreach (var trailElement in _trailElementSprites)
+        {
+            trailElement.flipX = spriteFlipX;
+        }
     }
 
     void FixedUpdate()
@@ -88,15 +132,16 @@ public class PlayerController : MonoBehaviour
         _rb.velocity = _movementValue * movementSpeed;
     }
 
-    private void OnCollisionEnter2D(Collision2D col)
+    void OnCollisionEnter2D(Collision2D col)
     {
+        // Contact damage to enemies
         if (col.gameObject.TryGetComponent(out EnemyHealth enemyHealth) && _isDodging)
         {
             enemyHealth.TakeDamage(dodgeDamage);
         }
     }
-
-    private void OnMove(InputValue value)
+    
+    void OnMove(InputValue value)
     {
         _cachedMovementValue = value.Get<Vector2>();
         if (_isDodging)
@@ -104,6 +149,26 @@ public class PlayerController : MonoBehaviour
             return;
         }
         _movementValue = _cachedMovementValue;
+    }
+    
+    public void ToggleInvincibilityMaterial()
+    {
+        _isInvincible = !_isInvincible;
+        _sprite.material = _isInvincible ? invincibilityMaterial : _defaultMaterial;
+    }
+    
+    public void ActivateFlashing(float duration, int noOfFlashes=3)
+    {
+        isFlashing = true;
+        var individualFlashTime = duration / noOfFlashes;
+        var flashingSequence = DOTween.Sequence();
+        var defaultMatColour = invincibilityMaterial.color;
+
+        flashingSequence.AppendCallback(() => _sprite.material.color = flashingColour);
+        flashingSequence.Append(_sprite.material.DOColor(defaultMatColour, individualFlashTime));
+        flashingSequence.SetLoops(noOfFlashes);
+
+        flashingSequence.OnComplete(() => isFlashing = false);
     }
 
     private void Shoot()

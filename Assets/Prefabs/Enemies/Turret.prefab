@@ -246,7 +246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a01603049bdab4f3dae083a25ca72834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageToDeal: 0.3
+  damageToDeal: 30
   shootingPoint: {fileID: 4689605507542310599}
   fireRate: 0.5
   firePower: 20

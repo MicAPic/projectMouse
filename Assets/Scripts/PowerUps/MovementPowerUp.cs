@@ -11,13 +11,9 @@ namespace PowerUps
         
         protected override void Activate()
         {
-            var playerControllers = FindObjectsOfType<PlayerController>();
-            foreach (var playerController in playerControllers)
-            {
-                playerController.movementSpeed *= modifier;
-            }
+            PlayerController.Instance.movementSpeed *= modifier;
 
-            if (playerControllers[0].movementSpeed > maxSpeed)
+            if (PlayerController.Instance.movementSpeed > maxSpeed)
             {
                 ExperienceManager.Instance.RemoveFromPowerUps(this);
             }

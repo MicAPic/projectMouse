@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using PowerUps;
 using TMPro;
@@ -19,6 +20,7 @@ public class ExperienceManager : MonoBehaviour
     [SerializeField] 
     private List<GameObject> powerUps;
 
+    public Dictionary<GameObject, int> PowerUpsWithCounters;
     public float TotalExperiencePoints { get; private set; }
 
     private int _currentLevel = 1;
@@ -65,6 +67,7 @@ public class ExperienceManager : MonoBehaviour
         {
             Debug.LogError("Not enough power-ups were added in the Editor");
         }
+        PowerUpsWithCounters = powerUps.ToDictionary(powerUp => powerUp, _ => 0);
     }
 
     // Start is called before the first frame update
@@ -131,7 +134,9 @@ public class ExperienceManager : MonoBehaviour
         
         _currentLevel++;
         
+        // Shuffle our list and sort it by usage
         powerUps.Shuffle();
+        powerUps = powerUps.OrderBy(powerUp => PowerUpsWithCounters[powerUp]).ToList();
 
         var buttons = new List<Button>();
         for (var i = 2; i >= 0; i--)

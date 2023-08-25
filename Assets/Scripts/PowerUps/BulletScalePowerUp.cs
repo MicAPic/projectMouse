@@ -11,13 +11,9 @@ namespace PowerUps
         
         protected override void Activate()
         {
-            var playerControllers = FindObjectsOfType<PlayerController>();
-            foreach (var playerController in playerControllers)
-            {
-                playerController.bulletScaleModifier *= modifier;
-            }
+            PlayerController.Instance.bulletScaleModifier *= modifier;
 
-            if (playerControllers[0].bulletScaleModifier > maxScale)
+            if (PlayerController.Instance.bulletScaleModifier > maxScale)
             {
                 ExperienceManager.Instance.RemoveFromPowerUps(this);
             }
