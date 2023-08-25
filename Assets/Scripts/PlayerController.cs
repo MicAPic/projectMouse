@@ -34,6 +34,9 @@ public class PlayerController : MonoBehaviour
     private float _lastFireTime;
 
     [Header("Animation")]
+    public bool isFlashing;
+    [SerializeField]
+    private Color flashingColour;
     [SerializeField]
     private Material invincibilityMaterial;
     private Material _defaultMaterial;
@@ -123,6 +126,20 @@ public class PlayerController : MonoBehaviour
     {
         _isInvincible = !_isInvincible;
         _sprite.material = _isInvincible ? invincibilityMaterial : _defaultMaterial;
+    }
+    
+    public void ActivateFlashing(float duration, int noOfFlashes=3)
+    {
+        isFlashing = true;
+        var individualFlashTime = duration / noOfFlashes;
+        var flashingSequence = DOTween.Sequence();
+        var defaultMatColour = invincibilityMaterial.color;
+
+        flashingSequence.AppendCallback(() => _sprite.material.color = flashingColour);
+        flashingSequence.Append(_sprite.material.DOColor(defaultMatColour, individualFlashTime));
+        flashingSequence.SetLoops(noOfFlashes);
+
+        flashingSequence.OnComplete(() => isFlashing = false);
     }
 
     private void OnCollisionEnter2D(Collision2D col)

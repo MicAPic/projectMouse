@@ -40,5 +40,5 @@ Material:
     m_Floats:
     - _ScrollSpeed: 1.5
     m_Colors:
-    - _Color: {r: 1.0471203, g: 1.0471203, b: 1.0471203, a: 0}
+    - _Color: {r: 1.5450981, g: 1.5450981, b: 1.5450981, a: 1}
   m_BuildTextureStacks: []

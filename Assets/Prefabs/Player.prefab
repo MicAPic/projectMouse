@@ -74,8 +74,8 @@ GameObject:
   - component: {fileID: 698593812946203268}
   - component: {fileID: 850536991069671572}
   - component: {fileID: 8952843269107361336}
-  - component: {fileID: 7434023018259043841}
   - component: {fileID: 8826732396876333723}
+  - component: {fileID: 7434023018259043841}
   - component: {fileID: 3271256376570281701}
   - component: {fileID: 1123920823241408131}
   - component: {fileID: 6155732157354364031}
@@ -148,9 +148,36 @@ MonoBehaviour:
   damageToDeal: 50
   bulletScaleModifier: 1
   shootingPoint: {fileID: 1490496431234418896}
+  isFlashing: 0
+  flashingColour: {r: 0.3018868, g: 0.3018868, b: 0.3018868, a: 1}
   invincibilityMaterial: {fileID: 2100000, guid: ea6c48cbc3ecbbe4998c4a5b3d3d6a5f, type: 2}
   enemyLayer: 6
   enemyBulletLayer: 8
+--- !u!114 &8826732396876333723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 698593812946203270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f1b33aeb3cf4cfdb640ac041ee0f671, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthPoints: 120
+  defenceModifier: 1
+  criticalThreshold: 0.1
+  canDie: 1
+  heartPrefab: {fileID: 2597685922690783564, guid: cdd48978a25414543bd59954d7ac8a8f, type: 3}
+  heartSprite: {fileID: 21300000, guid: 84f3075cf66c3ce4ca660e8dcd62af79, type: 3}
+  brokenHeartSprite: {fileID: 21300000, guid: 6005f3860deab974bb218f7d6f264540, type: 3}
+  heartsContainer: {fileID: 3938784664135768920}
+  shakeDuration: 0.485
+  shakeStrength: {x: 0, y: 0.75}
+  shakeVibratio: 50
+  shakeRandomness: 0
+  intervalBetweenHeartFills: 0.5
 --- !u!114 &7434023018259043841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,31 +208,6 @@ MonoBehaviour:
   m_DefaultActionMap: InGame
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &8826732396876333723
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 698593812946203270}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f1b33aeb3cf4cfdb640ac041ee0f671, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthPoints: 120
-  defenceModifier: 1
-  criticalThreshold: 0.1
-  canDie: 1
-  heartPrefab: {fileID: 2597685922690783564, guid: cdd48978a25414543bd59954d7ac8a8f, type: 3}
-  heartSprite: {fileID: 21300000, guid: 84f3075cf66c3ce4ca660e8dcd62af79, type: 3}
-  brokenHeartSprite: {fileID: 21300000, guid: 6005f3860deab974bb218f7d6f264540, type: 3}
-  heartsContainer: {fileID: 3938784664135768920}
-  shakeDuration: 0.485
-  shakeStrength: {x: 0, y: 0.75}
-  shakeVibratio: 50
-  shakeRandomness: 0
-  intervalBetweenHeartFills: 0.5
 --- !u!66 &3271256376570281701
 CompositeCollider2D:
   m_ObjectHideFlags: 0

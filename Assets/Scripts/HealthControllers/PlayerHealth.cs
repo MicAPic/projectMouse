@@ -64,12 +64,12 @@ namespace HealthControllers
             }
         }
 
-        public void GrantInvincibility(float duration)
+        public void GrantInvincibility(float duration, float flashingTime)
         {
             PlayerController.Instance.ToggleInvincibilityMaterial();
             defenceModifier = 0.0f;
             
-            StartCoroutine(WaitAndDisableInvincibility(duration));
+            StartCoroutine(WaitAndDisableInvincibility(duration, flashingTime));
         }
 
         public void FullHeal()
@@ -172,9 +172,12 @@ namespace HealthControllers
             _currentBrokenHearts.Add(heartToBreak);
         }
 
-        private IEnumerator WaitAndDisableInvincibility(float effectTime)
+        private IEnumerator WaitAndDisableInvincibility(float effectTime, float flashingTime)
         {
-            yield return new WaitForSeconds(effectTime);
+            yield return new WaitForSeconds(effectTime - flashingTime);
+            
+            PlayerController.Instance.ActivateFlashing(flashingTime);
+            yield return new WaitUntil(() => PlayerController.Instance.isFlashing == false);
             
             PlayerController.Instance.ToggleInvincibilityMaterial();
             defenceModifier = 1.0f;
