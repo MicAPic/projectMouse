@@ -43,6 +43,14 @@ public class Bullet : MonoBehaviour
         gameObject.SetActive(true);
     }
 
+    public void EnableBulletForce(Vector3 direction, float firePower)
+    {
+        var normalizedDirection = (Vector2)direction;
+        normalizedDirection.Normalize();
+
+        _rb.AddForce(normalizedDirection * firePower, ForceMode2D.Impulse);
+    }
+
     private void Disable()
     {
         BulletPool.Instance.ObjectPools[poolIndex].Enqueue(this);

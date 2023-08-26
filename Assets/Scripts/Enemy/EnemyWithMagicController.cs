@@ -70,13 +70,14 @@ namespace Enemy
                 }
                 if(!_bullets[_currentBulletIndex].gameObject.activeSelf)
                 {
+                    Debug.Log("make bullet null");
                     _bullets[_currentBulletIndex] = null;
                     ++_currentBulletIndex;
                     return;
                 }
                 
                 Vector3 direction = PlayerController.Instance.transform.position - _bullets[_currentBulletIndex].transform.position;
-                _bullets[_currentBulletIndex].Enable(direction, _firePower, damageToDeal);
+                _bullets[_currentBulletIndex].EnableBulletForce(direction, _firePower);
                 _bullets[_currentBulletIndex] = null;
                 ++_currentBulletIndex;
             }
@@ -90,7 +91,7 @@ namespace Enemy
                 if (_bullets[i] != null)
                 {
                     Vector3 direction = PlayerController.Instance.transform.position - _bullets[i].transform.position;
-                    _bullets[i].Enable(direction, _firePower, damageToDeal);
+                    _bullets[i].EnableBulletForce(direction, _firePower);
                 }
             }
         }
