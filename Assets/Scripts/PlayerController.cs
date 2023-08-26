@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using DG.Tweening;
 using HealthControllers;
+using UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -51,7 +52,9 @@ public class PlayerController : MonoBehaviour
     private int enemyBulletLayer = 8;
     private int _playerLayer;
     
-    private PlayerInput _playerInput;
+    [Header("Input")]
+    public PlayerInput playerInput;
+    
     private Rigidbody2D _rb;
 
     void Awake()
@@ -64,7 +67,7 @@ public class PlayerController : MonoBehaviour
 
         Instance = this;
         
-        _playerInput = GetComponent<PlayerInput>();
+        playerInput = GetComponent<PlayerInput>();
         _rb = GetComponent<Rigidbody2D>();
         _sprite = GetComponentInChildren<SpriteRenderer>();
         _defaultMaterial = _sprite.material;
@@ -86,8 +89,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.Instance.isGameOver) return;
-        
+        if (GameManager.isGameOver || GameManager.isPaused) return;
+
         // Animation
         // if (_playerInput.actions["Move"].WasPressedThisFrame())
         // {
@@ -99,11 +102,11 @@ public class PlayerController : MonoBehaviour
         // }
         
         // Input processing
-        if (_playerInput.actions["Shoot"].IsPressed() && Time.time - _lastFireTime >= fireRate)
+        if (playerInput.actions["Shoot"].IsPressed() && Time.time - _lastFireTime >= fireRate)
         {
             Shoot();
         }
-        if (_playerInput.actions["Dodge"].WasPressedThisFrame())
+        if (playerInput.actions["Dodge"].WasPressedThisFrame())
         {
             _lastDodgePressedTime = Time.time;
         }

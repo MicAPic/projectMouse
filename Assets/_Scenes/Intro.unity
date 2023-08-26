@@ -326,6 +326,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f40b61363b3d4324a9a93a3e90dc9e06, type: 3}
+--- !u!1 &480293529 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6233966915742074666, guid: f40b61363b3d4324a9a93a3e90dc9e06, type: 3}
+  m_PrefabInstance: {fileID: 480293528}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &606873516
 GameObject:
   m_ObjectHideFlags: 0
@@ -881,6 +886,10 @@ PrefabInstance:
       propertyPath: textSpeed
       value: 0.08
       objectReference: {fileID: 0}
+    - target: {fileID: 1712110737716987400, guid: e0707c2f71fad46a99c31447665bf212, type: 3}
+      propertyPath: eventSystem
+      value: 
+      objectReference: {fileID: 480293529}
     - target: {fileID: 1712110737716987400, guid: e0707c2f71fad46a99c31447665bf212, type: 3}
       propertyPath: dialogueText
       value: 

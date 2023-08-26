@@ -11,7 +11,6 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     
     [Header("Input")]
-    public PlayerInput[] playerInputs;
     public InputAction pauseInputAction;
 
     [Header("UI")] 
@@ -26,8 +25,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private string publicKey;
 
-    public bool isGameOver;
-    private bool _isPaused;
+    public static bool isGameOver;
+    public static bool isPaused;
     private int _highScore;
 
     void Awake()
@@ -40,7 +39,6 @@ public class GameManager : MonoBehaviour
 
         Instance = this;
         
-        playerInputs = FindObjectsOfType<PlayerInput>();
         pauseInputAction.performed += _ => TogglePauseScreen();
         
         _highScore = PlayerPrefs.GetInt("HighScore", 0);
@@ -51,29 +49,24 @@ public class GameManager : MonoBehaviour
         pauseInputAction.Enable();
     }
 
-    // Start is called before the first frame update
-    // void Start()
-    // {
-    //     
-    // }
-
-    // Update is called once per frame
-    // void Update()
-    // {
-    //     
-    // }
+    void OnDisable()
+    {
+        pauseInputAction.Disable();
+    }
 
     public void Pause()
     {
-        playerInputs[0].enabled = false;
+        PlayerController.Instance.playerInput.enabled = false;
 
         Time.timeScale = 0.0f;
         CameraController.Instance.focusPoint = 0.0f;
+        
+        ui.cancelButton.Select();
     }
     
     public void Unpause()
     {
-        playerInputs[0].enabled = true;
+        PlayerController.Instance.playerInput.enabled = true;
 
         Time.timeScale = 1.0f;
         CameraController.Instance.focusPoint = CameraController.Instance.defaultFocusPoint;
@@ -116,6 +109,23 @@ public class GameManager : MonoBehaviour
         PingLeaderboard();
     }
 
+    public void TogglePauseScreen()
+    {
+        if (ExperienceManager.Instance.isLevelingUp) return;
+        
+        isPaused = !isPaused;
+        ui.pauseScreen.SetActive(isPaused);
+
+        if (isPaused)
+        {
+            Pause();
+        }
+        else
+        {
+            Unpause();
+        }
+    }
+
     public void SubmitHighScore()
     {
         var nickname = ui.nicknameInputField.text;
@@ -137,23 +147,6 @@ public class GameManager : MonoBehaviour
                 ui.ToggleButtons(true);
                 ui.ToggleOfflineMode();
             });
-    }
-
-    private void TogglePauseScreen()
-    {
-        if (ExperienceManager.Instance.isLevelingUp) return;
-        
-        _isPaused = !_isPaused;
-        ui.pauseScreen.SetActive(_isPaused);
-
-        if (_isPaused)
-        {
-            Pause();
-        }
-        else
-        {
-            Unpause();
-        }
     }
 
     private void PingLeaderboard()

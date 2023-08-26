@@ -127,7 +127,7 @@ public class ExperienceManager : MonoBehaviour
 
     private void LevelUp()
     {
-        if (isLevelingUp || GameManager.Instance.isGameOver) return;
+        if (isLevelingUp || GameManager.isGameOver) return;
         isLevelingUp = true;
         
         experienceBarFill.fillAmount = 0.0f;
