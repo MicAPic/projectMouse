@@ -90,6 +90,9 @@ namespace Enemy
 
         protected float _lastFireTime = 0f;
         protected abstract void Shoot();
+
+        protected bool _firstShoot = true;
+        protected float _blunderAngel = 30;
         private void CheckToShoot()
         {
             if (Time.time - _lastFireTime <= _fireTemp || 

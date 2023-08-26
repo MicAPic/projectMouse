@@ -16,6 +16,11 @@ namespace Enemy
 
             Vector3 direction = PlayerController.Instance.transform.position - sPosition;
             direction.Normalize();
+            if (_firstShoot)
+            {
+                direction = Quaternion.AngleAxis(_blunderAngel, Vector3.forward) * direction;
+                _firstShoot = false;
+            }
             Vector3 leftDirection = Quaternion.AngleAxis(Random.Range(5f, _shootAngel), Vector3.forward) * direction;
             Vector3 rightDirection = Quaternion.AngleAxis(-Random.Range(5f, _shootAngel), Vector3.forward) * direction;
 
