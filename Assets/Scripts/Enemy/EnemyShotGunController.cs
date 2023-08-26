@@ -8,9 +8,6 @@ namespace Enemy
         [SerializeField] private float _shootAngel = 20;
         protected override void Shoot()
         {
-            if (Time.time - _lastFireTime <= _fireTemp  || _currentState is State.RETREAT or State.PATROL or State.BEHINDCAMERA)
-                return;
-
             var bullet = BulletPool.Instance.GetBulletFromPool(1);
             var leftBullet = BulletPool.Instance.GetBulletFromPool(1);
             var rightBullet = BulletPool.Instance.GetBulletFromPool(1);
@@ -30,9 +27,6 @@ namespace Enemy
 
             rightBullet.transform.position = sPosition;
             rightBullet.Enable(rightDirection, _firePower, damageToDeal);
-
-            _lastFireTime = Time.time;
-
         }
     }
 }

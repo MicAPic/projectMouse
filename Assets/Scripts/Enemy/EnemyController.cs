@@ -3,9 +3,8 @@ using UnityEngine.Serialization;
 
 namespace Enemy
 {
-    public class EnemyController : MonoBehaviour
+    public abstract class EnemyController : MonoBehaviour
     {
-
         public float experiencePointWorth = 10f;
         public float damageToDeal = 34f;
         
@@ -14,6 +13,12 @@ namespace Enemy
         protected Rigidbody2D _rigidbody;
 
         private PointEffector2D _pointEffector;
+
+        [Header("Animation & Visuals")]
+        [SerializeField]
+        private SpriteRenderer _spriteRenderer;
+        private Animator _animator;
+        private static readonly int Attack = Animator.StringToHash("Attack");
 
         protected float _playerDistance;
         protected enum State
@@ -47,14 +52,14 @@ namespace Enemy
         [SerializeField]
         private float _retreatSpeed = 20f;
 
-
-
         private Vector3 _startTargetDirection;
     
         protected virtual void Awake()
         {
             _pointEffector = GetComponent<PointEffector2D>();
             _rigidbody = GetComponent<Rigidbody2D>();
+            _animator = GetComponentInChildren<Animator>();
+            
         }
 
         private int _randRotationDir;
@@ -75,7 +80,7 @@ namespace Enemy
         protected virtual void Update()
         {
             _playerDistance = Vector2.Distance(PlayerController.Instance.transform.position, transform.position);
-            Shoot();
+            CheckToShoot();
         }
 
         private void FixedUpdate()
@@ -83,10 +88,20 @@ namespace Enemy
             Move();
         }
 
-
         protected float _lastFireTime = 0f;
+        protected abstract void Shoot();
+        private void CheckToShoot()
+        {
+            if (Time.time - _lastFireTime <= _fireTemp || 
+                _currentState is State.RETREAT or State.PATROL or State.BEHINDCAMERA)
+            {
+                return;
+            }
 
-
+            Shoot();
+            _animator.SetTrigger(Attack);
+            _lastFireTime = Time.time;
+        }
 
         private void Move()
         {
@@ -143,6 +158,9 @@ namespace Enemy
                     _rigidbody.velocity = (PlayerController.Instance.transform.position - transform.position).normalized * -_retreatSpeed;
                     break;
             }
+
+            // Flip the sprite towards Mouse
+            _spriteRenderer.flipX = _rigidbody.velocity.x < 0;
         }
 
         private float _targetPositionRotationSpeed = 100f;
@@ -153,31 +171,10 @@ namespace Enemy
                 _randRotationDir * _targetPositionRotationSpeed * Time.deltaTime, 
                 PlayerController.Instance.transform.forward) * _startTargetDirection;
         }
+
         private Vector3 FindTargetPosition()
         {
             return PlayerController.Instance.transform.position + _startTargetDirection;
         }
-    
-        protected virtual void Shoot()
-        {
-            if (Time.time - _lastFireTime <= _fireTemp || 
-                _currentState is State.RETREAT or State.PATROL or State.BEHINDCAMERA)
-            {
-                return;
-            }
-
-            var bullet = BulletPool.Instance.GetBulletFromPool(1);
-            var sPosition = _shootingPoint.transform.position;
-
-            Vector3 direction = (PlayerController.Instance.transform.position - sPosition).normalized;
-
-            bullet.transform.position = sPosition;
-            bullet.Enable(direction, _firePower, damageToDeal);
-            _lastFireTime = Time.time;
-        }
-
-
-       
-
     }
 }
