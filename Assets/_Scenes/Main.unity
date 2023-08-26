@@ -670,6 +670,7 @@ MonoBehaviour:
   _simpleEnemyPrefab: {fileID: 2386241474200903772, guid: 8e3aff5e8f96e2d43ae86c843814195c, type: 3}
   _shotGunEnemyPrefab: {fileID: 2647684583350146803, guid: 017275d6812a57c408f3a1b3728954a6, type: 3}
   _magicEnemyPrefab: {fileID: 5252557544126129373, guid: bd762f34b6ee7274a98dd00bbe7b5c0b, type: 3}
+  _enemyWithMachineGun: {fileID: 5416103653858754158, guid: d7de91a298479d648a46b3e54ac96254, type: 3}
   _maxEnemiesOnLevel:
     serializedVersion: 2
     m_Curve:

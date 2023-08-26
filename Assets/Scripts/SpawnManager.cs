@@ -13,6 +13,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private GameObject _simpleEnemyPrefab;
     [SerializeField] private GameObject _shotGunEnemyPrefab;
     [SerializeField] private GameObject _magicEnemyPrefab;
+    [SerializeField] private GameObject _enemyWithMachineGun;
 
     [Header("Balance Curves")]
     [SerializeField] private AnimationCurve _maxEnemiesOnLevel;
@@ -46,6 +47,7 @@ public class SpawnManager : MonoBehaviour
 
     private float _firstChanceBound = 0.5f;
     private float _secondChanceBound = 0.75f;
+    private float _thirdChanceBound = 0.9f;
 
     private BoxCollider2D[] _spawnCheckArray = new BoxCollider2D[1];
     private bool _stableLevel = false;
@@ -64,17 +66,27 @@ public class SpawnManager : MonoBehaviour
             {
                 _firstChanceBound = 1;
                 _secondChanceBound = 1;
+                _thirdChanceBound = 1;
             }
             
             if (ExperienceManager.Instance.GetCurrentLevel() == 3)
             {
                 _firstChanceBound = 0.5f;
-                _secondChanceBound = 0.5f;
+                _secondChanceBound = 1f;
+                _thirdChanceBound = 1;
             }
             if (ExperienceManager.Instance.GetCurrentLevel() == 6)
             {
                 _firstChanceBound = 0.5f;
                 _secondChanceBound = 0.75f;
+                _thirdChanceBound = 1;
+            }
+            
+            if(ExperienceManager.Instance.GetCurrentLevel() == 8)
+            {
+                _firstChanceBound = 0.4f;
+                _secondChanceBound = 0.6f;
+                _thirdChanceBound = 0.8f;
                 _stableLevel = true;
             }
         }
@@ -95,27 +107,42 @@ public class SpawnManager : MonoBehaviour
                 if (Physics2D.OverlapBoxNonAlloc(_spawnPosition, _simpleEnemyPrefab.GetComponent<BoxCollider2D>().size, 0f, _spawnCheckArray, _obstacleToSpawn.value) > 0)
                     return;
                 Instantiate(_simpleEnemyPrefab, playerTransfrom.position + _currentSpawnDirection, Quaternion.identity);
-                _firstChanceBound -= 0.01f;
-                _secondChanceBound -= 0.005f;
+                BoundsMove(-0.03f, -0.02f, -0.01f);
             }
-            else if (chance > _secondChanceBound)
+            else if (chance > _firstChanceBound && chance <= _secondChanceBound)
             {
                 if (Physics2D.OverlapBoxNonAlloc(_spawnPosition, _magicEnemyPrefab.GetComponent<BoxCollider2D>().size, 0f, _spawnCheckArray, _obstacleToSpawn.value) > 0)
                     return;
                 Instantiate(_magicEnemyPrefab, playerTransfrom.position + _currentSpawnDirection, Quaternion.identity);
-                _secondChanceBound += 0.01f;
-                _firstChanceBound += 0.005f;
+                BoundsMove(0.01f, -0.02f, -0.01f);
+            }
+            else if (chance > _thirdChanceBound)
+            {
+                if (Physics2D.OverlapBoxNonAlloc(_spawnPosition, _enemyWithMachineGun.GetComponent<BoxCollider2D>().size, 0f, _spawnCheckArray, _obstacleToSpawn.value) > 0)
+                    return;
+                Instantiate(_enemyWithMachineGun, playerTransfrom.position + _currentSpawnDirection, Quaternion.identity);
+                BoundsMove(0.01f, 0.02f, 0.03f);
             }
             else
             {
                 if (Physics2D.OverlapBoxNonAlloc(_spawnPosition, _shotGunEnemyPrefab.GetComponent<BoxCollider2D>().size, 0f, _spawnCheckArray, _obstacleToSpawn.value) > 0)
                     return;
                 Instantiate(_shotGunEnemyPrefab, playerTransfrom.position + _currentSpawnDirection, Quaternion.identity);
-                _firstChanceBound += 0.005f;
-                _secondChanceBound -= 0.005f;
+                BoundsMove(0.01f, 0.02f, -0.01f);
             }
             ++EnemyCount;
             _timeFromLastSpawn = Time.time;
+        }
+    }
+
+
+    private void BoundsMove(float x, float y, float z)
+    {
+        if (_stableLevel)
+        {
+            _firstChanceBound += x;
+            _secondChanceBound += y;
+            _thirdChanceBound += z;
         }
     }
 
