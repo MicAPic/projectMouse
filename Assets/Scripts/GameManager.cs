@@ -60,8 +60,6 @@ public class GameManager : MonoBehaviour
 
         Time.timeScale = 0.0f;
         CameraController.Instance.focusPoint = 0.0f;
-        
-        ui.cancelButton.Select();
     }
     
     public void Unpause()
@@ -119,6 +117,7 @@ public class GameManager : MonoBehaviour
         if (isPaused)
         {
             Pause();
+            ui.cancelButton.Select();
         }
         else
         {

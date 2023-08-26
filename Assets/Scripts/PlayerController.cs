@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using DG.Tweening;
 using HealthControllers;
-using UI;
+using UnityEditor.U2D.Aseprite;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -34,13 +34,16 @@ public class PlayerController : MonoBehaviour
     private Transform shootingPoint;
     private float _lastFireTime;
 
-    [Header("Animation")]
+    [Header("Visuals & Animation")]
     public bool isFlashing;
     [SerializeField]
-    private Color flashingColour;
+    private Color powerUpFlashingColour;
     [SerializeField]
     private Material invincibilityMaterial;
     private Material _defaultMaterial;
+    
+    [SerializeField]
+    private SpriteRenderer dropShadow;
     private List<SpriteRenderer> _trailElementSprites  = new();
     private SpriteRenderer _sprite;
     private bool _isInvincible;
@@ -160,18 +163,63 @@ public class PlayerController : MonoBehaviour
         _sprite.material = _isInvincible ? invincibilityMaterial : _defaultMaterial;
     }
     
-    public void ActivateFlashing(float duration, int noOfFlashes=3)
+    public void ActivateFlashing(float duration, int noOfFlashes=3, bool isPowerUp=true)
     {
         isFlashing = true;
         var individualFlashTime = duration / noOfFlashes;
         var flashingSequence = DOTween.Sequence();
-        var defaultMatColour = invincibilityMaterial.color;
-
-        flashingSequence.AppendCallback(() => _sprite.material.color = flashingColour);
-        flashingSequence.Append(_sprite.material.DOColor(defaultMatColour, individualFlashTime));
+        
+        var flashingColour = isPowerUp ? powerUpFlashingColour : Color.clear;
+        var defaultMatColour = isPowerUp ? invincibilityMaterial.color : Color.white;
+        var trailDefaultColours = new Color[3];
+        
+        if (isPowerUp)
+        {
+            // Colour the sprite gray; pulsate
+            flashingSequence.AppendCallback(() => _sprite.material.color = flashingColour);
+            flashingSequence.Append(_sprite.material.DOColor(defaultMatColour, individualFlashTime));
+        }
+        else
+        {
+            // Colour the sprite Color.clear; flash
+            for (var i = 0; i < _trailElementSprites.Count; i++)
+            {
+                trailDefaultColours[i] = _trailElementSprites[i].color;
+            }
+            
+            flashingSequence.AppendCallback(() =>
+            {
+                _sprite.material.color = flashingColour;
+                for (var i = 0; i < _trailElementSprites.Count; i++)
+                {
+                    _trailElementSprites[i].color = flashingColour;
+                }
+                dropShadow.gameObject.SetActive(false);
+            });
+            flashingSequence.AppendInterval(individualFlashTime / 2);
+            flashingSequence.AppendCallback(() =>
+            {
+                _sprite.material.color = defaultMatColour;
+                for (var i = 0; i < _trailElementSprites.Count; i++)
+                {
+                    _trailElementSprites[i].color = trailDefaultColours[i];
+                }
+                dropShadow.gameObject.SetActive(true);
+            });
+            flashingSequence.AppendInterval(individualFlashTime / 2);
+        }
         flashingSequence.SetLoops(noOfFlashes);
 
-        flashingSequence.OnComplete(() => isFlashing = false);
+        flashingSequence.OnComplete(() =>
+        {
+            isFlashing = false;
+            if (isPowerUp) return;
+
+            for (var i = 0; i < _trailElementSprites.Count; i++)
+            {
+                _trailElementSprites[i].color = trailDefaultColours[i];
+            }
+        });
     }
 
     private void Shoot()
