@@ -114,8 +114,12 @@ namespace Enemy
                     ++_currentBulletIndex;
                     return;
                 }
-                
                 Vector3 direction = PlayerController.Instance.transform.position - _bullets[_currentBulletIndex].transform.position;
+                if (_firstShoot)
+                {
+                    direction = Quaternion.AngleAxis(_blunderAngel, Vector3.forward) * direction;
+                    _firstShoot = false;
+                }
                 _bullets[_currentBulletIndex].EnableBulletForce(direction, _firePower);
                 _bullets[_currentBulletIndex] = null;
                 ++_currentBulletIndex;
