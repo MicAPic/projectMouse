@@ -100,7 +100,6 @@ namespace Enemy
 
             Shoot();
             _animator.SetTrigger(Attack);
-            _lastFireTime = Time.time;
         }
 
         private void Move()

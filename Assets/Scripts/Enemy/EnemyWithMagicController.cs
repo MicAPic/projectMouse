@@ -120,6 +120,8 @@ namespace Enemy
                 _bullets[_currentBulletIndex] = null;
                 ++_currentBulletIndex;
             }
+            
+            _lastFireTime = Time.time;
         }
 
         public void EnableAllBullets()

@@ -13,6 +13,8 @@ namespace Enemy
 
             bullet.transform.position = sPosition;
             bullet.Enable(direction, _firePower, damageToDeal);
+            
+            _lastFireTime = Time.time;
         }
     }
 }

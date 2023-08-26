@@ -27,6 +27,8 @@ namespace Enemy
 
             rightBullet.transform.position = sPosition;
             rightBullet.Enable(rightDirection, _firePower, damageToDeal);
+            
+            _lastFireTime = Time.time;
         }
     }
 }
