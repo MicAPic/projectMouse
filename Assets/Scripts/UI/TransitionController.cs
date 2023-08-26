@@ -42,6 +42,10 @@ namespace UI
                 .OnComplete(() =>
                 {
                     SceneManager.LoadScene(sceneToLoad);
+
+                    GameManager.isPaused = false;
+                    GameManager.isGameOver = false;
+                    
                     if (Time.timeScale < 1.0f)
                     {
                         Time.timeScale = 1.0f;

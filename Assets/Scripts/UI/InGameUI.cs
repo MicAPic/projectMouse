@@ -7,7 +7,11 @@ namespace UI
 {
     public class InGameUI : UI
     {
+        [Header("Pause")]
         public GameObject pauseScreen;
+        public Button cancelButton;
+
+        [Header("Game Over")]
         public GameObject gameOverScreen;
         public TMP_Text scoreText;
         public TMP_Text highScoreText;
@@ -19,7 +23,7 @@ namespace UI
         [SerializeField]
         private LeaderboardEntry[] leaderboardEntries;
 
-        void Start()
+        protected virtual void Start()
         {
             nicknameInputField.onSubmit.AddListener(_ => GameManager.Instance.SubmitHighScore());
             buttons[0].onClick.AddListener(GameManager.Instance.SubmitHighScore);
@@ -55,6 +59,11 @@ namespace UI
                     leaderboardEntries[i].PopulateEntryFields(entries[i].Username, entries[i].Score);
                 }
             });
+        }
+
+        public virtual void UnpauseGame()
+        {
+            GameManager.Instance.TogglePauseScreen();
         }
     }
 }

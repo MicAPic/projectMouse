@@ -147,10 +147,12 @@ MonoBehaviour:
   bulletScaleModifier: 1
   shootingPoint: {fileID: 1490496431234418896}
   isFlashing: 0
-  flashingColour: {r: 0.3018868, g: 0.3018868, b: 0.3018868, a: 1}
+  powerUpFlashingColour: {r: 0.3, g: 0.3, b: 0.3, a: 1}
   invincibilityMaterial: {fileID: 2100000, guid: ea6c48cbc3ecbbe4998c4a5b3d3d6a5f, type: 2}
+  dropShadow: {fileID: 2367274219943639513}
   enemyLayer: 6
   enemyBulletLayer: 8
+  playerInput: {fileID: 0}
 --- !u!114 &8826732396876333723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,6 +167,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthPoints: 120
   defenceModifier: 1
+  hitInvincibilityDuration: 0.5
   criticalThreshold: 0.1
   canDie: 1
   heartPrefab: {fileID: 2597685922690783564, guid: cdd48978a25414543bd59954d7ac8a8f, type: 3}

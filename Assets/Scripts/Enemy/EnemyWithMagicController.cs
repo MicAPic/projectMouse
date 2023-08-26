@@ -95,8 +95,6 @@ namespace Enemy
         private int _currentBulletIndex = 0;
         protected override void Shoot()
         {
-            if (Time.time - _lastFireTime <= _fireTemp  || _currentState is State.RETREAT or State.PATROL or State.BEHINDCAMERA)
-                return;
             if (_currentBulletIndex >= _bullets.Capacity)
             {
                 SetUpBullets();
@@ -122,7 +120,6 @@ namespace Enemy
                 _bullets[_currentBulletIndex] = null;
                 ++_currentBulletIndex;
             }
-            _lastFireTime = Time.time;
         }
 
         public void EnableAllBullets()

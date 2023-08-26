@@ -13,6 +13,10 @@ namespace HealthControllers
         [Header("HP")]
         public float defenceModifier = 1.0f;
         public float MaxHealth { get; private set; }
+
+        [Tooltip("For how long the player is going to be invincible after taking damage (in seconds)")]
+        [SerializeField] 
+        private float hitInvincibilityDuration = 1.0f;
         
         [SerializeField] 
         [Tooltip("Everything below this percentage is considered low HP")]
@@ -64,12 +68,12 @@ namespace HealthControllers
             }
         }
 
-        public void GrantInvincibility(float duration, float flashingTime)
+        public void GrantInvincibility(float duration, float flashingTime, bool isPowerUp=true)
         {
-            PlayerController.Instance.ToggleInvincibilityMaterial();
+            if (isPowerUp) PlayerController.Instance.ToggleInvincibilityMaterial();
             defenceModifier = 0.0f;
             
-            StartCoroutine(WaitAndDisableInvincibility(duration, flashingTime));
+            StartCoroutine(WaitAndDisableInvincibility(duration, flashingTime, isPowerUp));
         }
 
         public void FullHeal()
@@ -110,6 +114,7 @@ namespace HealthControllers
 
         public override void TakeDamage(float damagePoints)
         {
+            CameraShaker.Presets.Explosion2D(rotationStrength:0.1f);
             if (defenceModifier <= 0.0f) return;
             
             if (_fullHealSequence is { active: true })
@@ -138,9 +143,10 @@ namespace HealthControllers
                 );
             }
             
-            CameraShaker.Presets.Explosion2D(rotationStrength:0.1f);
+            // Post-hit invincibility:
+            GrantInvincibility(hitInvincibilityDuration, hitInvincibilityDuration, false);
 
-            if (healthPoints <= criticalThreshold * MaxHealth && !_inCriticalCondition && !GameManager.Instance.isGameOver)
+            if (healthPoints <= criticalThreshold * MaxHealth && !_inCriticalCondition && !GameManager.isGameOver)
             {
                 ChatManager.Instance.ToggleCriticalHealthChatInfo();
                 _inCriticalCondition = true;
@@ -172,14 +178,14 @@ namespace HealthControllers
             _currentBrokenHearts.Add(heartToBreak);
         }
 
-        private IEnumerator WaitAndDisableInvincibility(float effectTime, float flashingTime)
+        private IEnumerator WaitAndDisableInvincibility(float effectTime, float flashingTime, bool isPowerUp=true)
         {
             yield return new WaitForSeconds(effectTime - flashingTime);
             
-            PlayerController.Instance.ActivateFlashing(flashingTime);
+            PlayerController.Instance.ActivateFlashing(flashingTime, isPowerUp: isPowerUp);
             yield return new WaitUntil(() => PlayerController.Instance.isFlashing == false);
             
-            PlayerController.Instance.ToggleInvincibilityMaterial();
+            if (isPowerUp) PlayerController.Instance.ToggleInvincibilityMaterial();
             defenceModifier = 1.0f;
         }
     }

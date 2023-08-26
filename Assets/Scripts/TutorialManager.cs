@@ -11,8 +11,6 @@ public class TutorialManager : TextManager
     [SerializeField]
     private PlayerInput playerInput;
     [SerializeField]
-    private GameObject eventSystem;
-    [SerializeField]
     private GameObject miguelPrefab;
     [SerializeField]
     private Transform miguelSpawnPoint;

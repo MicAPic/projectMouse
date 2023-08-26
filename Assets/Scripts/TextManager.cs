@@ -8,6 +8,8 @@ using UnityEngine;
 public class TextManager : MonoBehaviour
 {
     public static TextManager Instance { get; private set; }
+    
+    public GameObject eventSystem;
 
     [Header("Parameters")] 
     [SerializeField]
@@ -117,6 +119,11 @@ public class TextManager : MonoBehaviour
 
         for (var i = 0; i < _maxLineLength; i++)
         {
+            if (GameManager.isPaused)
+            {
+                yield return new WaitUntil(() => !GameManager.isPaused);
+            }
+            
             // rich text
             switch (dialogueText.text[i])
             {
