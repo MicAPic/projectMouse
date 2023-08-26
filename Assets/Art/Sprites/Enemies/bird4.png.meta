@@ -6,7 +6,7 @@ TextureImporter:
   serializedVersion: 12
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 0
+    enableMipMap: 1
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -110,7 +110,7 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 36
+        width: 44
         height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -129,9 +129,9 @@ TextureImporter:
       name: bird4_1
       rect:
         serializedVersion: 2
-        x: 36
+        x: 44
         y: 0
-        width: 36
+        width: 44
         height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -140,7 +140,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ce6c8df4cf59543308f8b62699dc9c9c
+      spriteID: 86d8fb7f70ad74155a8254c976c6f775
       internalID: -1115765223
       vertices: []
       indices: 
