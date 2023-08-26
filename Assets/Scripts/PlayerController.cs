@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using DG.Tweening;
 using HealthControllers;
-using UnityEditor.U2D.Aseprite;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
