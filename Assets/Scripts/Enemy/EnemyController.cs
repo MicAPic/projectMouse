@@ -11,7 +11,7 @@ namespace Enemy
         [SerializeField] 
         protected Transform shootingPoint;
         [SerializeField] protected float _firePower = 20;
-        protected Rigidbody2D _rigidbody;
+        private Rigidbody2D _rigidbody;
         private Vector3 _defaultShootingPointPos;
         private Vector3 _reversedShootingPointPos;
 
@@ -20,10 +20,14 @@ namespace Enemy
         [Header("Animation & Visuals")]
         [SerializeField]
         private SpriteRenderer _spriteRenderer;
+        // Sprite flipping:
+        [SerializeField]
+        private float minSpeedToFlip = 5f;
+        //
         private Animator _animator;
         private static readonly int Attack = Animator.StringToHash("Attack");
 
-        protected float _playerDistance;
+        private float _playerDistance;
         protected enum State
         {
             BEHINDCAMERA,
@@ -78,7 +82,6 @@ namespace Enemy
 
             damageToDeal = SpawnManager.Instance != null ? SpawnManager.Instance.GetEnemyDamage() : 30.0f;
             _startTargetDirection = (transform.position - PlayerController.Instance.transform.position).normalized * _attackDistance;
-
         }
     
         // Update is called once per frame
@@ -159,7 +162,7 @@ namespace Enemy
                     if (_playerDistance > _retreatDistance)
                     {
                         _currentState = State.ATTACK;
-                        _rigidbody.velocity = Vector2.zero;
+                        // _rigidbody.velocity = Vector2.zero;
                         break;
                     }
                     _rigidbody.velocity = (PlayerController.Instance.transform.position - transform.position).normalized * -_retreatSpeed;
@@ -168,9 +171,8 @@ namespace Enemy
 
             // Flip the sprite towards Mouse
             var spriteFlipCheck = _rigidbody.velocity.x < 0;
-            if (_spriteRenderer.flipX == spriteFlipCheck) return;
-            _spriteRenderer.flipX = spriteFlipCheck;
-            shootingPoint.localPosition = spriteFlipCheck ? _reversedShootingPointPos : _defaultShootingPointPos;
+            if (_spriteRenderer.flipX == spriteFlipCheck || _rigidbody.velocity.magnitude < minSpeedToFlip) return;
+            Flip(spriteFlipCheck);
         }
 
         private float _targetPositionRotationSpeed = 100f;
@@ -185,6 +187,12 @@ namespace Enemy
         private Vector3 FindTargetPosition()
         {
             return PlayerController.Instance.transform.position + _startTargetDirection;
+        }
+
+        private void Flip(bool flip)
+        {
+            _spriteRenderer.flipX = flip;
+            shootingPoint.localPosition = flip ? _reversedShootingPointPos : _defaultShootingPointPos;
         }
     }
 }
