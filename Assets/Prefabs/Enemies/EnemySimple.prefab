@@ -54,7 +54,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   experiencePointWorth: 10
   damageToDeal: 34
-  _shootingPoint: {fileID: 2386241474583259510}
+  shootingPoint: {fileID: 2386241474583259510}
   _firePower: 20
   _spriteRenderer: {fileID: 8379860498506427517}
   _behindCameraSpeed: 25

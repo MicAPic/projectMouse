@@ -8,9 +8,12 @@ namespace Enemy
         public float experiencePointWorth = 10f;
         public float damageToDeal = 34f;
         
-        [SerializeField] protected Transform _shootingPoint;
+        [SerializeField] 
+        protected Transform shootingPoint;
         [SerializeField] protected float _firePower = 20;
         protected Rigidbody2D _rigidbody;
+        private Vector3 _defaultShootingPointPos;
+        private Vector3 _reversedShootingPointPos;
 
         private PointEffector2D _pointEffector;
 
@@ -60,6 +63,8 @@ namespace Enemy
             _rigidbody = GetComponent<Rigidbody2D>();
             _animator = GetComponentInChildren<Animator>();
             
+            _defaultShootingPointPos = shootingPoint.localPosition;
+            _reversedShootingPointPos = new Vector3(-_defaultShootingPointPos.x, _defaultShootingPointPos.y, 0);
         }
 
         private int _randRotationDir;
@@ -162,7 +167,10 @@ namespace Enemy
             }
 
             // Flip the sprite towards Mouse
-            _spriteRenderer.flipX = _rigidbody.velocity.x < 0;
+            var spriteFlipCheck = _rigidbody.velocity.x < 0;
+            if (_spriteRenderer.flipX == spriteFlipCheck) return;
+            _spriteRenderer.flipX = spriteFlipCheck;
+            shootingPoint.localPosition = spriteFlipCheck ? _reversedShootingPointPos : _defaultShootingPointPos;
         }
 
         private float _targetPositionRotationSpeed = 100f;
