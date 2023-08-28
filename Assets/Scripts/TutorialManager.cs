@@ -57,6 +57,7 @@ public class TutorialManager : TextManager
         });
         story.BindExternalFunction("EngendrarMiguel", () =>
         {
+            miguelSpawnPoint.gameObject.SetActive(false);
             _miguel = Instantiate(miguelPrefab, miguelSpawnPoint.position, Quaternion.identity);
         });
         story.BindExternalFunction("ActivarMiguel", () =>

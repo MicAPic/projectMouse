@@ -21,7 +21,7 @@ namespace Enemy
 
         [Header("Animation & Visuals")]
         [SerializeField]
-        private SpriteRenderer _spriteRenderer;
+        protected SpriteRenderer _spriteRenderer;
         [SerializeField]
         private SpriteRenderer _shadowRenderer;
         // Sprite flipping:
@@ -31,9 +31,9 @@ namespace Enemy
         private float damageFlashDuration = 0.2f;
         // Death animation:
         [SerializeField]
-        private Material dissolveMaterial;
+        protected Material dissolveMaterial;
         [SerializeField]
-        private float dissolveDuration = 0.5f;
+        protected float dissolveDuration = 0.5f;
         private Animator _animator;
         private static readonly int Attack = Animator.StringToHash("Attack");
 

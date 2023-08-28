@@ -89,7 +89,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2386241474200903767, guid: 8e3aff5e8f96e2d43ae86c843814195c, type: 3}
+    - {fileID: 2386241474200903763, guid: 8e3aff5e8f96e2d43ae86c843814195c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 8e3aff5e8f96e2d43ae86c843814195c, type: 3}
+--- !u!212 &3574051207885991753 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 5014196940695799635, guid: 8e3aff5e8f96e2d43ae86c843814195c, type: 3}
+  m_PrefabInstance: {fileID: 8363067058709047322}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6130020129079640428 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2386241474583259510, guid: 8e3aff5e8f96e2d43ae86c843814195c, type: 3}
+  m_PrefabInstance: {fileID: 8363067058709047322}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6130020129705232454 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2386241474200903772, guid: 8e3aff5e8f96e2d43ae86c843814195c, type: 3}
@@ -108,3 +119,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthPoints: 100
+--- !u!114 &3443793027086086893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6130020129705232454}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 722f0aa6dc7c4cecaa2008e3cec552b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  experiencePointWorth: 1
+  damageToDeal: 30
+  shootingPoint: {fileID: 6130020129079640428}
+  _firePower: 20
+  _spriteRenderer: {fileID: 3574051207885991753}
+  _shadowRenderer: {fileID: 6779208012490824151}
+  minSpeedToFlip: 5
+  dissolveMaterial: {fileID: 2100000, guid: a0cd91ac264414dc9b216007d84fd597, type: 2}
+  dissolveDuration: 1
+  _behindCameraSpeed: 25
+  _behindCameraDistance: 45
+  _chasingDistance: 25
+  _chasingMovementSpeed: 5
+  _attackDistance: 10
+  _fireTemp: 4
+  _retreatDistance: 5
+  _retreatSpeed: 12
+--- !u!212 &6779208012490824151 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 3034019784118301133, guid: 8e3aff5e8f96e2d43ae86c843814195c, type: 3}
+  m_PrefabInstance: {fileID: 8363067058709047322}
+  m_PrefabAsset: {fileID: 0}
