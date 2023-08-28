@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Bullets;
 using UnityEngine;
 
 public class BulletPool : MonoBehaviour

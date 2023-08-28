@@ -1,11 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerBullet : Bullet
+namespace Bullets
 {
-    private void OnBecameInvisible()
+    public class PlayerBullet : Bullet
     {
-        Disable();
+        private void OnBecameInvisible()
+        {
+            // Debug.Log("invisible");
+            Disable();
+        }
     }
 }
