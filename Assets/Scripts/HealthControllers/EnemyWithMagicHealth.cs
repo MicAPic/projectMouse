@@ -9,6 +9,15 @@ namespace HealthControllers
         {
             _enemyController = GetComponent<EnemyWithMagicController>();
         }
+        
+        public override void TakeDamage(float damagePoints)
+        {
+            base.TakeDamage(damagePoints);
+            if (healthPoints > 0)
+            {
+                _enemyController.Flash();
+            }
+        }
 
         protected override void Die()
         {

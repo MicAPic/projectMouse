@@ -27,6 +27,8 @@ namespace Enemy
         // Sprite flipping:
         [SerializeField]
         private float minSpeedToFlip = 5f;
+        // Damage animation:
+        private float damageFlashDuration = 0.2f;
         // Death animation:
         [SerializeField]
         private Material dissolveMaterial;
@@ -104,6 +106,12 @@ namespace Enemy
             Move();
         }
 
+        public void Flash()
+        {
+            _spriteRenderer.material.SetFloat("_FlashAmount", 40.0f);
+            _spriteRenderer.material.DOFloat(0.0f, "_FlashAmount", damageFlashDuration);
+        }
+
         public void Dissolve()
         {
             _shadowRenderer.DOFade(0.0f, dissolveDuration);
@@ -113,7 +121,7 @@ namespace Enemy
                 .OnComplete(() => Destroy(gameObject));
             _rigidbody.bodyType = RigidbodyType2D.Static;
             enabled = false;
-        } 
+        }
 
         protected float _lastFireTime = 0f;
         protected abstract void Shoot();
