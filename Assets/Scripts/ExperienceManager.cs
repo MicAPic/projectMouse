@@ -20,7 +20,7 @@ public class ExperienceManager : MonoBehaviour
     [SerializeField] 
     private List<GameObject> powerUps;
 
-    public Dictionary<GameObject, int> PowerUpsWithCounters;
+    public Dictionary<GameObject, float> PowerUpsWithCounters;
     public float TotalExperiencePoints { get; private set; }
 
     private int _currentLevel = 1;
@@ -67,7 +67,7 @@ public class ExperienceManager : MonoBehaviour
         {
             Debug.LogError("Not enough power-ups were added in the Editor");
         }
-        PowerUpsWithCounters = powerUps.ToDictionary(powerUp => powerUp, _ => 0);
+        PowerUpsWithCounters = powerUps.ToDictionary(powerUp => powerUp, _ => 0f);
     }
 
     // Start is called before the first frame update

@@ -7,6 +7,8 @@ namespace PowerUps
     {
         private Button _button;
 
+        [SerializeField] private float _coefficient = 1;
+
         protected virtual void Awake()
         {
             _button = GetComponent<Button>();
@@ -18,7 +20,7 @@ namespace PowerUps
                 foreach (var pair in ExperienceManager.Instance.PowerUpsWithCounters)
                 {
                     if (!pair.Key.name.Contains(powerUpName)) continue;
-                    ExperienceManager.Instance.PowerUpsWithCounters[pair.Key]++;
+                    ExperienceManager.Instance.PowerUpsWithCounters[pair.Key] += _coefficient;
                     return;
                 }
             });
