@@ -157,7 +157,7 @@ namespace UI
 
         private IEnumerator TransitionToChatInfo(ChatTextInfo chatTextInfo, float transitionTime, float newChatSpeed)
         {
-            yield return new WaitForSeconds(transitionTime);
+            yield return new WaitForSecondsRealtime(transitionTime);
             _currentCTI = chatTextInfo;
             commentDelay = newChatSpeed;
         }

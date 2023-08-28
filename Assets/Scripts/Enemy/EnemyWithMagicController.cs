@@ -2,8 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
 
-
-
 namespace Enemy
 {
     public class EnemyWithMagicController : EnemyController
@@ -31,7 +29,7 @@ namespace Enemy
             {
                 //Vector3 offset = Quaternion.Euler(0,0, (360 / _numberOfBullets) * i) * _mainRotationVector;
                 _bullets[i] = BulletPool.Instance.GetBulletFromPool(1);
-                _bullets[i].transform.position = _shootingPoint.position/* + offset*/;
+                _bullets[i].transform.position = shootingPoint.position/* + offset*/;
                 _bullets[i].EnableWithoutForce(damageToDeal);
             }
             _bulletsAnimFinished = false;
@@ -51,7 +49,7 @@ namespace Enemy
                 {
                     Vector3 offset = Quaternion.Euler(0, 0, (360 / _numberOfBullets) * i) * _mainRotationVector;
                     if (_bullets[i] != null) 
-                        _bullets[i].transform.position = Vector3.Lerp(_shootingPoint.position, _shootingPoint.position + offset, _timeFromStartBulletAnim / _animTimeScaler);
+                        _bullets[i].transform.position = Vector3.Lerp(shootingPoint.position, shootingPoint.position + offset, _timeFromStartBulletAnim / _animTimeScaler);
                     _timeFromStartBulletAnim += Time.deltaTime;
                 }
                 yield return null;
@@ -62,7 +60,7 @@ namespace Enemy
             {
                 Vector3 offset = Quaternion.Euler(0, 0, (360 / _numberOfBullets) * i) * _mainRotationVector;
                 if(_bullets[i] != null)
-                    _bullets[i].transform.position = _shootingPoint.position + offset;
+                    _bullets[i].transform.position = shootingPoint.position + offset;
             }
 
             _bulletsAnimFinished = true;
@@ -109,7 +107,7 @@ namespace Enemy
                 }
                 if(!_bullets[_currentBulletIndex].gameObject.activeSelf)
                 {
-                    Debug.Log("make bullet null");
+                    // Debug.Log("make bullet null");
                     _bullets[_currentBulletIndex] = null;
                     ++_currentBulletIndex;
                     return;

@@ -27,7 +27,8 @@ namespace HealthControllers
             ExperienceManager.Instance.AddExperience(_enemyController.experiencePointWorth);
             if (SpawnManager.Instance != null)
                 SpawnManager.Instance.EnemyDeath();
-            base.Die();
+            _enemyController.Dissolve();
+            enabled = false;
         }
     }
 }

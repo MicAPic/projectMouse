@@ -25,7 +25,7 @@ namespace Enemy
             yield return new WaitForSeconds(offset);
 
             var bullet = BulletPool.Instance.GetBulletFromPool(1);
-            var sPosition = _shootingPoint.transform.position;
+            var sPosition = shootingPoint.transform.position;
 
             bullet.transform.position = sPosition;
 
