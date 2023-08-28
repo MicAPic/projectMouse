@@ -56,7 +56,7 @@ namespace Enemy
     
         protected virtual void Awake()
         {
-            _pointEffector = GetComponent<PointEffector2D>();
+            _pointEffector = GetComponentInChildren<PointEffector2D>();
             _rigidbody = GetComponent<Rigidbody2D>();
             _animator = GetComponentInChildren<Animator>();
             
@@ -96,7 +96,7 @@ namespace Enemy
         private void CheckToShoot()
         {
             if (Time.time - _lastFireTime <= _fireTemp || 
-                _currentState is State.RETREAT or State.PATROL or State.BEHINDCAMERA)
+                _currentState is State.RETREAT || !_isVisible)
             {
                 return;
             }
@@ -166,6 +166,18 @@ namespace Enemy
         }
 
         private float _targetPositionRotationSpeed = 100f;
+
+        private bool _isVisible = false;
+
+        private void OnBecameVisible()
+        {
+            _isVisible = true;
+        }
+
+        private void OnBecameInvisible()
+        {
+            _isVisible = false;
+        }
 
         private void RotateTargetPositionVector()
         {

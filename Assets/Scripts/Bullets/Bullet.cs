@@ -23,6 +23,15 @@ public class Bullet : MonoBehaviour
         Disable();
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.TryGetComponent(out Health healthController) && healthController.enabled)
+        {
+            healthController.TakeDamage(damage);
+        }
+        Disable();
+    }
+
     public void Enable(Vector3 direction, float firePower, float damageToDeal, float scaleModifer=1.0f)
     {
         var normalizedDirection = (Vector2) direction;
@@ -51,7 +60,7 @@ public class Bullet : MonoBehaviour
         _rb.AddForce(normalizedDirection * firePower, ForceMode2D.Impulse);
     }
 
-    private void Disable()
+    protected void Disable()
     {
         BulletPool.Instance.ObjectPools[poolIndex].Enqueue(this);
         gameObject.SetActive(false);
