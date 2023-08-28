@@ -148,7 +148,10 @@ MonoBehaviour:
   shootingPoint: {fileID: 4064561053445706074}
   _firePower: 20
   _spriteRenderer: {fileID: 8247066976818017220}
+  _shadowRenderer: {fileID: 5843576589521950631}
   minSpeedToFlip: 5
+  dissolveMaterial: {fileID: 2100000, guid: a0cd91ac264414dc9b216007d84fd597, type: 2}
+  dissolveDuration: 1
   _behindCameraSpeed: 25
   _behindCameraDistance: 45
   _chasingDistance: 25
