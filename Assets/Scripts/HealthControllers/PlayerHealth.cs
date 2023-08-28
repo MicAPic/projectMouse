@@ -119,7 +119,7 @@ namespace HealthControllers
             
             if (_fullHealSequence is { active: true })
             {
-                _fullHealSequence.Complete();
+                _fullHealSequence.Complete(true);
             }
             
             if (canDie || healthPoints - damagePoints * defenceModifier > 0)

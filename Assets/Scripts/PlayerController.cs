@@ -31,6 +31,8 @@ public class PlayerController : MonoBehaviour
     
     [SerializeField]
     private Transform shootingPoint;
+    private Vector3 _defaultShootingPointPos;
+    private Vector3 _reversedShootingPointPos;
     private float _lastFireTime;
 
     [Header("Visuals & Animation")]
@@ -44,8 +46,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private SpriteRenderer dropShadow;
     private List<SpriteRenderer> _trailElementSprites  = new();
+    private List<Animator> _trailElementAnimators  = new(); 
     private SpriteRenderer _sprite;
+    private Animator _animator;
     private bool _isInvincible;
+    private bool _isMoving;
+    private bool _isAttacking;
+    
+    private static readonly int IsMoving = Animator.StringToHash("IsMoving");
+    private static readonly int IsAttacking = Animator.StringToHash("IsAttacking");
     
     [Header("Layers")]
     [SerializeField] 
@@ -73,13 +82,18 @@ public class PlayerController : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         _sprite = GetComponentInChildren<SpriteRenderer>();
         _defaultMaterial = _sprite.material;
+        _animator = GetComponentInChildren<Animator>();
 
         _playerLayer = gameObject.layer;
         
         foreach (var trailElement in FindObjectsOfType<TrailElement>())
         {
             _trailElementSprites.Add(trailElement.GetComponent<SpriteRenderer>());
+            _trailElementAnimators.Add(trailElement.GetComponent<Animator>());
         }
+
+        _defaultShootingPointPos = shootingPoint.localPosition;
+        _reversedShootingPointPos = new Vector3(-_defaultShootingPointPos.x, _defaultShootingPointPos.y, 0);
     }
 
     // Start is called before the first frame update
@@ -91,18 +105,43 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Animation
+        // a big block of semi-repeated code, it's this way to not set Animators every Update
+        if (playerInput.actions["Move"].WasPressedThisFrame())
+        {
+            _animator.SetBool(IsMoving, true);
+            foreach (var trailElementAnimator in _trailElementAnimators)
+            {
+                trailElementAnimator.SetBool(IsMoving, true);
+            }
+        }
+        else if (playerInput.actions["Move"].WasReleasedThisFrame() || !playerInput.enabled)
+        {
+            _animator.SetBool(IsMoving, false);
+            foreach (var trailElementAnimator in _trailElementAnimators)
+            {
+                trailElementAnimator.SetBool(IsMoving, false);
+            }
+        }
+        if (playerInput.actions["Shoot"].WasPressedThisFrame())
+        {
+            _animator.SetBool(IsAttacking, true);
+            foreach (var trailElementAnimator in _trailElementAnimators)
+            {
+                trailElementAnimator.SetBool(IsAttacking, true);
+            }
+        }
+        else if (playerInput.actions["Shoot"].WasReleasedThisFrame() || !playerInput.enabled)
+        {
+            _animator.SetBool(IsAttacking, false);
+            foreach (var trailElementAnimator in _trailElementAnimators)
+            {
+                trailElementAnimator.SetBool(IsAttacking, false);
+            }
+        }
+        
         if (GameManager.isGameOver || GameManager.isPaused) return;
 
-        // Animation
-        // if (_playerInput.actions["Move"].WasPressedThisFrame())
-        // {
-        //     // TODO: set Animator to Moving
-        // }
-        // else if (_playerInput.actions["Move"].WasReleasedThisFrame())
-        // {
-        //     // TODO: set Animator to Idle
-        // }
-        
         // Input processing
         if (playerInput.actions["Shoot"].IsPressed() && Time.time - _lastFireTime >= fireRate)
         {
@@ -123,12 +162,15 @@ public class PlayerController : MonoBehaviour
         shootingPoint.right = Mouse.current.position.ReadValue() - (Vector2)shootingPoint.position;
         
         // Flip the sprite towards the mouse
-        var spriteFlipX = CameraController.Instance.mousePos.x < transform.position.x;
-        _sprite.flipX = spriteFlipX;
+        var spriteFlipCheck = CameraController.Instance.mousePos.x < transform.position.x;
+        if (_sprite.flipX == spriteFlipCheck) return;
+        _sprite.flipX = spriteFlipCheck;
         foreach (var trailElement in _trailElementSprites)
         {
-            trailElement.flipX = spriteFlipX;
+            trailElement.flipX = spriteFlipCheck;
         }
+
+        shootingPoint.localPosition = spriteFlipCheck ? _reversedShootingPointPos : _defaultShootingPointPos;
     }
 
     void FixedUpdate()

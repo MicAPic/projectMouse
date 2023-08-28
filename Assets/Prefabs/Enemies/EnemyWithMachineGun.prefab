@@ -199,9 +199,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   experiencePointWorth: 10
   damageToDeal: 34
-  _shootingPoint: {fileID: 5416103654483064644}
+  shootingPoint: {fileID: 5416103654483064644}
   _firePower: 20
   _spriteRenderer: {fileID: 3411682471473974242}
+  _shadowRenderer: {fileID: 6536528870965291417}
+  minSpeedToFlip: 5
+  dissolveMaterial: {fileID: 2100000, guid: 069e86b6c87384fd7837d72708ab7d46, type: 2}
+  dissolveDuration: 1
   _behindCameraSpeed: 25
   _behindCameraDistance: 45
   _chasingDistance: 25
@@ -258,7 +262,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: ee48f4d5681a54268b0d8bd813a7e08f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

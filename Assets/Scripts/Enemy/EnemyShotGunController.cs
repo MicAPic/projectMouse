@@ -12,7 +12,7 @@ namespace Enemy
             var leftBullet = BulletPool.Instance.GetBulletFromPool(1);
             var rightBullet = BulletPool.Instance.GetBulletFromPool(1);
 
-            var sPosition = _shootingPoint.transform.position;
+            var sPosition = shootingPoint.transform.position;
 
             Vector3 direction = PlayerController.Instance.transform.position - sPosition;
             direction.Normalize();

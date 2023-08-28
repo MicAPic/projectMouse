@@ -1,3 +1,5 @@
+using Coffee.UIEffects;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -8,19 +10,32 @@ namespace Enemy
         public float experiencePointWorth = 10f;
         public float damageToDeal = 34f;
         
-        [SerializeField] protected Transform _shootingPoint;
+        [SerializeField] 
+        protected Transform shootingPoint;
         [SerializeField] protected float _firePower = 20;
-        protected Rigidbody2D _rigidbody;
+        private Rigidbody2D _rigidbody;
+        private Vector3 _defaultShootingPointPos;
+        private Vector3 _reversedShootingPointPos;
 
         private PointEffector2D _pointEffector;
 
         [Header("Animation & Visuals")]
         [SerializeField]
         private SpriteRenderer _spriteRenderer;
+        [SerializeField]
+        private SpriteRenderer _shadowRenderer;
+        // Sprite flipping:
+        [SerializeField]
+        private float minSpeedToFlip = 5f;
+        // Death animation:
+        [SerializeField]
+        private Material dissolveMaterial;
+        [SerializeField]
+        private float dissolveDuration = 0.5f;
         private Animator _animator;
         private static readonly int Attack = Animator.StringToHash("Attack");
 
-        protected float _playerDistance;
+        private float _playerDistance;
         protected enum State
         {
             BEHINDCAMERA,
@@ -60,6 +75,8 @@ namespace Enemy
             _rigidbody = GetComponent<Rigidbody2D>();
             _animator = GetComponentInChildren<Animator>();
             
+            _defaultShootingPointPos = shootingPoint.localPosition;
+            _reversedShootingPointPos = new Vector3(-_defaultShootingPointPos.x, _defaultShootingPointPos.y, 0);
         }
 
         private int _randRotationDir;
@@ -73,7 +90,6 @@ namespace Enemy
 
             damageToDeal = SpawnManager.Instance != null ? SpawnManager.Instance.GetEnemyDamage() : 30.0f;
             _startTargetDirection = (transform.position - PlayerController.Instance.transform.position).normalized * _attackDistance;
-
         }
     
         // Update is called once per frame
@@ -87,6 +103,17 @@ namespace Enemy
         {
             Move();
         }
+
+        public void Dissolve()
+        {
+            _shadowRenderer.DOFade(0.0f, dissolveDuration);
+            _spriteRenderer.material = new Material(dissolveMaterial);
+            _spriteRenderer.material.SetFloat("_Threshold", 0.39f); // 0.39 is when pixels start to dissolve
+            _spriteRenderer.material.DOFloat(1.01f, "_Threshold", dissolveDuration)
+                .OnComplete(() => Destroy(gameObject));
+            _rigidbody.bodyType = RigidbodyType2D.Static;
+            enabled = false;
+        } 
 
         protected float _lastFireTime = 0f;
         protected abstract void Shoot();
@@ -154,7 +181,7 @@ namespace Enemy
                     if (_playerDistance > _retreatDistance)
                     {
                         _currentState = State.ATTACK;
-                        _rigidbody.velocity = Vector2.zero;
+                        // _rigidbody.velocity = Vector2.zero;
                         break;
                     }
                     _rigidbody.velocity = (PlayerController.Instance.transform.position - transform.position).normalized * -_retreatSpeed;
@@ -162,7 +189,9 @@ namespace Enemy
             }
 
             // Flip the sprite towards Mouse
-            _spriteRenderer.flipX = _rigidbody.velocity.x < 0;
+            var spriteFlipCheck = _rigidbody.velocity.x < 0;
+            if (_spriteRenderer.flipX == spriteFlipCheck || _rigidbody.velocity.magnitude < minSpeedToFlip) return;
+            Flip(spriteFlipCheck);
         }
 
         private float _targetPositionRotationSpeed = 100f;
@@ -189,6 +218,12 @@ namespace Enemy
         private Vector3 FindTargetPosition()
         {
             return PlayerController.Instance.transform.position + _startTargetDirection;
+        }
+
+        private void Flip(bool flip)
+        {
+            _spriteRenderer.flipX = flip;
+            shootingPoint.localPosition = flip ? _reversedShootingPointPos : _defaultShootingPointPos;
         }
     }
 }
