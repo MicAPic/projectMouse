@@ -11,8 +11,6 @@ namespace Bullets
         private int poolIndex;
         private Rigidbody2D _rb;
 
-        private bool forceIsApplied;
-
         void Awake()
         {
             _rb = GetComponentInChildren<Rigidbody2D>();
@@ -38,7 +36,6 @@ namespace Bullets
 
         public void Enable(Vector3 direction, float firePower, float damageToDeal, float scaleModifer=1.0f)
         {
-            if (forceIsApplied) return;
             var normalizedDirection = (Vector2) direction;
             normalizedDirection.Normalize();
 
@@ -47,8 +44,6 @@ namespace Bullets
             damage = damageToDeal;
             gameObject.SetActive(true);
             _rb.AddForce(normalizedDirection * firePower, ForceMode2D.Impulse);
-
-            forceIsApplied = true;
         }
 
         public void EnableWithoutForce(float damageToDeal)
@@ -67,8 +62,6 @@ namespace Bullets
 
         protected void Disable()
         {
-            forceIsApplied = false;
-            BulletPool.Instance.ObjectPools[poolIndex].Enqueue(this);
             gameObject.SetActive(false);
         }
     }
