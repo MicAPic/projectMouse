@@ -39,6 +39,8 @@ public class ExperienceManager : MonoBehaviour
     [SerializeField]
     private TMP_Text experienceGoalText;
     [SerializeField]
+    private TMP_Text experiencePercentageText;
+    [SerializeField]
     private RectTransform experienceCanvas;
 
     [Header("Animation")]
@@ -119,8 +121,6 @@ public class ExperienceManager : MonoBehaviour
 
     public void AddExperience(float expToAdd)
     {
-        TotalExperiencePoints += expToAdd;
-        
         ChatManager.Instance.DisplayComment(ChatManager.CommentType.Donation, ((int)(expToAdd * 100)).ToString());
         AnimateExperienceGain(expToAdd);
     }
@@ -184,6 +184,8 @@ public class ExperienceManager : MonoBehaviour
     {
         _previousExperienceToLevelUp = _experienceToLevelUp;
         _experienceToLevelUp = experienceCurve.Evaluate(_currentLevel);
+
+        experiencePercentageText.text = "0";
         
         experienceGoalText.DOCounter(
             (int)(_previousExperienceToLevelUp * 100), 
@@ -226,10 +228,17 @@ public class ExperienceManager : MonoBehaviour
             .SetEase(Ease.InExpo)
             .OnComplete(() =>
             {
-                currentExperienceText.DOCounter(
-                    (int)((TotalExperiencePoints - expToAdd) * 100),
-                    (int)(TotalExperiencePoints * 100),
-                    expToAdd / _experienceToLevelUp * experienceGainAnimationMaxDuration);
+                var fromValue = TotalExperiencePoints * 100;
+                var endValue = (TotalExperiencePoints + expToAdd) * 100;
+                var duration = expToAdd / _experienceToLevelUp * experienceGainAnimationMaxDuration;
+                TotalExperiencePoints += expToAdd;
+                
+                currentExperienceText.DOCounter((int)fromValue, (int)endValue, duration);
+                
+                experiencePercentageText.DOCounter(
+                    (int)(fromValue / (_experienceToLevelUp - _previousExperienceToLevelUp) % 100.001f),
+                    (int)(endValue / (_experienceToLevelUp - _previousExperienceToLevelUp) % 100.001f),
+                    duration);
 
                 FillExperienceBar();
                 result.gameObject.SetActive(false);

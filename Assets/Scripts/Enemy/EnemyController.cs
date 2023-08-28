@@ -21,17 +21,19 @@ namespace Enemy
 
         [Header("Animation & Visuals")]
         [SerializeField]
-        private SpriteRenderer _spriteRenderer;
+        protected SpriteRenderer _spriteRenderer;
         [SerializeField]
         private SpriteRenderer _shadowRenderer;
         // Sprite flipping:
         [SerializeField]
         private float minSpeedToFlip = 5f;
+        // Damage animation:
+        private float damageFlashDuration = 0.2f;
         // Death animation:
         [SerializeField]
-        private Material dissolveMaterial;
+        protected Material dissolveMaterial;
         [SerializeField]
-        private float dissolveDuration = 0.5f;
+        protected float dissolveDuration = 0.5f;
         private Animator _animator;
         private static readonly int Attack = Animator.StringToHash("Attack");
 
@@ -104,6 +106,12 @@ namespace Enemy
             Move();
         }
 
+        public void Flash()
+        {
+            _spriteRenderer.material.SetFloat("_FlashAmount", 40.0f);
+            _spriteRenderer.material.DOFloat(0.0f, "_FlashAmount", damageFlashDuration);
+        }
+
         public void Dissolve()
         {
             _shadowRenderer.DOFade(0.0f, dissolveDuration);
@@ -113,7 +121,7 @@ namespace Enemy
                 .OnComplete(() => Destroy(gameObject));
             _rigidbody.bodyType = RigidbodyType2D.Static;
             enabled = false;
-        } 
+        }
 
         protected float _lastFireTime = 0f;
         protected abstract void Shoot();

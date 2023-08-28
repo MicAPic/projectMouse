@@ -22,6 +22,15 @@ namespace HealthControllers
             }
         }
 
+        public override void TakeDamage(float damagePoints)
+        {
+            base.TakeDamage(damagePoints);
+            if (healthPoints > 0)
+            {
+                _enemyController.Flash();
+            }
+        }
+
         protected override void Die()
         {
             ExperienceManager.Instance.AddExperience(_enemyController.experiencePointWorth);

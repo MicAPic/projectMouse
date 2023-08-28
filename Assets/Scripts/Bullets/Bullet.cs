@@ -1,68 +1,68 @@
 using HealthControllers;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+namespace Bullets
 {
-    [SerializeField] 
-    private float damage;
-    [SerializeField] 
-    private int poolIndex;
-    private Rigidbody2D _rb;
-
-    void Awake()
+    public class Bullet : MonoBehaviour
     {
-        _rb = GetComponentInChildren<Rigidbody2D>();
-    }
+        [SerializeField] 
+        private float damage;
+        [SerializeField] 
+        private int poolIndex;
+        private Rigidbody2D _rb;
 
-    void OnCollisionEnter2D(Collision2D col)
-    {
-        if (col.gameObject.TryGetComponent(out Health healthController) && healthController.enabled)
+        void Awake()
         {
-            healthController.TakeDamage(damage);
+            _rb = GetComponentInChildren<Rigidbody2D>();
         }
-        Disable();
-    }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.TryGetComponent(out Health healthController) && healthController.enabled)
+        void OnCollisionEnter2D(Collision2D col)
         {
-            healthController.TakeDamage(damage);
+            if (col.gameObject.TryGetComponent(out Health healthController) && healthController.enabled)
+            {
+                healthController.TakeDamage(damage);
+            }
+            Disable();
         }
-        Disable();
-    }
 
-    public void Enable(Vector3 direction, float firePower, float damageToDeal, float scaleModifer=1.0f)
-    {
-        var normalizedDirection = (Vector2) direction;
-        normalizedDirection.Normalize();
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.gameObject.TryGetComponent(out Health healthController) && healthController.enabled)
+            {
+                healthController.TakeDamage(damage);
+            }
+            Disable();
+        }
+
+        public void Enable(Vector3 direction, float firePower, float damageToDeal, float scaleModifer=1.0f)
+        {
+            var normalizedDirection = (Vector2) direction;
+            normalizedDirection.Normalize();
+
+            transform.localScale = Vector3.one * scaleModifer; 
         
-        transform.localScale = Vector3.one * scaleModifer; 
-        
-        damage = damageToDeal;
-        gameObject.SetActive(true);
-        _rb.AddForce(normalizedDirection * firePower, ForceMode2D.Impulse);
-        
-        //TODO: if we make the levels with no borders, call Disable on a timer
-    }
+            damage = damageToDeal;
+            gameObject.SetActive(true);
+            _rb.AddForce(normalizedDirection * firePower, ForceMode2D.Impulse);
+        }
 
-    public void EnableWithoutForce(float damageToDeal)
-    {
-        damage = damageToDeal;
-        gameObject.SetActive(true);
-    }
+        public void EnableWithoutForce(float damageToDeal)
+        {
+            damage = damageToDeal;
+            gameObject.SetActive(true);
+        }
 
-    public void EnableBulletForce(Vector3 direction, float firePower)
-    {
-        var normalizedDirection = (Vector2)direction;
-        normalizedDirection.Normalize();
+        public void EnableBulletForce(Vector3 direction, float firePower)
+        {
+            var normalizedDirection = (Vector2)direction;
+            normalizedDirection.Normalize();
 
-        _rb.AddForce(normalizedDirection * firePower, ForceMode2D.Impulse);
-    }
+            _rb.AddForce(normalizedDirection * firePower, ForceMode2D.Impulse);
+        }
 
-    protected void Disable()
-    {
-        BulletPool.Instance.ObjectPools[poolIndex].Enqueue(this);
-        gameObject.SetActive(false);
+        protected void Disable()
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

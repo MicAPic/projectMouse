@@ -1,11 +1,12 @@
 using System.Collections.Generic;
+using Bullets;
 using UnityEngine;
 
 public class BulletPool : MonoBehaviour
 {
     public static BulletPool Instance;
 
-    public Queue<Bullet>[] ObjectPools = new[] { new Queue<Bullet>(), new Queue<Bullet>() };
+    private List<Bullet>[] objectPools = { new(), new() };
     public GameObject[] objectsToPool;
 
     void Awake()
@@ -21,11 +22,16 @@ public class BulletPool : MonoBehaviour
 
     public Bullet GetBulletFromPool(int poolIndex)
     {
-        if (!ObjectPools[poolIndex].TryDequeue(out var result))
+        for (var i = 0; i < objectPools[poolIndex].Count; i++)
         {
-            result = Instantiate(objectsToPool[poolIndex], transform).GetComponent<Bullet>();
+            if (!objectPools[poolIndex][i].gameObject.activeInHierarchy)
+            {
+                return objectPools[poolIndex][i];
+            }
         }
 
+        var result = Instantiate(objectsToPool[poolIndex], transform).GetComponent<Bullet>();
+        objectPools[poolIndex].Add(result);
         return result;
     } 
 }
