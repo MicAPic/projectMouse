@@ -236,8 +236,8 @@ public class ExperienceManager : MonoBehaviour
                 currentExperienceText.DOCounter((int)fromValue, (int)endValue, duration);
                 
                 experiencePercentageText.DOCounter(
-                    (int)(fromValue / (_experienceToLevelUp - _previousExperienceToLevelUp) % 100.001f),
-                    (int)(endValue / (_experienceToLevelUp - _previousExperienceToLevelUp) % 100.001f),
+                    (int)((fromValue - _previousExperienceToLevelUp * 100) / (_experienceToLevelUp - _previousExperienceToLevelUp)),
+                    (int)((endValue - _previousExperienceToLevelUp * 100) / (_experienceToLevelUp - _previousExperienceToLevelUp)),
                     duration);
 
                 FillExperienceBar();
