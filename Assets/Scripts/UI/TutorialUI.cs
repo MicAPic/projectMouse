@@ -10,8 +10,9 @@ namespace UI
         private bool _activateEventSystemOnUnpause;
         private float _cachedTextSpeed;
 
-        void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             pauseInputAction.performed += _ => ToggleTutorialPause();
         }
 

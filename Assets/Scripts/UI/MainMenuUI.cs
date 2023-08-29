@@ -24,8 +24,9 @@ namespace UI
         [SerializeField]
         private float settingsAnimationDuration = 0.5f;
 
-        void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             if (PlayerPrefs.HasKey("PlayedTutorial")) return;
             
             startButton.interactable = false;

@@ -24,8 +24,9 @@ namespace UI
         private bool _cutsceneIsFinished;
         private IDisposable _eventListener;
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
 #if (UNITY_WEBGL)
             flashingText.text = "[Click anywhere]";
 #endif
