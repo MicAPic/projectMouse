@@ -114,7 +114,7 @@ namespace Enemy
 
         public void Dissolve()
         {
-            _shadowRenderer.DOFade(0.0f, dissolveDuration);
+            _shadowRenderer.DOFade(0.0f, dissolveDuration * 0.5f);
             _spriteRenderer.material = new Material(dissolveMaterial);
             _spriteRenderer.material.SetFloat("_Threshold", 0.39f); // 0.39 is when pixels start to dissolve
             _spriteRenderer.material.DOFloat(1.01f, "_Threshold", dissolveDuration)

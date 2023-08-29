@@ -100,8 +100,7 @@ public class ExperienceManager : MonoBehaviour
         
         GameManager.Instance.Unpause();
         
-        Cursor.visible = true;
-        // Cursor.lockState = CursorLockMode.None;
+        PixelPerfectCursor.Instance.Toggle();
         
         ReevaluateExpGoal();
         FillExperienceBar();
@@ -176,8 +175,7 @@ public class ExperienceManager : MonoBehaviour
             Debug.LogWarning("Maximum level has been reached. The EXP curve is now a flat line");
         }
 
-        Cursor.visible = false;
-        // Cursor.lockState = CursorLockMode.Locked;
+        PixelPerfectCursor.Instance.Toggle();
     }
 
     private void ReevaluateExpGoal()

@@ -4,6 +4,11 @@ namespace UI
 {
     public class UI : MonoBehaviour
     {
+        protected virtual void Awake()
+        {
+            Cursor.visible = false;
+        }
+        
         public void LoadScene(string sceneToLoad)
         {
             if (TransitionController.Instance == null)

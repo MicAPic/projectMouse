@@ -119,11 +119,6 @@ public class TextManager : MonoBehaviour
 
         for (var i = 0; i < _maxLineLength; i++)
         {
-            if (GameManager.isPaused)
-            {
-                yield return new WaitUntil(() => !GameManager.isPaused);
-            }
-            
             // rich text
             switch (dialogueText.text[i])
             {
@@ -146,6 +141,11 @@ public class TextManager : MonoBehaviour
             yield return dialogueText.text[i] == ' ' && dialogueText.text[i - 1] == '.'
                 ? new WaitForSecondsRealtime(autoModeWaitTime)
                 : new WaitForSecondsRealtime(textSpeed);
+            
+            if (GameManager.isPaused)
+            {
+                yield return new WaitUntil(() => !GameManager.isPaused);
+            }
         }
 
         _currentFinishDisplayLineCoroutine = StartCoroutine(FinishDisplayingLine());
