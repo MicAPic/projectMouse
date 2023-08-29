@@ -18,6 +18,8 @@ namespace UI
         private PlayableDirector director;
         [SerializeField]
         private Animator spotlightAnimator;
+        [SerializeField]
+        private GameObject cursorOverlayTrigger;
         
         [SerializeField] 
         private TMP_Text flashingText;
@@ -45,6 +47,7 @@ namespace UI
                 director.time = director.duration;
                 spotlightAnimator.enabled = false;
                 spotlightAnimator.GetComponent<RectTransform>().DOSizeDelta(Vector2.one * 1000f, 1.0f);
+                cursorOverlayTrigger.SetActive(true);
                 _cutsceneIsFinished = true;
             }
         }

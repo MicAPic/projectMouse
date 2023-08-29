@@ -164,11 +164,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3001128795187933221, guid: 043d505b148bc46d7b9f0ee7947c8028, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 11
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 3001128795187933221, guid: 043d505b148bc46d7b9f0ee7947c8028, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 11
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 3001128795187933221, guid: 043d505b148bc46d7b9f0ee7947c8028, type: 3}
       propertyPath: m_LocalPosition.x
@@ -217,6 +217,10 @@ PrefabInstance:
     - target: {fileID: 3001128795187933221, guid: 043d505b148bc46d7b9f0ee7947c8028, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7552969848454096363, guid: 043d505b148bc46d7b9f0ee7947c8028, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 043d505b148bc46d7b9f0ee7947c8028, type: 3}
@@ -516,6 +520,7 @@ MonoBehaviour:
   inputModule: {fileID: 219296951}
   director: {fileID: 219296950}
   spotlightAnimator: {fileID: 1144195832}
+  cursorOverlayTrigger: {fileID: 1857049373}
   flashingText: {fileID: 140643780}
 --- !u!320 &219296950
 PlayableDirector:
@@ -540,8 +545,11 @@ PlayableDirector:
     value: {fileID: 1555253291}
   - key: {fileID: -7542598497336733599, guid: 025be8a28041a4d4a87884686151a3a9, type: 2}
     value: {fileID: 140643778}
+  - key: {fileID: 8388468918624341394, guid: 025be8a28041a4d4a87884686151a3a9, type: 2}
+    value: {fileID: 1857049373}
   m_ExposedReferences:
-    m_References: []
+    m_References:
+    - c18274efa182c4511982edd0ce1d07b6: {fileID: 2662525462848041602}
 --- !u!114 &219296951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1208,6 +1216,55 @@ RectTransform:
   m_AnchoredPosition: {x: 78, y: -88}
   m_SizeDelta: {x: 156, y: 176}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1857049373
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1857049374}
+  - component: {fileID: 1857049375}
+  m_Layer: 5
+  m_Name: Cursor_Trigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1857049374
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1857049373}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2188435654826034491}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1857049375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1857049373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8ec9c61066e14d078695e36d88f601a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1910617580
 GameObject:
   m_ObjectHideFlags: 0
@@ -1284,3 +1341,90 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1910617580}
   m_CullTransparentMesh: 1
+--- !u!222 &93531436530468087
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2662525462848041602}
+  m_CullTransparentMesh: 1
+--- !u!224 &2188435654826034491
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2662525462848041602}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1857049374}
+  m_Father: {fileID: 131879601}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 25, y: 25}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &2662525462848041602
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2188435654826034491}
+  - component: {fileID: 93531436530468087}
+  - component: {fileID: 6857097739780247797}
+  - component: {fileID: 5228838631766019042}
+  m_Layer: 5
+  m_Name: Cursor_Overlay
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!225 &5228838631766019042
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2662525462848041602}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
+--- !u!114 &6857097739780247797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2662525462848041602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Texture: {fileID: 2800000, guid: cab06994a2b1c4076bab4d3a76da4c6b, type: 3}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
