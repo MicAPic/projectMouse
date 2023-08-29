@@ -154,6 +154,10 @@ MonoBehaviour:
   enemyLayer: 6
   enemyBulletLayer: 8
   playerInput: {fileID: 0}
+  _numberOfBullets: 3
+  _radius: 5
+  _bulletsRotationSpeed: 180
+  _shootAngel: 20
 --- !u!114 &8826732396876333723
 MonoBehaviour:
   m_ObjectHideFlags: 0

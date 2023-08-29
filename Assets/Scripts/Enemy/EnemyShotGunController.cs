@@ -24,13 +24,13 @@ namespace Enemy
             bullet.transform.position = sPosition;
             bullet.Enable(direction, _firePower, damageToDeal);
 
-            var leftBullet = BulletPool.Instance.GetBulletFromPool(1);
-            leftBullet.transform.position = sPosition;
-            leftBullet.Enable(leftDirection, _firePower, damageToDeal);
+            bullet = BulletPool.Instance.GetBulletFromPool(1);
+            bullet.transform.position = sPosition;
+            bullet.Enable(leftDirection, _firePower, damageToDeal);
 
-            var rightBullet = BulletPool.Instance.GetBulletFromPool(1);
-            rightBullet.transform.position = sPosition;
-            rightBullet.Enable(rightDirection, _firePower, damageToDeal);
+            bullet = BulletPool.Instance.GetBulletFromPool(1);
+            bullet.transform.position = sPosition;
+            bullet.Enable(rightDirection, _firePower, damageToDeal);
             
             _lastFireTime = Time.time;
         }

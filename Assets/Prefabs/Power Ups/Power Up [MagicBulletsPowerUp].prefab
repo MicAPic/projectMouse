@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1091386755210974916, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
       propertyPath: m_Name
-      value: Power Up [FireRatePowerUp]
+      value: Power Up [MagicBulletsPowerUp]
       objectReference: {fileID: 0}
     - target: {fileID: 4334202878583021386, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
       propertyPath: m_Pivot.x
@@ -97,13 +97,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8416702152856493180, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
       propertyPath: m_text
-      value: The Demon
+      value: Magic Bullets
       objectReference: {fileID: 0}
     - target: {fileID: 9001928748618290203, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
       propertyPath: m_text
-      value: 'Increases fire rate by 20%
-
-        Punk attire not included'
+      value: Magic bullets description
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
@@ -112,7 +110,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1091386755210974916, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
   m_PrefabInstance: {fileID: 3946719639766820118}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8811916633062033767
+--- !u!114 &5848690034100528984
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -121,9 +119,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4170600310587356114}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f979ed1905790ea4da23701097952017, type: 3}
+  m_Script: {fileID: 11500000, guid: ee6de547576c4dd4baa7e7b7ca1221d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _coefficient: 1
-  modifier: 0.2
-  maxFireRate: 0.6
