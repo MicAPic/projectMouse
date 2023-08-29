@@ -1,10 +1,10 @@
 namespace PowerUps
 {
-    public class MagicBulletsPowerUp : PowerUpBase
+    public class ShotGunPowerUp : PowerUpBase
     {
         protected override void Activate()
         {
-            PlayerController.Instance.EnableMagicBullets();
+            PlayerController.Instance.EnableShotgun();
             ExperienceManager.Instance.RemoveFromPowerUps(this);
         }
     }

@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Bullets;
 using System.Collections;
+using UnityEngine.Serialization;
 
 public class PlayerController : MonoBehaviour
 {
@@ -36,6 +37,28 @@ public class PlayerController : MonoBehaviour
     private Vector3 _defaultShootingPointPos;
     private Vector3 _reversedShootingPointPos;
     private float _lastFireTime;
+    
+    [Header("Shooting/Shotgun")]
+    [FormerlySerializedAs("_shootAngel")]
+    [SerializeField] 
+    private float shootAngle = 20;
+    private bool _shotgunPowerUpEnabled;
+    
+    [Header("Shooting/Magic Bullets")]
+    [FormerlySerializedAs("_numberOfBullets")]
+    [SerializeField] 
+    private int numberOfBullets = 3;
+    [FormerlySerializedAs("_radius")]
+    [SerializeField] 
+    private int radius = 2;
+    [FormerlySerializedAs("_bulletsRotationSpeed")]
+    [SerializeField] 
+    private float bulletsRotationSpeed = 2f;
+    private bool _magicBulletsEnabled = false;
+    private List<Bullet> _bullets;
+    private Vector3 _mainRotationVector;
+
+    [Space(5)]
 
     [Header("Visuals & Animation")]
     public bool isFlashing;
@@ -49,6 +72,13 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer dropShadow;
     private List<SpriteRenderer> _trailElementSprites  = new();
     private List<Animator> _trailElementAnimators  = new(); 
+    
+    // Magic bullets / shield animation
+    private readonly float _animTimeScaler = 3;
+    private float _timeFromStartBulletAnim;
+    private bool _bulletSetUpStarted = false;
+    //
+    
     private SpriteRenderer _sprite;
     private Animator _animator;
     private bool _isInvincible;
@@ -69,14 +99,6 @@ public class PlayerController : MonoBehaviour
     public PlayerInput playerInput;
     
     private Rigidbody2D _rb;
-
-    [Header("MagicBulletsSetting")]
-    [SerializeField] private int _numberOfBullets = 3;
-    [SerializeField] private int _radius = 2;
-    [SerializeField] private float _bulletsRotationSpeed = 2f;
-    private List<Bullet> _bullets;
-
-    private Vector3 _mainRotationVector;
 
     void Awake()
     {
@@ -106,23 +128,16 @@ public class PlayerController : MonoBehaviour
         _reversedShootingPointPos = new Vector3(-_defaultShootingPointPos.x, _defaultShootingPointPos.y, 0);
     }
 
-
     void Start()
     {
-        _bullets = new List<Bullet>(_numberOfBullets);
-        for (int i = 0; i < _numberOfBullets; ++i)
+        _bullets = new List<Bullet>(numberOfBullets);
+        for (int i = 0; i < numberOfBullets; ++i)
             _bullets.Add(null);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (_magicBulletsEnabled)
-        {
-            RotateBullets();
-            MagicBulletsEnableCheck();
-            MagicBulletNullCheck();
-        }
         // Animation
         // a big block of semi-repeated code, it's this way to not set Animators every Update
         if (playerInput.actions["Move"].WasPressedThisFrame())
@@ -174,6 +189,14 @@ public class PlayerController : MonoBehaviour
         if (!_isDodging && Time.time - _lastDodgePressedTime <= DodgeInputBufferTime)
         {
             Dodge();
+        }
+        
+        // Handle the bullet shield
+        if (_magicBulletsEnabled)
+        {
+            RotateBullets();
+            MagicBulletsEnableCheck();
+            MagicBulletNullCheck();
         }
         
         // Rotate the shooting point
@@ -281,13 +304,15 @@ public class PlayerController : MonoBehaviour
         });
     }
 
-
-    private bool _shootGunPowerUpEnable = false;
-    [SerializeField] private float _shootAngel = 20;
-
-    public void EnableShootGun()
+    public void EnableShotgun()
     {
-        _shootGunPowerUpEnable = true;
+        _shotgunPowerUpEnabled = true;
+    }
+    
+    public void EnableMagicBullets()
+    {
+        _magicBulletsEnabled = true;
+        SetUpBullets();
     }
 
     private void Shoot()
@@ -299,19 +324,18 @@ public class PlayerController : MonoBehaviour
         bullet.transform.position = sPosition;
         bullet.Enable(direction, firePower, damageToDeal, bulletScaleModifier);
 
-        if (_shootGunPowerUpEnable)
+        if (_shotgunPowerUpEnabled)
         {
-            Vector3 leftDirection = Quaternion.AngleAxis(_shootAngel, Vector3.forward) * direction;
-            Vector3 rightDirection = Quaternion.AngleAxis(-_shootAngel, Vector3.forward) * direction;
+            var additionalDirections = new Vector3[2];
+            additionalDirections[0] = Quaternion.AngleAxis(shootAngle, Vector3.forward) * direction; // left
+            additionalDirections[1] = Quaternion.AngleAxis(-shootAngle, Vector3.forward) * direction; // right
 
-
-            bullet = BulletPool.Instance.GetBulletFromPool(0);
-            bullet.transform.position = sPosition;
-            bullet.Enable(leftDirection, firePower, damageToDeal, bulletScaleModifier);
-
-            bullet = BulletPool.Instance.GetBulletFromPool(0);
-            bullet.transform.position = sPosition;
-            bullet.Enable(rightDirection, firePower, damageToDeal, bulletScaleModifier);
+            foreach (var additionalDirection in additionalDirections)
+            {
+                bullet = BulletPool.Instance.GetBulletFromPool(0);
+                bullet.transform.position = sPosition;
+                bullet.Enable(additionalDirection, firePower, damageToDeal, bulletScaleModifier);
+            }
         }
         
         _lastFireTime = Time.time;
@@ -351,16 +375,10 @@ public class PlayerController : MonoBehaviour
         ));
     }
 
-    private bool _magicBulletsEnabled = false;
-    public void EnableMagicBullets()
-    {
-        _magicBulletsEnabled = true;
-        SetUpBullets();
-    }
-
+    // Magic shield-related methods:
     private void SetUpBullets()
     {
-        for (int i = 0; i < _numberOfBullets; ++i)
+        for (int i = 0; i < numberOfBullets; ++i)
         {
             _bullets[i] = BulletPool.Instance.GetBulletFromPool(0);
             _bullets[i].transform.position = transform.position/* + offset*/;
@@ -368,29 +386,29 @@ public class PlayerController : MonoBehaviour
         }
         StartCoroutine(AnimateBulletsInst());
     }
-
-
-    private float _timeFromStartBulletAnim = 0;
-    private float _animTimeScaler = 3;
+    
     private IEnumerator AnimateBulletsInst()
     {
-        _mainRotationVector = Vector3.up * _radius;
+        _mainRotationVector = Vector3.up * radius;
         while (_timeFromStartBulletAnim / _animTimeScaler < 1)
         {
             for (int i = 0; i < _bullets.Capacity; ++i)
             {
-                Vector3 offset = Quaternion.Euler(0, 0, (360 / _numberOfBullets) * i) * _mainRotationVector;
+                Vector3 offset = Quaternion.Euler(0, 0, 360 / numberOfBullets * i) * _mainRotationVector;
                 if (_bullets[i] != null)
-                    _bullets[i].transform.position = Vector3.Lerp(transform.position, transform.position + offset, _timeFromStartBulletAnim / _animTimeScaler);                
+                {
+                    var position = transform.position;
+                    _bullets[i].transform.position = Vector3.Lerp(position, position + offset, _timeFromStartBulletAnim / _animTimeScaler);
+                }
+
                 _timeFromStartBulletAnim += Time.deltaTime;
             }
             yield return null;
         }
 
-
         for (int i = 0; i < _bullets.Capacity; ++i)
         {
-            Vector3 offset = Quaternion.Euler(0, 0, (360 / _numberOfBullets) * i) * _mainRotationVector;
+            Vector3 offset = Quaternion.Euler(0, 0, 360 / numberOfBullets * i) * _mainRotationVector;
             if (_bullets[i] != null)
                 _bullets[i].transform.position = transform.position + offset;
         }
@@ -400,20 +418,18 @@ public class PlayerController : MonoBehaviour
 
     private void RotateBullets()
     {
-        _mainRotationVector = Quaternion.AngleAxis(_bulletsRotationSpeed * Time.deltaTime, Vector3.forward) * _mainRotationVector;
-        for (int i = 0; i < _numberOfBullets; ++i)
+        _mainRotationVector = Quaternion.AngleAxis(bulletsRotationSpeed * Time.deltaTime, Vector3.forward) * _mainRotationVector;
+        for (int i = 0; i < numberOfBullets; ++i)
         {
-            Vector3 offset = Quaternion.Euler(0, 0, (360 / _numberOfBullets) * i) * _mainRotationVector;
+            Vector3 offset = Quaternion.Euler(0, 0, 360 / numberOfBullets * i) * _mainRotationVector;
             if (_bullets[i] != null)
                 _bullets[i].transform.position = transform.position + offset;
         }
     }
-
-
-    private bool _bulletsSetUpStarted = false;
+    
     private void MagicBulletsEnableCheck()
     {
-        for(int i = 0; i < _numberOfBullets; ++i)
+        for (int i = 0; i < numberOfBullets; ++i)
         {
             if (_bullets[i] != null && !_bullets[i].gameObject.activeSelf)
                 _bullets[i] = null;
@@ -422,22 +438,21 @@ public class PlayerController : MonoBehaviour
 
     private void MagicBulletNullCheck()
     {
-        if (_bulletsSetUpStarted) return;
-        for (int i = 0; i < _numberOfBullets; ++i)
+        if (_bulletSetUpStarted) return;
+        for (int i = 0; i < numberOfBullets; ++i)
         {
             if (_bullets[i] != null)
                 return;
         }
         StartCoroutine(StartSetUpBullets());
-        _bulletsSetUpStarted = true;
+        _bulletSetUpStarted = true;
     }
 
     private IEnumerator StartSetUpBullets()
     {
         yield return new WaitForSeconds(5);
         SetUpBullets();
-        _bulletsSetUpStarted = false;
+        _bulletSetUpStarted = false;
     }
-    
-
+    //
 }
