@@ -122,7 +122,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 747813745743428fb754eeaecd1bbdaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialValue: 10
+  _coefficient: 1
+  initialValue: 100
   modifier: 1.15
   maxDamageToDeal: 3.4028235e+38
   descriptionTMP: {fileID: 5343756367828021517}
