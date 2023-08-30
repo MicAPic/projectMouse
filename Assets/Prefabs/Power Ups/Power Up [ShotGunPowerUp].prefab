@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1091386755210974916, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
       propertyPath: m_Name
-      value: Power Up [ShootGunPowerUp]
+      value: Power Up [ShotGunPowerUp]
       objectReference: {fileID: 0}
     - target: {fileID: 4334202878583021386, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
       propertyPath: m_Pivot.x
@@ -97,11 +97,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8416702152856493180, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
       propertyPath: m_text
-      value: Shoot Gun
+      value: Galactica Bracelets
       objectReference: {fileID: 0}
     - target: {fileID: 9001928748618290203, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
       propertyPath: m_text
-      value: Shoot gun description
+      value: 'Fire in two more directions
+
+        The more the merrier!'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
