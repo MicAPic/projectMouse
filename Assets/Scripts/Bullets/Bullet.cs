@@ -7,8 +7,6 @@ namespace Bullets
     {
         [SerializeField] 
         private float damage;
-        [SerializeField] 
-        private int poolIndex;
         private Rigidbody2D _rb;
 
         void Awake()
