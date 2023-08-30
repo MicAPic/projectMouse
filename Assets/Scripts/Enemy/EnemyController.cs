@@ -1,4 +1,3 @@
-using Coffee.UIEffects;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -119,7 +118,13 @@ namespace Enemy
             _spriteRenderer.material.SetFloat("_Threshold", 0.39f); // 0.39 is when pixels start to dissolve
             _spriteRenderer.material.DOFloat(1.01f, "_Threshold", dissolveDuration)
                 .OnComplete(() => Destroy(gameObject));
+            
             _rigidbody.bodyType = RigidbodyType2D.Static;
+            foreach (var attachedCollider in GetComponents<Collider2D>())
+            {
+                attachedCollider.enabled = false;
+            }
+            
             enabled = false;
         }
 

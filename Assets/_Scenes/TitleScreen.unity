@@ -517,6 +517,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f7666f47afb2df45903f4633e25aa39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  emptyCursorTexture: {fileID: 2800000, guid: 9c8a9c898d69c4dd0a35f61f754eb589, type: 3}
   inputModule: {fileID: 219296951}
   director: {fileID: 219296950}
   spotlightAnimator: {fileID: 1144195832}
@@ -888,7 +889,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 1
   field of view: 60
   orthographic: 1
   orthographic size: 5
