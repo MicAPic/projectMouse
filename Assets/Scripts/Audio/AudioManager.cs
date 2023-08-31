@@ -18,7 +18,7 @@ namespace Audio
         public AudioSource sfxSource;
         public AudioSource musicSource;
         
-        [Header("Audio PLayers")]
+        [Header("Audio Players")]
         private AudioPlayer _sfxPlayer;
         private AudioPlayer _musicPlayer;
 
@@ -32,10 +32,7 @@ namespace Audio
             Instance = this;
             DontDestroyOnLoad(gameObject);
             
-            sfxSource = transform.GetChild(0).GetComponent<AudioSource>();
             _sfxPlayer = transform.GetChild(0).GetComponent<AudioPlayer>();
-            
-            musicSource = transform.GetChild(1).GetComponent<AudioSource>();
             _musicPlayer = transform.GetChild(1).GetComponent<AudioPlayer>();
         }
         
