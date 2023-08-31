@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Bullets;
 using System.Collections;
+using UI;
 using UnityEngine.Serialization;
 
 public class PlayerController : MonoBehaviour
@@ -61,6 +62,10 @@ public class PlayerController : MonoBehaviour
     [Space(5)]
 
     [Header("Visuals & Animation")]
+    public float appearanceDuration = 1.0f;
+    [SerializeField]
+    private SpriteRenderer shadowRenderer;
+
     public bool isFlashing;
     [SerializeField]
     private Color powerUpFlashingColour;
@@ -133,6 +138,19 @@ public class PlayerController : MonoBehaviour
         _bullets = new List<Bullet>(numberOfBullets);
         for (int i = 0; i < numberOfBullets; ++i)
             _bullets.Add(null);
+        
+        shadowRenderer.DOFade(1.0f, appearanceDuration * 0.5f)
+            .SetDelay(TransitionController.Instance.transitionDuration);
+        _sprite.material.SetFloat("_Threshold", 1.01f);
+        _sprite.material.DOFloat(0.0f, "_Threshold", appearanceDuration)
+            .SetDelay(TransitionController.Instance.transitionDuration)
+            .OnComplete(() =>
+            {
+                foreach (var trail in _trailElementSprites)
+                {
+                    trail.enabled = true;
+                }
+            });
     }
 
     // Update is called once per frame

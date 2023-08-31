@@ -151,8 +151,10 @@ MonoBehaviour:
   numberOfBullets: 3
   radius: 5
   bulletsRotationSpeed: 180
+  appearanceDuration: 1
+  shadowRenderer: {fileID: 2367274219943639513}
   isFlashing: 0
-  powerUpFlashingColour: {r: 0.3, g: 0.3, b: 0.3, a: 1}
+  powerUpFlashingColour: {r: 0.1, g: 0.1, b: 0.1, a: 1}
   invincibilityMaterial: {fileID: 2100000, guid: ea6c48cbc3ecbbe4998c4a5b3d3d6a5f, type: 2}
   dropShadow: {fileID: 2367274219943639513}
   enemyLayer: 6
@@ -381,7 +383,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 2
   m_SpriteSortPoint: 0
 --- !u!95 &8436760311848940581
 Animator:
@@ -579,7 +581,7 @@ SpriteRenderer:
   m_SortingLayer: -1
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 0d788a4ea5983e347a1c5c07099d90ca, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

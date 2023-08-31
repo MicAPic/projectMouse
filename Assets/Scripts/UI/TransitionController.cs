@@ -10,10 +10,9 @@ namespace UI
     {
         public static TransitionController Instance { get; private set; }
 
+        public float transitionDuration;
         [SerializeField]
         protected RawImage transitionSprite;
-        [SerializeField]
-        protected float transitionDuration;
 
         private float _defaultPosX;
 
