@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Audio;
 using CameraShake;
 using DG.Tweening;
 using UI;
@@ -25,6 +26,10 @@ namespace HealthControllers
         [SerializeField]
         private bool canDie = true;
         private bool _inCriticalCondition;
+
+        [Header("Audio")]
+        [SerializeField]
+        private AudioClip healSoundEffect;
 
         [Header("UI")]
         [SerializeField] 
@@ -86,7 +91,6 @@ namespace HealthControllers
                 var localIdx = i;
                 _fullHealSequence.AppendCallback(() =>
                 {
-                    // TODO: play a sound
                     var heartToHeal = _currentBrokenHearts[localIdx];
                     _currentBrokenHearts.RemoveAt(localIdx);
             
@@ -94,6 +98,7 @@ namespace HealthControllers
                     heartToHeal.SetNativeSize();
 
                     _currentHearts.Add(heartToHeal);
+                    AudioManager.Instance.sfxSource.PlayOneShot(healSoundEffect);
                 });
                 _fullHealSequence.AppendInterval(intervalBetweenHeartFills);
             }
@@ -110,6 +115,7 @@ namespace HealthControllers
             MaxHealth += increment;
             
             AddAHeart();
+            AudioManager.Instance.sfxSource.PlayOneShot(healSoundEffect);
         }
 
         public override void TakeDamage(float damagePoints)
@@ -163,8 +169,6 @@ namespace HealthControllers
             var heart = Instantiate(heartPrefab, heartsContainer);
             heart.transform.SetSiblingIndex(_currentHearts.Count);
             _currentHearts.Add(heart.GetComponent<Image>());
-            
-            // TODO: play a sound
         }
 
         private void BreakAHeartAt(int reverseIndex)

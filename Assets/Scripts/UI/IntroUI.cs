@@ -10,7 +10,7 @@ namespace UI
     public class IntroUI : UI
     {
         [SerializeField]
-        private TextManager introTextManager;
+        private IntroManager introTextManager;
         [SerializeField]
         private PlayerInput inputModule;
         

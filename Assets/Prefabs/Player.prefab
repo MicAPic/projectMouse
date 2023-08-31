@@ -175,6 +175,7 @@ MonoBehaviour:
   hitInvincibilityDuration: 0.5
   criticalThreshold: 0.1
   canDie: 1
+  healSoundEffect: {fileID: 8300000, guid: 184450627b6844271b23d26b8f517bc0, type: 3}
   heartPrefab: {fileID: 2597685922690783564, guid: cdd48978a25414543bd59954d7ac8a8f, type: 3}
   heartSprite: {fileID: 21300000, guid: 84f3075cf66c3ce4ca660e8dcd62af79, type: 3}
   brokenHeartSprite: {fileID: 21300000, guid: 6005f3860deab974bb218f7d6f264540, type: 3}
