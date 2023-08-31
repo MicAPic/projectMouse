@@ -13,9 +13,11 @@ public class TextManager : MonoBehaviour
 
     [Header("Parameters")] 
     [SerializeField]
+    protected float initialDelay = 1.05f;
+    [SerializeField]
     private float textSpeed = 0.08f;
     [SerializeField]
-    private float autoModeWaitTime = 1.25f;
+    protected float autoModeWaitTime = 1.25f;
     [SerializeField] 
     private string nextSceneName;
     
@@ -44,9 +46,9 @@ public class TextManager : MonoBehaviour
     
     protected bool isPlaying;
     protected bool canContinue;
-    private bool _isDisplayingRichText;
+    protected bool isDisplayingRichText;
     private int _maxLineLength;
-    private Coroutine _currentDisplayLineCoroutine;
+    protected Coroutine _currentDisplayLineCoroutine;
     private Coroutine _currentFinishDisplayLineCoroutine;
 
     void Awake()
@@ -104,9 +106,23 @@ public class TextManager : MonoBehaviour
         transitionController.TransitionAndLoadScene(nextSceneName);
     }
 
-    private IEnumerator WaitBeforeDisplayingText()
+    protected virtual IEnumerator FinishDisplayingLine()
     {
-        yield return new WaitForSeconds(1.05f);
+        _currentDisplayLineCoroutine = null;
+        
+        isPlaying = false;
+        isDisplayingRichText = false;
+        if (canContinue)
+        {
+            canContinue = false;
+            yield return new WaitForSecondsRealtime(autoModeWaitTime);
+            ContinueStory();
+        }
+    }
+
+    protected virtual IEnumerator WaitBeforeDisplayingText()
+    {
+        yield return new WaitForSeconds(initialDelay);
         ContinueStory();
         // _isPlaying = true;
     }
@@ -123,15 +139,15 @@ public class TextManager : MonoBehaviour
             switch (dialogueText.text[i])
             {
                 case '<':
-                    _isDisplayingRichText = true;
+                    isDisplayingRichText = true;
                     break;
                 case '>':
-                    _isDisplayingRichText = false;
+                    isDisplayingRichText = false;
                     _maxLineLength--;
                     break;
             }
         
-            if (_isDisplayingRichText)
+            if (isDisplayingRichText)
             {
                 _maxLineLength--;
             }
@@ -149,20 +165,6 @@ public class TextManager : MonoBehaviour
         }
 
         _currentFinishDisplayLineCoroutine = StartCoroutine(FinishDisplayingLine());
-    }
-
-    private IEnumerator FinishDisplayingLine()
-    {
-        _currentDisplayLineCoroutine = null;
-        
-        isPlaying = false;
-        _isDisplayingRichText = false;
-        if (canContinue)
-        {
-            canContinue = false;
-            yield return new WaitForSecondsRealtime(autoModeWaitTime);
-            ContinueStory();
-        }
     }
 
     // private void PlayDialogueSound(int currentLineLength, char currentCharacter)

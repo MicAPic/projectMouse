@@ -15,11 +15,12 @@ public class TutorialTrigger : MonoBehaviour
 
     private IEnumerator OnTriggerStay2D(Collider2D col)
     {
-        if (tutorialManager.story.currentChoices.Count == 0 || !col.CompareTag("Player")) yield break;
+        if (!col.CompareTag("Player")) yield break;
         
         _collider.enabled = false;
         yield return new WaitForSeconds(0.1f); //small delay to make sure the player's hp is all set
         var playerHealth = col.GetComponent<PlayerHealth>();
+        if (tutorialManager.story.currentChoices.Count == 0) yield break;
         tutorialManager.story.ChooseChoiceIndex(playerHealth.GetCurrentHealth() < playerHealth.MaxHealth ? 0 : 1);
         tutorialManager.ContinueStory();
 

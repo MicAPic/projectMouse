@@ -4,8 +4,12 @@ namespace UI
 {
     public class UI : MonoBehaviour
     {
+        [SerializeField]
+        private Texture2D emptyCursorTexture;
+        
         protected virtual void Awake()
         {
+            Cursor.SetCursor(emptyCursorTexture, Vector2.one * 0.5f, CursorMode.ForceSoftware);
             Cursor.visible = false;
         }
         
