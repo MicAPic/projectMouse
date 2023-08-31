@@ -143,7 +143,7 @@ public class PlayerController : MonoBehaviour
             .SetDelay(TransitionController.Instance.transitionDuration);
         _sprite.material.SetFloat("_Threshold", 1.01f);
         _sprite.material.DOFloat(0.0f, "_Threshold", appearanceDuration)
-            .SetDelay(TransitionController.Instance.transitionDuration)
+            .SetDelay(TransitionController.Instance.transitionDuration - 0.35f)
             .OnComplete(() =>
             {
                 foreach (var trail in _trailElementSprites)

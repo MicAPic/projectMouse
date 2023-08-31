@@ -202,7 +202,7 @@ public class ExperienceManager : MonoBehaviour
         var tween = experienceBarFill.DOFillAmount(fillAmount, animationDuration);
         if (levelUpCondition)
         {
-            tween.SetUpdate(true);
+            // tween.SetUpdate(true);
             tween.OnComplete(LevelUp);
         }
     }
