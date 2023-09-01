@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Audio;
 using DG.Tweening;
 using PowerUps;
 using TMPro;
@@ -27,6 +28,11 @@ public class ExperienceManager : MonoBehaviour
     private float _experienceToLevelUp;
     private float _previousExperienceToLevelUp = 0.0f;
 
+    [Header("Audio")]
+    [SerializeField]
+    private AudioClip levelUpSoundEffect;
+    [SerializeField]
+    private float levelUpSoundEffectDelay = 0.438f;
 
     [Header("UI")]
     [FormerlySerializedAs("levelUpMenu")]
@@ -133,6 +139,10 @@ public class ExperienceManager : MonoBehaviour
         experienceBarFill.fillAmount = 0.0f;
         
         _currentLevel++;
+        if (_currentLevel > experienceCurve[experienceCurve.length - 1].time)
+        {
+            Debug.LogWarning("Maximum level has been reached. The EXP curve is now a flat line");
+        }
         
         // Shuffle our list and sort it by usage
         powerUps.Shuffle();
@@ -169,13 +179,7 @@ public class ExperienceManager : MonoBehaviour
         powerUpSelection.SetActive(true);
         
         ChatManager.Instance.EnableLevelUpChatInfo();
-        
         GameManager.Instance.Pause();
-        if (_currentLevel > experienceCurve[experienceCurve.length - 1].time)
-        {
-            Debug.LogWarning("Maximum level has been reached. The EXP curve is now a flat line");
-        }
-
         PixelPerfectCursor.Instance.Toggle();
     }
 
@@ -205,6 +209,8 @@ public class ExperienceManager : MonoBehaviour
         {
             // tween.SetUpdate(true);
             tween.OnComplete(LevelUp);
+            AudioManager.Instance.sfxSource.clip = levelUpSoundEffect;
+            AudioManager.Instance.sfxSource.PlayDelayed(animationDuration - levelUpSoundEffectDelay);
         }
     }
 

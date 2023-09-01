@@ -223,6 +223,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d269d14d9699647aba5fa3eeff733bba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  button: {fileID: 0}
+  clickSoundEffect: {fileID: 8300000, guid: c973be746aedfd04aa57576d6a79bdce, type: 3}
+  silence: {fileID: 8300000, guid: 5de423fc61d56e84cb31fcec96b15c1b, type: 3}
 --- !u!1 &4574638894365909087
 GameObject:
   m_ObjectHideFlags: 0
@@ -790,6 +793,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d269d14d9699647aba5fa3eeff733bba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  button: {fileID: 0}
+  clickSoundEffect: {fileID: 8300000, guid: c973be746aedfd04aa57576d6a79bdce, type: 3}
+  silence: {fileID: 8300000, guid: 5de423fc61d56e84cb31fcec96b15c1b, type: 3}
 --- !u!1 &7684535661533466589
 GameObject:
   m_ObjectHideFlags: 0
