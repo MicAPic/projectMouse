@@ -19,8 +19,6 @@ namespace HealthControllers
             {
                 Die();
             }
-        
-            //TODO: animate taking damage here or in the children 
         }
 
         protected virtual void Die()

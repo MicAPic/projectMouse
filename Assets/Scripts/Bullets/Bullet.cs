@@ -14,18 +14,9 @@ namespace Bullets
             _rb = GetComponentInChildren<Rigidbody2D>();
         }
 
-        void OnCollisionEnter2D(Collision2D col)
-        {
-            if (col.gameObject.TryGetComponent(out Health healthController) && healthController.enabled)
-            {
-                healthController.TakeDamage(damage);
-            }
-            Disable();
-        }
-
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.gameObject.TryGetComponent(out Health healthController) && healthController.enabled)
+            if (collision.gameObject.TryGetComponent(out Health healthController) && healthController.enabled && collision.isTrigger)
             {
                 healthController.TakeDamage(damage);
             }

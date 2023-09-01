@@ -333,4 +333,4 @@ MonoBehaviour:
   _spawnRadius: 35
   _obstacleToSpawn:
     serializedVersion: 2
-    m_Bits: 576
+    m_Bits: 1600
