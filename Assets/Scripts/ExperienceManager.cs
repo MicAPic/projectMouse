@@ -107,7 +107,8 @@ public class ExperienceManager : MonoBehaviour
 
         if (TextManager.Instance != null)
         {
-            TextManager.Instance.ContinueStory();
+            FindObjectOfType<TutorialUI>().ToggleDialogueBox(true, 0.0f)
+                                          .OnComplete(TextManager.Instance.ContinueStory);
         }
     }
 

@@ -140,10 +140,10 @@ public class PlayerController : MonoBehaviour
             _bullets.Add(null);
         
         shadowRenderer.DOFade(1.0f, appearanceDuration * 0.5f)
-            .SetDelay(TransitionController.Instance.transitionDuration);
+            .SetDelay(TransitionController.Instance.transitionDuration * 0.5f);
         _sprite.material.SetFloat("_Threshold", 1.01f);
         _sprite.material.DOFloat(0.0f, "_Threshold", appearanceDuration)
-            .SetDelay(TransitionController.Instance.transitionDuration - 0.35f)
+            .SetDelay(TransitionController.Instance.transitionDuration * 0.5f)
             .OnComplete(() =>
             {
                 foreach (var trail in _trailElementSprites)

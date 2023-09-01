@@ -51,7 +51,7 @@ public class TextManager : MonoBehaviour
     protected Coroutine _currentDisplayLineCoroutine;
     private Coroutine _currentFinishDisplayLineCoroutine;
 
-    void Awake()
+    protected virtual void Awake()
     {
         if (Instance != null)
         {

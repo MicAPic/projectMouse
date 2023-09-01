@@ -1,6 +1,8 @@
 using System;
+using DG.Tweening;
 using Enemy;
 using HealthControllers;
+using UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -14,9 +16,16 @@ public class TutorialManager : TextManager
     private GameObject miguelPrefab;
     [SerializeField]
     private Transform miguelSpawnPoint;
+    private TutorialUI tutorialUI;
 
     private Action<InputAction.CallbackContext> _inputHandler;
     private GameObject _miguel;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        tutorialUI = FindObjectOfType<TutorialUI>();
+    }
 
     void Start()
     {
@@ -36,8 +45,11 @@ public class TutorialManager : TextManager
         });
         story.BindExternalFunction("UnlockSelection", () =>
         {
-            eventSystem.SetActive(true);
-            FindFirstObjectByType<Button>().Select();
+            tutorialUI.ToggleDialogueBox(false, 0.0f).OnComplete(() =>
+            {
+                eventSystem.SetActive(true);
+                FindFirstObjectByType<Button>().Select();
+            });
         });
         story.BindExternalFunction("WaitForInput", (string inputName) =>
         {

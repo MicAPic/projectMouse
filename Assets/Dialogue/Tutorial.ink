@@ -36,7 +36,8 @@ Aim with your mouse and shoot by holding the <u>Left Mouse Button</u>. Go ahead!
 That will teach him a lesson or two!#auto:
 Look! Somebody from your chat donated $100, and it was enough to meet the stream goal.#auto: 
 Each time this happens, you can choose one of the three random power-ups.#auto: 
-{UnlockSelection()}Navigate through them and use <u>Space</u> to make the choice.
+Navigate through them and use <u>Space</u> to make the choice.#auto: 
+...{UnlockSelection()}
 Well done! I taught you everything I know.#auto: 
 Now it's your time to shine. Show them what you're made of!#auto: 
 
