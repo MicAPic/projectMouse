@@ -1417,7 +1417,7 @@ MonoBehaviour:
   eventSystem: {fileID: 480293529}
   initialDelay: 1.05
   textSpeed: 0.08
-  autoModeWaitTime: 1.25
+  autoModeWaitTime: 1.5
   nextSceneName: TitleScreen
   dialogueText: {fileID: 1694925600}
   transitionController: {fileID: 5037135231217184138}
@@ -1439,8 +1439,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8440f031991847c8a2e6b3b03500710, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transitionSprite: {fileID: 2414931901261295447}
   transitionDuration: 0.5
+  transitionSprite: {fileID: 2414931901261295447}
 --- !u!224 &7084194033782843298
 RectTransform:
   m_ObjectHideFlags: 0

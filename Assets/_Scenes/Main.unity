@@ -218,8 +218,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.28855, y: -1.02825, z: 0}
-    m_Extent: {x: 1.07485, y: 2.02315, z: 0}
+    m_Center: {x: 0.2834, y: -1.0288501, z: 0}
+    m_Extent: {x: 1.0699, y: 2.03035, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -330,8 +330,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.35440004, y: -0.56299996, z: 0}
-    m_Extent: {x: 1.5632, y: 5.2489004, z: 0}
+    m_Center: {x: 0.35690004, y: -0.5638499, z: 0}
+    m_Extent: {x: 1.5641999, y: 5.25005, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -757,6 +757,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6669997877656732541, guid: ee1eb64418e524647b5d95ed5ac22211, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: a60d0c87f57c3bb41bdd4a2edc336481, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ee1eb64418e524647b5d95ed5ac22211, type: 3}
 --- !u!1 &561963790
@@ -1408,8 +1412,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.287, y: -1.02115, z: 0}
-    m_Extent: {x: 1.0669999, y: 2.02815, z: 0}
+    m_Center: {x: 0.2841, y: -1.02785, z: 0}
+    m_Extent: {x: 1.0713999, y: 2.01955, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -2150,8 +2154,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.41905004, y: -0.57439995, z: 0}
-    m_Extent: {x: 1.55965, y: 5.2534, z: 0}
+    m_Center: {x: 0.41625, y: -0.57145, z: 0}
+    m_Extent: {x: 1.55665, y: 5.25375, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -2853,8 +2857,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.32165003, y: -0.50995016, z: 0}
-    m_Extent: {x: 1.56005, y: 5.31535, z: 0}
+    m_Center: {x: 0.32569999, y: -0.50665, z: 0}
+    m_Extent: {x: 1.5695, y: 5.31205, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
