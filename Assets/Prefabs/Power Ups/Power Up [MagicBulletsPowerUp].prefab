@@ -122,5 +122,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee6de547576c4dd4baa7e7b7ca1221d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _coefficient: 2
+  _coefficient: 1
   _shotGunPowerUp: {fileID: 5848690034100528984, guid: 4ac03bf76890f124381d1273a6d9e7d1, type: 3}
