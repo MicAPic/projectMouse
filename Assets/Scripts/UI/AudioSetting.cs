@@ -22,7 +22,7 @@ namespace UI
         {
             _currentVolumeModifier = PlayerPrefs.GetFloat(linkedPlayer.prefsVolumeName, 1.0f);
             SetLabel();
-            SetButtons(false);
+            SetButtons();
         }
 
         public void AdjustVolume(float modifierIncrement)
@@ -30,7 +30,7 @@ namespace UI
             _currentVolumeModifier += modifierIncrement;
             linkedPlayer.SetVolumeModifier(_currentVolumeModifier);
             SetLabel();
-            SetButtons(true);
+            SetButtons();
         }
 
         private void SetLabel()
@@ -38,19 +38,15 @@ namespace UI
             label.text = (_currentVolumeModifier * 100).ToString("N0");
         }
         
-        private void SetButtons(bool isAdjustingButtons)
+        private void SetButtons()
         {
             switch (_currentVolumeModifier)
             {
                 case <= 0:
                     leftButton.interactable = false;
-                    if (isAdjustingButtons)
-                        rightButton.Select();
                     return;
                 case >= 1:
                     rightButton.interactable = false;
-                    if (isAdjustingButtons)
-                        leftButton.Select();
                     return;
             }
 
