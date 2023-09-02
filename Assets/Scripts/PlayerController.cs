@@ -76,6 +76,8 @@ public class PlayerController : MonoBehaviour
     private Color powerUpFlashingColour;
     [SerializeField]
     private Material invincibilityMaterial;
+    [SerializeField]
+    private Material dissolveMaterial;
     private Material _defaultMaterial;
     
     [SerializeField]
@@ -146,6 +148,7 @@ public class PlayerController : MonoBehaviour
         
         shadowRenderer.DOFade(1.0f, appearanceDuration * 0.5f)
             .SetDelay(TransitionController.Instance.transitionDuration * 0.5f);
+        _sprite.material = dissolveMaterial;
         _sprite.material.SetFloat("_Threshold", 1.01f);
         _sprite.material.DOFloat(0.0f, "_Threshold", appearanceDuration)
             .SetDelay(TransitionController.Instance.transitionDuration * 0.5f)
@@ -155,6 +158,8 @@ public class PlayerController : MonoBehaviour
                 {
                     trail.enabled = true;
                 }
+                _sprite.material = _defaultMaterial;
+                CameraController.Instance.focusPoint = 0.5f;
             });
     }
 

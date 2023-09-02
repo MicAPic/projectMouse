@@ -55,7 +55,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mousePos: {x: 0, y: 0, z: 0}
-  focusPoint: 0.5
+  focusPoint: 0
   player: {fileID: 0}
   smoothing: 0.25
   maxDistanceFromPlayer: 5
