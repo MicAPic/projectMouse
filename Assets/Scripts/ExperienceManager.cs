@@ -139,7 +139,7 @@ public class ExperienceManager : MonoBehaviour
 
     private void LevelUp()
     {
-        if (isLevelingUp || GameManager.isGameOver) return;
+        if (isLevelingUp || GameManager.IsGameOver) return;
         isLevelingUp = true;
 
         _currentLevel++;
@@ -231,14 +231,23 @@ public class ExperienceManager : MonoBehaviour
         var tween = experienceBarFill.DOFillAmount(fillAmount, animationDuration);
         if (levelUpCondition)
         {
-            tween.OnComplete(LevelUp);
+            GameManager.CanPause = false;
+            tween.SetUpdate(true);
+            tween.OnComplete(() =>
+            {
+                GameManager.CanPause = true;
+                LevelUp();
+            });
             yield return new WaitForSeconds(animationDuration - levelUpSoundEffectDelay);
-            if (!GameManager.isGameOver)
+            if (!GameManager.IsGameOver && !isLevelingUp)
+            {
+                Debug.Log("sound");
                 AudioManager.Instance.sfxSource.PlayOneShot(levelUpSoundEffect);
+            }
         }
     }
 
-    private void AnimateExperienceGain(float expToAdd)
+    private void  AnimateExperienceGain(float expToAdd)
     {
         if (!_experienceCircles.TryDequeue(out var result))
         {

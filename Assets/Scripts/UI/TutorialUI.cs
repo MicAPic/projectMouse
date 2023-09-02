@@ -92,10 +92,10 @@ namespace UI
         {
             if (ExperienceManager.Instance.isLevelingUp) return;
         
-            GameManager.isPaused = !GameManager.isPaused;
-            pauseScreen.SetActive(GameManager.isPaused);
+            GameManager.IsPaused = !GameManager.IsPaused;
+            pauseScreen.SetActive(GameManager.IsPaused);
 
-            if (GameManager.isPaused)
+            if (GameManager.IsPaused)
             {
                 AudioManager.Instance.ToggleLowpass(true);
                 _activateEventSystemOnUnpause = TextManager.Instance.eventSystem.activeInHierarchy;

@@ -209,7 +209,7 @@ public class PlayerController : MonoBehaviour
             }
         }
         
-        if (GameManager.isGameOver || GameManager.isPaused) return;
+        if (GameManager.IsGameOver || GameManager.IsPaused) return;
 
         // Input processing
         if (playerInput.actions["Shoot"].IsPressed() && Time.time - _lastFireTime >= fireRate)

@@ -154,7 +154,7 @@ namespace HealthControllers
             // Post-hit invincibility:
             GrantInvincibility(hitInvincibilityDuration, hitInvincibilityDuration, false);
 
-            if (healthPoints <= criticalThreshold * MaxHealth && !_inCriticalCondition && !GameManager.isGameOver)
+            if (healthPoints <= criticalThreshold * MaxHealth && !_inCriticalCondition && !GameManager.IsGameOver)
             {
                 ChatManager.Instance.ToggleCriticalHealthChatInfo();
                 _inCriticalCondition = true;

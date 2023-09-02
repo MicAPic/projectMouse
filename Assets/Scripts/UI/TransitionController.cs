@@ -45,8 +45,8 @@ namespace UI
             {
                 SceneManager.LoadScene(sceneToLoad);
 
-                GameManager.isPaused = false;
-                GameManager.isGameOver = false;
+                GameManager.IsPaused = false;
+                GameManager.IsGameOver = false;
                     
                 if (Time.timeScale < 1.0f)
                 {

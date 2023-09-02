@@ -158,9 +158,9 @@ public class TextManager : MonoBehaviour
                 ? new WaitForSecondsRealtime(autoModeWaitTime)
                 : new WaitForSecondsRealtime(textSpeed);
             
-            if (GameManager.isPaused)
+            if (GameManager.IsPaused)
             {
-                yield return new WaitUntil(() => !GameManager.isPaused);
+                yield return new WaitUntil(() => !GameManager.IsPaused);
             }
         }
 

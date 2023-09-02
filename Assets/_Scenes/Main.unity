@@ -218,8 +218,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.2834, y: -1.0288501, z: 0}
-    m_Extent: {x: 1.0699, y: 2.03035, z: 0}
+    m_Center: {x: 0.29095003, y: -1.0258, z: 0}
+    m_Extent: {x: 1.06995, y: 2.0348, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -330,8 +330,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.35690004, y: -0.5638499, z: 0}
-    m_Extent: {x: 1.5641999, y: 5.25005, z: 0}
+    m_Center: {x: 0.35939997, y: -0.5679498, z: 0}
+    m_Extent: {x: 1.5627, y: 5.25175, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -1412,8 +1412,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.2841, y: -1.02785, z: 0}
-    m_Extent: {x: 1.0713999, y: 2.01955, z: 0}
+    m_Center: {x: 0.28935, y: -1.02585, z: 0}
+    m_Extent: {x: 1.06755, y: 2.02575, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -1910,6 +1910,22 @@ PrefabInstance:
       propertyPath: playerInputs.Array.data[0]
       value: 
       objectReference: {fileID: 1824196156}
+    - target: {fileID: 1853129572502310641, guid: e8ac6b9e58c7f154d9ca9e93a5f8c1a1, type: 3}
+      propertyPath: pauseInputAction.m_SingletonActionBindings.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1853129572502310641, guid: e8ac6b9e58c7f154d9ca9e93a5f8c1a1, type: 3}
+      propertyPath: pauseInputAction.m_SingletonActionBindings.Array.data[1].m_Id
+      value: ab05db88-50dd-4fe5-903d-0cd8b81f2f6b
+      objectReference: {fileID: 0}
+    - target: {fileID: 1853129572502310641, guid: e8ac6b9e58c7f154d9ca9e93a5f8c1a1, type: 3}
+      propertyPath: pauseInputAction.m_SingletonActionBindings.Array.data[1].m_Path
+      value: <Keyboard>/tab
+      objectReference: {fileID: 0}
+    - target: {fileID: 1853129572502310641, guid: e8ac6b9e58c7f154d9ca9e93a5f8c1a1, type: 3}
+      propertyPath: pauseInputAction.m_SingletonActionBindings.Array.data[1].m_Action
+      value: Pause Input
+      objectReference: {fileID: 0}
     - target: {fileID: 5075263477800695817, guid: e8ac6b9e58c7f154d9ca9e93a5f8c1a1, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -2154,8 +2170,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.41625, y: -0.57145, z: 0}
-    m_Extent: {x: 1.55665, y: 5.25375, z: 0}
+    m_Center: {x: 0.4238, y: -0.5768001, z: 0}
+    m_Extent: {x: 1.5527, y: 5.2515, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -2857,8 +2873,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.32569999, y: -0.50665, z: 0}
-    m_Extent: {x: 1.5695, y: 5.31205, z: 0}
+    m_Center: {x: 0.3208, y: -0.50804996, z: 0}
+    m_Extent: {x: 1.56, y: 5.30945, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
