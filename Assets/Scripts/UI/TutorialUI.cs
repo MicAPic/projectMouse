@@ -1,5 +1,7 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 namespace UI
 {
@@ -8,12 +10,24 @@ namespace UI
         [SerializeField]
         private InputAction pauseInputAction;
         private bool _activateEventSystemOnUnpause;
-        private float _cachedTextSpeed;
+
+        [Header("Dialogue Animation")]
+        [SerializeField]
+        private CanvasGroup dialogueBox;
+        [SerializeField]
+        private Image tungstenRat;
+        [SerializeField]
+        private float ratAppearanceDuration = 0.75f;
+        [SerializeField]
+        private float ratDialoguePosY = 3.0f;
+        private float ratDefaultPosY;
 
         protected override void Awake()
         {
             base.Awake();
             pauseInputAction.performed += _ => ToggleTutorialPause();
+            
+            ratDefaultPosY = tungstenRat.rectTransform.anchoredPosition.y;
         }
 
         void OnEnable()
@@ -28,6 +42,43 @@ namespace UI
 
         protected override void Start()
         {
+            dialogueBox.alpha = 0.0f;
+            tungstenRat.color = new Color(1, 1, 1, 0);
+            ToggleDialogueBox(true, TransitionController.Instance.transitionDuration * 1.33f);
+        }
+
+        public Tween ToggleDialogueBox(bool state, float delay)
+        {
+            float boxDelay;
+            float ratDelay;
+            float ratFinalDestination;
+            float finalAlpha;
+            if (state)
+            {
+                boxDelay = delay;
+                ratDelay = delay + 0.1f;
+                ratFinalDestination = ratDialoguePosY;
+                finalAlpha = 1.0f;
+            }
+            else
+            {
+                boxDelay = delay + 0.1f;
+                ratDelay = delay;
+                ratFinalDestination = ratDefaultPosY;
+                finalAlpha = 0.0f;
+            }
+            
+            dialogueBox.DOFade(finalAlpha, 0.3f)
+                       .SetDelay(boxDelay)
+                       .SetUpdate(true);
+            tungstenRat.DOFade(finalAlpha, ratAppearanceDuration)
+                       .SetDelay(ratDelay)
+                       .SetUpdate(true);
+            var ratMainTween = 
+                tungstenRat.rectTransform.DOAnchorPosY(ratFinalDestination, ratAppearanceDuration)
+                                         .SetDelay(ratDelay)
+                                         .SetUpdate(true);
+            return ratMainTween;
         }
 
         public override void UnpauseGame()

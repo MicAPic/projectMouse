@@ -10,10 +10,9 @@ namespace UI
     {
         public static TransitionController Instance { get; private set; }
 
+        public float transitionDuration;
         [SerializeField]
         protected RawImage transitionSprite;
-        [SerializeField]
-        protected float transitionDuration;
 
         private float _defaultPosX;
 
@@ -21,13 +20,13 @@ namespace UI
         {
             if (Instance != null)
             {
-                Destroy(gameObject);
+                Destroy(gameObject.transform.parent.gameObject);
                 return;
             }
 
             Instance = this;
             
-            DontDestroyOnLoad(gameObject.transform.parent);
+            DontDestroyOnLoad(gameObject.transform.parent.gameObject);
             _defaultPosX = transitionSprite.rectTransform.anchoredPosition.x;
         }
 
@@ -36,25 +35,26 @@ namespace UI
             AudioManager.Instance.FadeOutAll(transitionDuration);
             
             transitionSprite.raycastTarget = true;
-            transitionSprite.rectTransform.DOAnchorPosX(0.0f, transitionDuration)
-                .SetUpdate(true)
-                .SetEase(Ease.Linear)
-                .OnComplete(() =>
-                {
-                    SceneManager.LoadScene(sceneToLoad);
+            var transitionSequence = DOTween.Sequence();
+            transitionSequence.SetUpdate(true);
+            transitionSequence.Append(transitionSprite.rectTransform.DOAnchorPosX(0.0f, transitionDuration)
+                                                                    .SetEase(Ease.Linear));
 
-                    GameManager.isPaused = false;
-                    GameManager.isGameOver = false;
+            transitionSequence.AppendCallback(() =>
+            {
+                SceneManager.LoadScene(sceneToLoad);
+
+                GameManager.isPaused = false;
+                GameManager.isGameOver = false;
                     
-                    if (Time.timeScale < 1.0f)
-                    {
-                        Time.timeScale = 1.0f;
-                    }
-                    transitionSprite.rectTransform.DOAnchorPosX(-_defaultPosX, transitionDuration)
-                        .SetUpdate(true)
-                        .SetEase(Ease.Linear)
-                        .OnComplete(() => transitionSprite.raycastTarget = false);
-                });
+                if (Time.timeScale < 1.0f)
+                {
+                    Time.timeScale = 1.0f;
+                }
+            });
+            transitionSequence.Append(transitionSprite.rectTransform.DOAnchorPosX(-_defaultPosX, transitionDuration)
+                                                                    .SetEase(Ease.Linear));
+            transitionSequence.OnComplete(() => transitionSprite.raycastTarget = false);
         }
     }
 }

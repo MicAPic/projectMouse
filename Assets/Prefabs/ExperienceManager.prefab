@@ -1726,6 +1726,8 @@ MonoBehaviour:
   - {fileID: 4170600310587356114, guid: 4757579a96f6947e89b4e36f6ca9781a, type: 3}
   - {fileID: 4170600310587356114, guid: 4ac03bf76890f124381d1273a6d9e7d1, type: 3}
   - {fileID: 4170600310587356114, guid: 9fc6964cf5d35bf41a920ef7b1c0f9c8, type: 3}
+  levelUpSoundEffect: {fileID: 8300000, guid: d984b7ae6212d1843b9581f0350d5e06, type: 3}
+  levelUpSoundEffectDelay: 0.366
   powerUpSelection: {fileID: 1674279825933757743}
   experienceBarFill: {fileID: 3015840709111772915}
   currentExperienceText: {fileID: 8974630425866266157}

@@ -3158,7 +3158,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.13207549, g: 0.13207549, b: 0.13207549, a: 0.5686275}
+  m_Color: {r: 0.1254902, g: 0.14117648, b: 0.18039216, a: 0.7529412}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -6249,6 +6249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d2e53875cee4771b804b8dbd77cbdbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  emptyCursorTexture: {fileID: 2800000, guid: 9c8a9c898d69c4dd0a35f61f754eb589, type: 3}
   pauseScreen: {fileID: 8572246695488051571}
   cancelButton: {fileID: 5082004250471975548}
   gameOverScreen: {fileID: 8572246695239324921}
@@ -7104,10 +7105,42 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8572246696614189400}
     m_Modifications:
+    - target: {fileID: 1085360457125364964, guid: da9156ccff0f1499f82c0797c1db8fdc, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1085360457125364964, guid: da9156ccff0f1499f82c0797c1db8fdc, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1085360457125364964, guid: da9156ccff0f1499f82c0797c1db8fdc, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1085360457125364964, guid: da9156ccff0f1499f82c0797c1db8fdc, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4729266212681119776, guid: da9156ccff0f1499f82c0797c1db8fdc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 8572246696614189403}
+    - target: {fileID: 4877556326744785136, guid: da9156ccff0f1499f82c0797c1db8fdc, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4877556326744785136, guid: da9156ccff0f1499f82c0797c1db8fdc, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4877556326744785136, guid: da9156ccff0f1499f82c0797c1db8fdc, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4877556326744785136, guid: da9156ccff0f1499f82c0797c1db8fdc, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4877556328058959668, guid: da9156ccff0f1499f82c0797c1db8fdc, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -7195,6 +7228,22 @@ PrefabInstance:
     - target: {fileID: 4877556328058959669, guid: da9156ccff0f1499f82c0797c1db8fdc, type: 3}
       propertyPath: m_Name
       value: PauseScreen
+      objectReference: {fileID: 0}
+    - target: {fileID: 7677311586027541605, guid: da9156ccff0f1499f82c0797c1db8fdc, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7677311586027541605, guid: da9156ccff0f1499f82c0797c1db8fdc, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7677311586027541605, guid: da9156ccff0f1499f82c0797c1db8fdc, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7677311586027541605, guid: da9156ccff0f1499f82c0797c1db8fdc, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8340900294792913978, guid: da9156ccff0f1499f82c0797c1db8fdc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

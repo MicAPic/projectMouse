@@ -223,6 +223,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d269d14d9699647aba5fa3eeff733bba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  button: {fileID: 0}
+  clickSoundEffect: {fileID: 8300000, guid: c973be746aedfd04aa57576d6a79bdce, type: 3}
+  silence: {fileID: 8300000, guid: 5de423fc61d56e84cb31fcec96b15c1b, type: 3}
 --- !u!1 &4574638894365909087
 GameObject:
   m_ObjectHideFlags: 0
@@ -483,7 +486,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.13207549, g: 0.13207549, b: 0.13207549, a: 0.5686275}
+  m_Color: {r: 0.1254902, g: 0.14117648, b: 0.18039216, a: 0.7529412}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -790,6 +793,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d269d14d9699647aba5fa3eeff733bba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  button: {fileID: 0}
+  clickSoundEffect: {fileID: 8300000, guid: c973be746aedfd04aa57576d6a79bdce, type: 3}
+  silence: {fileID: 8300000, guid: 5de423fc61d56e84cb31fcec96b15c1b, type: 3}
 --- !u!1 &7684535661533466589
 GameObject:
   m_ObjectHideFlags: 0

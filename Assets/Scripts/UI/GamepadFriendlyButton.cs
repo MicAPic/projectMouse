@@ -1,21 +1,41 @@
+using Audio;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace UI
 {
-    public class GamepadFriendlyButton : MonoBehaviour, IPointerEnterHandler
+    public class GamepadFriendlyButton : MonoBehaviour, IPointerEnterHandler, IDeselectHandler
     {
-        private Button _button;
+        public Button button;
+        
+        [SerializeField]
+        private AudioClip clickSoundEffect;
+        [SerializeField]
+        private AudioClip silence;
+
+        private AudioClip _currentClip;
 
         void Awake()
         {
-            _button = GetComponent<Button>();
+            button = GetComponent<Button>();
+            _currentClip = clickSoundEffect;
         }
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            _button.Select();
+            button.Select();
+        }
+
+        public void OnDeselect(BaseEventData eventData)
+        {
+            Debug.Log(eventData.selectedObject.name);
+            AudioManager.Instance.sfxSource.PlayOneShot(_currentClip);
+        }
+
+        public void ToggleSoundEffect(bool state)
+        {
+            _currentClip = state ? clickSoundEffect : silence;
         }
     }
 }

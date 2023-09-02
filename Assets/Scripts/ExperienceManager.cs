@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Audio;
 using DG.Tweening;
 using PowerUps;
 using TMPro;
@@ -27,6 +28,11 @@ public class ExperienceManager : MonoBehaviour
     private float _experienceToLevelUp;
     private float _previousExperienceToLevelUp = 0.0f;
 
+    [Header("Audio")]
+    [SerializeField]
+    private AudioClip levelUpSoundEffect;
+    [SerializeField]
+    private float levelUpSoundEffectDelay = 0.438f;
 
     [Header("UI")]
     [FormerlySerializedAs("levelUpMenu")]
@@ -70,6 +76,8 @@ public class ExperienceManager : MonoBehaviour
             Debug.LogError("Not enough power-ups were added in the Editor");
         }
         PowerUpsWithCounters = powerUps.ToDictionary(powerUp => powerUp, _ => 0f);
+        PowerUpsWithCounters[powerUps[^2]] = 1; // magic bullets power up
+        PowerUpsWithCounters[powerUps[^1]] = 1; // shotgun power up
     }
 
     // Start is called before the first frame update
@@ -107,7 +115,8 @@ public class ExperienceManager : MonoBehaviour
 
         if (TextManager.Instance != null)
         {
-            TextManager.Instance.ContinueStory();
+            FindObjectOfType<TutorialUI>().ToggleDialogueBox(true, 0.0f)
+                                          .OnComplete(TextManager.Instance.ContinueStory);
         }
     }
 
@@ -132,6 +141,10 @@ public class ExperienceManager : MonoBehaviour
         experienceBarFill.fillAmount = 0.0f;
         
         _currentLevel++;
+        if (_currentLevel > experienceCurve[experienceCurve.length - 1].time)
+        {
+            Debug.LogWarning("Maximum level has been reached. The EXP curve is now a flat line");
+        }
         
         // Shuffle our list and sort it by usage
         powerUps.Shuffle();
@@ -168,13 +181,7 @@ public class ExperienceManager : MonoBehaviour
         powerUpSelection.SetActive(true);
         
         ChatManager.Instance.EnableLevelUpChatInfo();
-        
         GameManager.Instance.Pause();
-        if (_currentLevel > experienceCurve[experienceCurve.length - 1].time)
-        {
-            Debug.LogWarning("Maximum level has been reached. The EXP curve is now a flat line");
-        }
-
         PixelPerfectCursor.Instance.Toggle();
     }
 
@@ -202,8 +209,10 @@ public class ExperienceManager : MonoBehaviour
         var tween = experienceBarFill.DOFillAmount(fillAmount, animationDuration);
         if (levelUpCondition)
         {
-            tween.SetUpdate(true);
+            // tween.SetUpdate(true);
             tween.OnComplete(LevelUp);
+            AudioManager.Instance.sfxSource.clip = levelUpSoundEffect;
+            AudioManager.Instance.sfxSource.PlayDelayed(animationDuration - levelUpSoundEffectDelay);
         }
     }
 
