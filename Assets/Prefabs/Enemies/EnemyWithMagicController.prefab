@@ -147,7 +147,7 @@ MonoBehaviour:
   _attackDistance: 12
   _fireTemp: 2
   _retreatDistance: 5
-  _retreatSpeed: 10
+  _retreatSpeed: 7
   _numberOfBullets: 5
   _radius: 4
   _bulletsRotationSpeed: 20

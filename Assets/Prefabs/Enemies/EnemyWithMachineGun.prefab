@@ -213,7 +213,7 @@ MonoBehaviour:
   _attackDistance: 10
   _fireTemp: 5
   _retreatDistance: 5
-  _retreatSpeed: 12
+  _retreatSpeed: 7
   _numberOfBulletsInBurst: 5
   _timeBetweenShoots: 0.1
 --- !u!61 &1840996675886449298

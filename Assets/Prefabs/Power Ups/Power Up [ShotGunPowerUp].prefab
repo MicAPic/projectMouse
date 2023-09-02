@@ -124,5 +124,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae9506d95fd0019489432de10b614ea1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _coefficient: 2
+  _coefficient: 1
   _magicBulletsPowerUp: {fileID: 5848690034100528984, guid: 9fc6964cf5d35bf41a920ef7b1c0f9c8, type: 3}

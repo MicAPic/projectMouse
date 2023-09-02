@@ -69,7 +69,7 @@ MonoBehaviour:
   _attackDistance: 10
   _fireTemp: 4
   _retreatDistance: 5
-  _retreatSpeed: 12
+  _retreatSpeed: 7
 --- !u!61 &2386241474200903760
 BoxCollider2D:
   m_ObjectHideFlags: 0
