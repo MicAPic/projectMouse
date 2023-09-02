@@ -28,11 +28,14 @@ public class PlayerController : MonoBehaviour
     private Vector2 _movementValue;
     private Vector2 _cachedMovementValue;
 
-    [Header("Shooting")] 
+    [Header("Shooting")]
     public float fireRate = 1.0f;
     public float firePower = 1.0f;
     public float damageToDeal = 34f;
     public float bulletScaleModifier = 1.0f;
+    
+    [SerializeField]
+    private bool activateAimOnLoad = true;
     
     [SerializeField]
     private Transform shootingPoint;
@@ -159,7 +162,8 @@ public class PlayerController : MonoBehaviour
                     trail.enabled = true;
                 }
                 _sprite.material = _defaultMaterial;
-                CameraController.Instance.focusPoint = 0.5f;
+                if (activateAimOnLoad)
+                    CameraController.Instance.focusPoint = 0.5f;
             });
     }
 
@@ -251,7 +255,7 @@ public class PlayerController : MonoBehaviour
     void OnCollisionEnter2D(Collision2D col)
     {
         // Contact damage to enemies
-        if (col.gameObject.TryGetComponent(out EnemyHealth enemyHealth) && _isDodging)
+        if (col.gameObject.TryGetComponent(out EnemyHealth enemyHealth) && _isDodging && dodgeDamage > 0)
         {
             enemyHealth.TakeDamage(dodgeDamage);
         }

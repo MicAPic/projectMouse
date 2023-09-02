@@ -128,7 +128,7 @@ MonoBehaviour:
   _firePower: 20
   _spriteRenderer: {fileID: 3574051207885991753}
   _shadowRenderer: {fileID: 6779208012490824151}
-  minSpeedToFlip: 5
+  minSpeedToFlip: 4
   dissolveMaterial: {fileID: 2100000, guid: a0cd91ac264414dc9b216007d84fd597, type: 2}
   dissolveDuration: 1
   _behindCameraSpeed: 25
