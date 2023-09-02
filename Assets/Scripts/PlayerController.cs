@@ -254,10 +254,11 @@ public class PlayerController : MonoBehaviour
         _rb.velocity = _movementValue * movementSpeed;
     }
 
-    void OnCollisionEnter2D(Collision2D col)
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         // Contact damage to enemies
-        if (col.gameObject.TryGetComponent(out EnemyHealth enemyHealth) && _isDodging && dodgeDamage > 0)
+        if (collision.gameObject.TryGetComponent(out EnemyHealth enemyHealth) && _isDodging && dodgeDamage > 0 && collision.isTrigger)
         {
             enemyHealth.TakeDamage(dodgeDamage);
         }

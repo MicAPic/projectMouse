@@ -146,6 +146,7 @@ MonoBehaviour:
   firePower: 20
   damageToDeal: 50
   bulletScaleModifier: 1
+  activateAimOnLoad: 1
   shootingPoint: {fileID: 1490496431234418896}
   shootAngle: 20
   numberOfBullets: 3
@@ -176,7 +177,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthPoints: 120
   defenceModifier: 1
-  hitInvincibilityDuration: 0.5
+  hitInvincibilityDuration: 0.75
   criticalThreshold: 0.1
   canDie: 1
   healSoundEffect: {fileID: 8300000, guid: 184450627b6844271b23d26b8f517bc0, type: 3}
