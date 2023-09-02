@@ -25,19 +25,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4334202878583021386, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4334202878583021386, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4334202878583021386, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4334202878583021386, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4334202878583021386, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
       propertyPath: m_SizeDelta.x
@@ -124,5 +124,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a8b122b60464d1aabccddb1fee0971b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _coefficient: 1
   increment: 30
   maxHealth: 210
