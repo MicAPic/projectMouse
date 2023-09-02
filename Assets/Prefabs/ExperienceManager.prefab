@@ -1738,6 +1738,7 @@ MonoBehaviour:
   experienceCirclePrefab: {fileID: 4276295195053333594, guid: 50315d7cc735b514db278de99dd252f7, type: 3}
   experienceCircleDestination: {fileID: 3398048464255045408}
   circleAnimationDuration: 2.5
+  powerUpAppearanceDuration: 0.25
 --- !u!1 &8951781446173462087
 GameObject:
   m_ObjectHideFlags: 0

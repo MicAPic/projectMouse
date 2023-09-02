@@ -28,11 +28,14 @@ public class PlayerController : MonoBehaviour
     private Vector2 _movementValue;
     private Vector2 _cachedMovementValue;
 
-    [Header("Shooting")] 
+    [Header("Shooting")]
     public float fireRate = 1.0f;
     public float firePower = 1.0f;
     public float damageToDeal = 34f;
     public float bulletScaleModifier = 1.0f;
+    
+    [SerializeField]
+    private bool activateAimOnLoad = true;
     
     [SerializeField]
     private Transform shootingPoint;
@@ -76,6 +79,8 @@ public class PlayerController : MonoBehaviour
     private Color powerUpFlashingColour;
     [SerializeField]
     private Material invincibilityMaterial;
+    [SerializeField]
+    private Material dissolveMaterial;
     private Material _defaultMaterial;
     
     [SerializeField]
@@ -143,9 +148,12 @@ public class PlayerController : MonoBehaviour
         _bullets = new List<Bullet>(numberOfBullets);
         for (int i = 0; i < numberOfBullets; ++i)
             _bullets.Add(null);
+
+        CameraController.Instance.focusPoint = 0.0f;
         
         shadowRenderer.DOFade(1.0f, appearanceDuration * 0.5f)
             .SetDelay(TransitionController.Instance.transitionDuration * 0.5f);
+        _sprite.material = dissolveMaterial;
         _sprite.material.SetFloat("_Threshold", 1.01f);
         _sprite.material.DOFloat(0.0f, "_Threshold", appearanceDuration)
             .SetDelay(TransitionController.Instance.transitionDuration * 0.5f)
@@ -155,6 +163,9 @@ public class PlayerController : MonoBehaviour
                 {
                     trail.enabled = true;
                 }
+                _sprite.material = _defaultMaterial;
+                if (activateAimOnLoad)
+                    CameraController.Instance.focusPoint = CameraController.Instance.defaultFocusPoint;
             });
     }
 
@@ -246,7 +257,7 @@ public class PlayerController : MonoBehaviour
     void OnCollisionEnter2D(Collision2D col)
     {
         // Contact damage to enemies
-        if (col.gameObject.TryGetComponent(out EnemyHealth enemyHealth) && _isDodging)
+        if (col.gameObject.TryGetComponent(out EnemyHealth enemyHealth) && _isDodging && dodgeDamage > 0)
         {
             enemyHealth.TakeDamage(dodgeDamage);
         }

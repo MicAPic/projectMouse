@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Audio;
@@ -48,6 +49,9 @@ public class ExperienceManager : MonoBehaviour
     private TMP_Text experiencePercentageText;
     [SerializeField]
     private RectTransform experienceCanvas;
+    
+    private VerticalLayoutGroup _powerUpSelectionLayoutGroup;
+    private float _powerUpButtonSpacingY;
 
     [Header("Animation")]
     [SerializeField]
@@ -58,6 +62,8 @@ public class ExperienceManager : MonoBehaviour
     private RectTransform experienceCircleDestination;
     [SerializeField] 
     private float circleAnimationDuration;
+    [SerializeField]
+    private float powerUpAppearanceDuration;
 
     private Queue<RectTransform> _experienceCircles = new();
 
@@ -78,6 +84,10 @@ public class ExperienceManager : MonoBehaviour
         PowerUpsWithCounters = powerUps.ToDictionary(powerUp => powerUp, _ => 0f);
         PowerUpsWithCounters[powerUps[^2]] = 0.5f; // shotgun power up
         PowerUpsWithCounters[powerUps[^1]] = 1; // magic bullets power up
+
+        _powerUpSelectionLayoutGroup = powerUpSelection.GetComponent<VerticalLayoutGroup>();
+        _powerUpButtonSpacingY = powerUps[0].GetComponent<RectTransform>().sizeDelta.y + 
+                                 _powerUpSelectionLayoutGroup.spacing;
     }
 
     // Start is called before the first frame update
@@ -86,17 +96,11 @@ public class ExperienceManager : MonoBehaviour
         ReevaluateExpGoal();
     }
 
-    // private void Update()
-    // {
-    //     if (Keyboard.current[Key.T].wasPressedThisFrame)
-    //     {
-    //         AnimateExperienceGain(0.0f);
-    //     }
-    // }
-
     public void SelectPowerUp()
     {
         isLevelingUp = false;
+        
+        experienceBarFill.fillAmount = 0.0f;
         
         powerUpSelection.SetActive(false);
         foreach (Transform powerUp in powerUpSelection.transform)
@@ -111,7 +115,7 @@ public class ExperienceManager : MonoBehaviour
         PixelPerfectCursor.Instance.Toggle();
         
         ReevaluateExpGoal();
-        FillExperienceBar();
+        StartCoroutine(FillExperienceBar());
 
         if (TextManager.Instance != null)
         {
@@ -137,9 +141,7 @@ public class ExperienceManager : MonoBehaviour
     {
         if (isLevelingUp || GameManager.isGameOver) return;
         isLevelingUp = true;
-        
-        experienceBarFill.fillAmount = 0.0f;
-        
+
         _currentLevel++;
         if (_currentLevel > experienceCurve[experienceCurve.length - 1].time)
         {
@@ -164,7 +166,13 @@ public class ExperienceManager : MonoBehaviour
                 continue;
             }
         }
-
+        
+        // Animate level up screen & set up navigation
+        _powerUpSelectionLayoutGroup.enabled = false;
+        
+        // var currentDelay = 0.0f;
+        var currentPosY = -_powerUpButtonSpacingY;
+        Tween fadeTween = null;
         for (var i = 0; i < buttons.Count; i++)
         {
             var navigation = new Navigation
@@ -174,10 +182,24 @@ public class ExperienceManager : MonoBehaviour
                 selectOnDown = buttons[(i - 1).Modulo(buttons.Count)]
             };
             buttons[i].navigation = navigation;
+            var rect = buttons[i].GetComponent<RectTransform>();
+            rect.DOAnchorPosY(currentPosY, powerUpAppearanceDuration)
+                .SetUpdate(true);
+                
+            var buttonGroup = buttons[i].GetComponent<CanvasGroup>();
+            buttonGroup.alpha = 0.0f;
+            fadeTween = buttonGroup.DOFade(1.0f, powerUpAppearanceDuration)
+                                   .SetUpdate(true);
+            
+            currentPosY += _powerUpButtonSpacingY;
         }
 
-        buttons[^1].Select();
-        
+        fadeTween.OnComplete(() =>
+        {
+            _powerUpSelectionLayoutGroup.enabled = true;
+            buttons[^2].Select();
+        });
+
         powerUpSelection.SetActive(true);
         
         ChatManager.Instance.EnableLevelUpChatInfo();
@@ -198,7 +220,7 @@ public class ExperienceManager : MonoBehaviour
             experienceGainAnimationMaxDuration);
     }
 
-    private void FillExperienceBar()
+    private IEnumerator FillExperienceBar()
     {
         var levelUpCondition = TotalExperiencePoints >= _experienceToLevelUp;
         var fillAmount =  levelUpCondition
@@ -209,10 +231,10 @@ public class ExperienceManager : MonoBehaviour
         var tween = experienceBarFill.DOFillAmount(fillAmount, animationDuration);
         if (levelUpCondition)
         {
-            // tween.SetUpdate(true);
             tween.OnComplete(LevelUp);
-            AudioManager.Instance.sfxSource.clip = levelUpSoundEffect;
-            AudioManager.Instance.sfxSource.PlayDelayed(animationDuration - levelUpSoundEffectDelay);
+            yield return new WaitForSeconds(animationDuration - levelUpSoundEffectDelay);
+            if (!GameManager.isGameOver)
+                AudioManager.Instance.sfxSource.PlayOneShot(levelUpSoundEffect);
         }
     }
 
@@ -247,7 +269,7 @@ public class ExperienceManager : MonoBehaviour
                     (int)((endValue - _previousExperienceToLevelUp * 100) / (_experienceToLevelUp - _previousExperienceToLevelUp)),
                     duration);
 
-                FillExperienceBar();
+                StartCoroutine(FillExperienceBar());
                 result.gameObject.SetActive(false);
                 _experienceCircles.Enqueue(result);
             }));

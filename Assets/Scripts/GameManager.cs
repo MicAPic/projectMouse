@@ -1,4 +1,5 @@
 using System.Globalization;
+using Audio;
 using Dan.Main;
 using DG.Tweening;
 using UI;
@@ -57,6 +58,7 @@ public class GameManager : MonoBehaviour
     public void Pause()
     {
         PlayerController.Instance.playerInput.enabled = false;
+        AudioManager.Instance.ToggleLowpass(true);
 
         Time.timeScale = 0.0f;
         CameraController.Instance.focusPoint = 0.0f;
@@ -65,6 +67,7 @@ public class GameManager : MonoBehaviour
     public void Unpause()
     {
         PlayerController.Instance.playerInput.enabled = true;
+        AudioManager.Instance.ToggleLowpass(false);
 
         Time.timeScale = 1.0f;
         CameraController.Instance.focusPoint = CameraController.Instance.defaultFocusPoint;

@@ -33,6 +33,7 @@ namespace UI
         public virtual void TransitionAndLoadScene(string sceneToLoad)
         {
             AudioManager.Instance.FadeOutAll(transitionDuration);
+            AudioManager.Instance.ToggleLowpass(false, transitionDuration);
             
             transitionSprite.raycastTarget = true;
             var transitionSequence = DOTween.Sequence();

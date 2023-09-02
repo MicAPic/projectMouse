@@ -88,6 +88,7 @@ GameObject:
   - component: {fileID: 4334202878583021386}
   - component: {fileID: 7578101109403073087}
   - component: {fileID: 8728061332745411960}
+  - component: {fileID: -6925969166246145224}
   m_Layer: 5
   m_Name: Power Up [Base]
   m_TagString: Untagged
@@ -114,8 +115,8 @@ RectTransform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 256, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -178,6 +179,18 @@ MonoBehaviour:
   button: {fileID: 0}
   clickSoundEffect: {fileID: 8300000, guid: c973be746aedfd04aa57576d6a79bdce, type: 3}
   silence: {fileID: 8300000, guid: 5de423fc61d56e84cb31fcec96b15c1b, type: 3}
+--- !u!225 &-6925969166246145224
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1091386755210974916}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1282722942566432965
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using Audio;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,6 +11,7 @@ namespace UI
         [SerializeField]
         private InputAction pauseInputAction;
         private bool _activateEventSystemOnUnpause;
+        private bool _activatePlayerInputOnUnpause;
 
         [Header("Dialogue Animation")]
         [SerializeField]
@@ -95,9 +97,11 @@ namespace UI
 
             if (GameManager.isPaused)
             {
+                AudioManager.Instance.ToggleLowpass(true);
                 _activateEventSystemOnUnpause = TextManager.Instance.eventSystem.activeInHierarchy;
                 TextManager.Instance.eventSystem.SetActive(true);
 
+                _activatePlayerInputOnUnpause = PlayerController.Instance.playerInput.enabled;
                 PlayerController.Instance.playerInput.enabled = false;
 
                 Time.timeScale = 0.0f;
@@ -107,11 +111,11 @@ namespace UI
             }
             else
             {
-                if (_activateEventSystemOnUnpause)
-                {
-                    TextManager.Instance.eventSystem.SetActive(_activateEventSystemOnUnpause);
-                }
-                PlayerController.Instance.playerInput.enabled = true;
+                AudioManager.Instance.ToggleLowpass(false);
+                TextManager.Instance.eventSystem.SetActive(_activateEventSystemOnUnpause);
+                
+                if (_activatePlayerInputOnUnpause)
+                    PlayerController.Instance.playerInput.enabled = true;
 
                 Time.timeScale = 1.0f;
                 CameraController.Instance.focusPoint = CameraController.Instance.defaultFocusPoint;

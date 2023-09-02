@@ -191,6 +191,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: 0aa36176e62d34759aba52f91049b86a, type: 2}
+  snapshotTransitionTime: 0.15
+  defaultSnapshot: {fileID: 24500006, guid: 0aa36176e62d34759aba52f91049b86a, type: 2}
+  muffledSnapshot: {fileID: -2069750800007588118, guid: 0aa36176e62d34759aba52f91049b86a, type: 2}
   sfxSource: {fileID: 4371934921137856039}
   musicSource: {fileID: 6669997877656732541}
 --- !u!1 &8618702721245263025
