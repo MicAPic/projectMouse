@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthPoints: 100
+  hitSoundEffect: {fileID: 8300000, guid: 7dd138210c42edd4885cc381167fd910, type: 3}
 --- !u!212 &6779208012490824151 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 3034019784118301133, guid: 8e3aff5e8f96e2d43ae86c843814195c, type: 3}

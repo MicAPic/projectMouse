@@ -18,6 +18,7 @@ namespace Enemy
 
             bullet.transform.position = sPosition;
             bullet.Enable(direction, _firePower, damageToDeal);
+            base.Shoot(); // play sfx
             
             _lastFireTime = Time.time;
         }

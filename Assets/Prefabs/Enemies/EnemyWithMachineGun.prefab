@@ -164,6 +164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthPoints: 100
+  hitSoundEffect: {fileID: 8300000, guid: 7dd138210c42edd4885cc381167fd910, type: 3}
 --- !u!50 &5416103653858754148
 Rigidbody2D:
   serializedVersion: 4

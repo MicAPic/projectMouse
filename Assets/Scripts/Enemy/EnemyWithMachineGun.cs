@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -34,6 +33,7 @@ namespace Enemy
                 direction = Quaternion.AngleAxis(_blunderAngel, Vector3.forward) * direction;
 
             bullet.Enable(direction, _firePower, damageToDeal);
+            base.Shoot(); // play sfx
         }
 
 

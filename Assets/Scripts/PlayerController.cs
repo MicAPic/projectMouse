@@ -68,6 +68,8 @@ public class PlayerController : MonoBehaviour
     [Header("Audio")]
     [SerializeField]
     private AudioClip shootingSoundEffect;
+    [SerializeField]
+    private AudioClip dodgeSoundEffect;
 
     [Header("Visuals & Animation")]
     public float appearanceDuration = 1.0f;
@@ -379,9 +381,9 @@ public class PlayerController : MonoBehaviour
     private void Dodge()
     {
         if (_movementValue == Vector2.zero) return;
-        // Debug.Log("Dodged");
-        
+
         _isDodging = true;
+        AudioManager.Instance.sfxSource.PlayOneShot(dodgeSoundEffect);
         Physics2D.IgnoreLayerCollision(_playerLayer, enemyLayer, true);
         Physics2D.IgnoreLayerCollision(_playerLayer, enemyBulletLayer, true);
         

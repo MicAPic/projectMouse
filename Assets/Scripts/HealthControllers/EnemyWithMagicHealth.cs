@@ -1,9 +1,13 @@
+using Audio;
 using Enemy;
+using UnityEngine;
 
 namespace HealthControllers
 {
     public class EnemyWithMagicHealth : Health
     {
+        [SerializeField]
+        private AudioClip hitSoundEffect;
         private EnemyWithMagicController _enemyController;
         void Awake()
         {
@@ -13,6 +17,7 @@ namespace HealthControllers
         public override void TakeDamage(float damagePoints)
         {
             base.TakeDamage(damagePoints);
+            AudioManager.Instance.sfxSource.PlayOneShot(hitSoundEffect);
             if (healthPoints > 0)
             {
                 _enemyController.Flash();

@@ -30,6 +30,8 @@ namespace HealthControllers
         [Header("Audio")]
         [SerializeField]
         private AudioClip healSoundEffect;
+        [SerializeField]
+        private AudioClip hitSoundEffect;
 
         [Header("UI")]
         [SerializeField] 
@@ -180,6 +182,7 @@ namespace HealthControllers
             heartToBreak.SetNativeSize();
 
             _currentBrokenHearts.Add(heartToBreak);
+            AudioManager.Instance.sfxSource.PlayOneShot(hitSoundEffect);
         }
 
         private IEnumerator WaitAndDisableInvincibility(float effectTime, float flashingTime, bool isPowerUp=true)
