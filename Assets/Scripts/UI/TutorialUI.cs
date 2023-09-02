@@ -1,3 +1,4 @@
+using Audio;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -95,6 +96,7 @@ namespace UI
 
             if (GameManager.isPaused)
             {
+                AudioManager.Instance.ToggleLowpass(true);
                 _activateEventSystemOnUnpause = TextManager.Instance.eventSystem.activeInHierarchy;
                 TextManager.Instance.eventSystem.SetActive(true);
 
@@ -107,6 +109,7 @@ namespace UI
             }
             else
             {
+                AudioManager.Instance.ToggleLowpass(false);
                 if (_activateEventSystemOnUnpause)
                 {
                     TextManager.Instance.eventSystem.SetActive(_activateEventSystemOnUnpause);

@@ -8,11 +8,14 @@ namespace Audio
         public static AudioManager Instance { get; private set; }
 
         public AudioMixer audioMixer;
-
-        // TODO: create different snapshots for the Mixer
-        // [Header("Snapshots")] 
-        // public AudioMixerSnapshot normalSnapshot;
-        // public AudioMixerSnapshot muffledSnapshot;
+        
+        [Header("Snapshots")]
+        [SerializeField]
+        private float snapshotTransitionTime = 0.5f;
+        [SerializeField]
+        private AudioMixerSnapshot defaultSnapshot;
+        [SerializeField]
+        private AudioMixerSnapshot muffledSnapshot;
 
         [Header("Audio Sources")]
         public AudioSource sfxSource;
@@ -40,6 +43,19 @@ namespace Audio
         {
             _musicPlayer.FadeOut(transitionDuration);
             _sfxPlayer.FadeOut(transitionDuration);
+        }
+
+        public void ToggleLowpass(bool state, float customDuration=0.0f)
+        {
+            var duration = customDuration > 0 ? customDuration : snapshotTransitionTime;
+            if (state)
+            {
+                muffledSnapshot.TransitionTo(duration);
+            }
+            else
+            {
+                defaultSnapshot.TransitionTo(duration);
+            }
         }
     }
 }

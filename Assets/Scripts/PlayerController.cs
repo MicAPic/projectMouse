@@ -148,6 +148,8 @@ public class PlayerController : MonoBehaviour
         _bullets = new List<Bullet>(numberOfBullets);
         for (int i = 0; i < numberOfBullets; ++i)
             _bullets.Add(null);
+
+        CameraController.Instance.focusPoint = 0.0f;
         
         shadowRenderer.DOFade(1.0f, appearanceDuration * 0.5f)
             .SetDelay(TransitionController.Instance.transitionDuration * 0.5f);
@@ -163,7 +165,7 @@ public class PlayerController : MonoBehaviour
                 }
                 _sprite.material = _defaultMaterial;
                 if (activateAimOnLoad)
-                    CameraController.Instance.focusPoint = 0.5f;
+                    CameraController.Instance.focusPoint = CameraController.Instance.defaultFocusPoint;
             });
     }
 
