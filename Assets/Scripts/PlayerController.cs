@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Bullets;
 using System.Collections;
+using Audio;
 using UI;
 using UnityEngine.Serialization;
 
@@ -59,7 +60,11 @@ public class PlayerController : MonoBehaviour
     private List<Bullet> _bullets;
     private Vector3 _mainRotationVector;
 
-    [Space(5)]
+    [Space(10)]
+    
+    [Header("Audio")]
+    [SerializeField]
+    private AudioClip shootingSoundEffect;
 
     [Header("Visuals & Animation")]
     public float appearanceDuration = 1.0f;
@@ -356,6 +361,7 @@ public class PlayerController : MonoBehaviour
             }
         }
         
+        AudioManager.Instance.sfxSource.PlayOneShot(shootingSoundEffect);
         _lastFireTime = Time.time;
     }
 

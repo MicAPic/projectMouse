@@ -76,6 +76,8 @@ public class ExperienceManager : MonoBehaviour
             Debug.LogError("Not enough power-ups were added in the Editor");
         }
         PowerUpsWithCounters = powerUps.ToDictionary(powerUp => powerUp, _ => 0f);
+        PowerUpsWithCounters[powerUps[^2]] = 1; // magic bullets power up
+        PowerUpsWithCounters[powerUps[^1]] = 1; // shotgun power up
     }
 
     // Start is called before the first frame update

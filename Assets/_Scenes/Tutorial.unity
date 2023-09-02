@@ -1566,8 +1566,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.46055, y: -0.37535, z: 0}
-    m_Extent: {x: 1.37285, y: 5.32375, z: 0}
+    m_Center: {x: 0.46359998, y: -0.38645005, z: 0}
+    m_Extent: {x: 1.3731999, y: 5.32415, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -3242,6 +3242,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6669997877656732541, guid: ee1eb64418e524647b5d95ed5ac22211, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: a60d0c87f57c3bb41bdd4a2edc336481, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ee1eb64418e524647b5d95ed5ac22211, type: 3}
 --- !u!1 &1430998208
@@ -3492,8 +3496,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.2852, y: -1.0264, z: 0}
-    m_Extent: {x: 1.0647, y: 2.024, z: 0}
+    m_Center: {x: 0.29305002, y: -1.0287, z: 0}
+    m_Extent: {x: 1.07125, y: 2.0278, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0

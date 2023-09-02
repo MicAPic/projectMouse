@@ -13,6 +13,8 @@ namespace UI
         private Button[] menuButtons;
         [SerializeField]
         private CanvasGroup raycastBlocker;
+        [SerializeField]
+        private Animator titleAnimator;
 
         [Header("Settings")]
         [SerializeField]
@@ -32,9 +34,15 @@ namespace UI
         [SerializeField]
         private float settingsAnimationDuration = 0.5f;
 
+        private float _settingsDefaultPosY;
+
+        private static readonly int ToggledOptions = Animator.StringToHash("ToggledOptions");
+
         protected override void Awake()
         {
             base.Awake();
+            _settingsDefaultPosY = settingsSubmenu.anchoredPosition.y;
+            
             if (PlayerPrefs.HasKey("PlayedTutorial")) return;
             
             menuButtons[0].interactable = false;
@@ -86,6 +94,7 @@ namespace UI
                 Mathf.Abs(settingsSubmenu.localScale.magnitude - Vector3.one.magnitude))
             {
                 menuButtons[2].GetComponent<GamepadFriendlyButton>().ToggleSoundEffect(false);
+                titleAnimator.SetBool(ToggledOptions, true);
                 raycastBlocker.blocksRaycasts = true;
                 settingsSubmenu.gameObject.SetActive(true);
                 settingsContent.alpha = 0.0f;
@@ -102,17 +111,18 @@ namespace UI
             }
             else
             {
+                titleAnimator.SetBool(ToggledOptions, false);
                 settingsCloseButton.ToggleSoundEffect(false);
                 settingsCloseButton.button.enabled = false;
                 settingsContent.blocksRaycasts = false;
                 settingsContent.DOFade(0.0f, settingsAnimationDuration / 2.0f);
-                settingsSubmenu.DOAnchorPosY(-41.0f, settingsAnimationDuration);
+                settingsSubmenu.DOAnchorPosY(_settingsDefaultPosY, settingsAnimationDuration);
                 settingsSubmenu.DOScale(Vector3.zero, settingsAnimationDuration)
                     .OnComplete(() =>
                     {
                         raycastBlocker.blocksRaycasts = false;
                         settingsSubmenu.gameObject.SetActive(false);
-                        menuButtons[0].Select();
+                        menuButtons[2].Select();
                         menuButtons[2].GetComponent<GamepadFriendlyButton>().ToggleSoundEffect(true);
                     });
             }
