@@ -1593,8 +1593,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.46940002, y: -0.37734985, z: 0}
-    m_Extent: {x: 1.3669, y: 5.32475, z: 0}
+    m_Center: {x: 0.45974997, y: -0.3836999, z: 0}
+    m_Extent: {x: 1.36825, y: 5.3196, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -3577,8 +3577,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.28785002, y: -1.02415, z: 0}
-    m_Extent: {x: 1.07015, y: 2.02155, z: 0}
+    m_Center: {x: 0.2854, y: -1.028, z: 0}
+    m_Extent: {x: 1.0668, y: 2.0293999, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -3968,6 +3968,10 @@ PrefabInstance:
     - target: {fileID: 8826732396876333723, guid: 74e853823cd0ea34fb4ad69a143c92c8, type: 3}
       propertyPath: healthPoints
       value: 210
+      objectReference: {fileID: 0}
+    - target: {fileID: 8952843269107361336, guid: 74e853823cd0ea34fb4ad69a143c92c8, type: 3}
+      propertyPath: activateAimOnLoad
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 74e853823cd0ea34fb4ad69a143c92c8, type: 3}
