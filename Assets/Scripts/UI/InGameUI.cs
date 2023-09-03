@@ -61,6 +61,11 @@ namespace UI
             });
         }
 
+        public void UpdateInputField(string text)
+        {
+            nicknameInputField.text = text.Trim('\u001b');
+        }
+
         public virtual void UnpauseGame()
         {
             GameManager.Instance.TogglePauseScreen();
