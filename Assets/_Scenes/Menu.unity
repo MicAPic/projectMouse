@@ -4360,6 +4360,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5984613781777134194, guid: ee1eb64418e524647b5d95ed5ac22211, type: 3}
+      propertyPath: fadeInDuration
+      value: 0.75
+      objectReference: {fileID: 0}
     - target: {fileID: 6559364474083155281, guid: ee1eb64418e524647b5d95ed5ac22211, type: 3}
       propertyPath: fadeInDuration
       value: 0.1

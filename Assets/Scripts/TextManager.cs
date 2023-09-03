@@ -104,6 +104,7 @@ public class TextManager : MonoBehaviour
 
     public void Transition()
     {
+        Debug.Log(Time.time);
         transitionController.TransitionAndLoadScene(nextSceneName);
     }
 

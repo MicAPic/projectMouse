@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83ca1979890f4e3fb49418f65cb2b8e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeInDuration: 1.25
+  fadeInDuration: 2
   prefsVolumeName: MusicVolume
   exposedVolumeName: musicVolume
 --- !u!82 &6669997877656732541

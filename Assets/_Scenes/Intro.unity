@@ -1270,7 +1270,7 @@ MonoBehaviour:
   skipText: {fileID: 120649973}
   skipTextAppearanceDuration: 0.75
   skipTextStayDuration: 1
-  skipToMusicTrackTime: 30.65599
+  skipToMusicTrackTime: 32.2214
 --- !u!114 &1815299553
 MonoBehaviour:
   m_ObjectHideFlags: 0
