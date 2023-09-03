@@ -17,7 +17,7 @@ public class TutorialTrigger : MonoBehaviour
     {
         if (!col.CompareTag("Player")) yield break;
         
-        _collider.enabled = false;
+        Toggle();
         yield return new WaitForSeconds(0.1f); //small delay to make sure the player's hp is all set
         var playerHealth = col.GetComponent<PlayerHealth>();
         if (tutorialManager.story.currentChoices.Count == 0) yield break;
@@ -25,5 +25,10 @@ public class TutorialTrigger : MonoBehaviour
         tutorialManager.ContinueStory();
 
         enabled = false;
+    }
+
+    public void Toggle()
+    {
+        _collider.enabled = !_collider.enabled;
     }
 }

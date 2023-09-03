@@ -4,6 +4,7 @@ EXTERNAL UnlockSelection()
 EXTERNAL WaitForInput(inputType)
 EXTERNAL EngendrarMiguel()
 EXTERNAL ActivarMiguel()
+EXTERNAL ActivateTutorialTrigger()
 
 ->tutorial_p1
 
@@ -15,7 +16,7 @@ I'll unlock your controls right about... now.#auto:
 {WaitForInput("Move")}Alright, you can move freely. Use the <u>WASD</u> or the <u>Arrow keys</u>.
 Nice, you're already getting used to it.#auto: 
 See the wall of bullets on the right? No way you're passing that.#auto: 
-Good thing you can dash right through. Just press <u>Space</u> or the <u>Right Mouse Button</u>.
+{ActivateTutorialTrigger()}Good thing you can dash right through. Just press <u>Space</u> or the <u>Right Mouse Button</u>.
 * [get hurt]
     Well, that works too, I suppose.#auto: 
     ->tutorial_p2
