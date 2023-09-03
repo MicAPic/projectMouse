@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b545d43be5fc5af4293618f72cc75d14, type: 3}
+  m_Name: DialogueAudioInfo [Rat]
+  m_EditorClassIdentifier: 
+  id: Rat
+  typingAudioClips:
+  - {fileID: 8300000, guid: 363d6b1277b425b4eb125c72b86c4b33, type: 3}
+  minPitch: 2
+  maxPitch: 2.5

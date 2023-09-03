@@ -20,10 +20,12 @@ namespace Audio
         [Header("Audio Sources")]
         public AudioSource sfxSource;
         public AudioSource musicSource;
+        public AudioSource enemyShotSource;
         
         [Header("Audio Players")]
         private AudioPlayer _sfxPlayer;
         private AudioPlayer _musicPlayer;
+        private AudioPlayer _enemyShotPlayer;
 
         void Awake()
         {
@@ -37,12 +39,14 @@ namespace Audio
             
             _sfxPlayer = transform.GetChild(0).GetComponent<AudioPlayer>();
             _musicPlayer = transform.GetChild(1).GetComponent<AudioPlayer>();
+            _enemyShotPlayer = transform.GetChild(2).GetComponent<AudioPlayer>();
         }
 
         public void FadeOutAll(float transitionDuration)
         {
             _musicPlayer.FadeOut(transitionDuration);
             _sfxPlayer.FadeOut(transitionDuration);
+            _enemyShotPlayer.FadeOut(transitionDuration);
         }
 
         public void ToggleLowpass(bool state, float customDuration=0.0f)

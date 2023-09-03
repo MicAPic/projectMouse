@@ -30,6 +30,8 @@ namespace HealthControllers
         [Header("Audio")]
         [SerializeField]
         private AudioClip healSoundEffect;
+        [SerializeField]
+        private AudioClip hitSoundEffect;
 
         [Header("UI")]
         [SerializeField] 
@@ -152,7 +154,7 @@ namespace HealthControllers
             // Post-hit invincibility:
             GrantInvincibility(hitInvincibilityDuration, hitInvincibilityDuration, false);
 
-            if (healthPoints <= criticalThreshold * MaxHealth && !_inCriticalCondition && !GameManager.isGameOver)
+            if (healthPoints <= criticalThreshold * MaxHealth && !_inCriticalCondition && !GameManager.IsGameOver)
             {
                 ChatManager.Instance.ToggleCriticalHealthChatInfo();
                 _inCriticalCondition = true;
@@ -180,6 +182,7 @@ namespace HealthControllers
             heartToBreak.SetNativeSize();
 
             _currentBrokenHearts.Add(heartToBreak);
+            AudioManager.Instance.sfxSource.PlayOneShot(hitSoundEffect);
         }
 
         private IEnumerator WaitAndDisableInvincibility(float effectTime, float flashingTime, bool isPowerUp=true)

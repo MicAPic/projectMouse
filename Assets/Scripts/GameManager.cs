@@ -26,8 +26,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private string publicKey;
 
-    public static bool isGameOver;
-    public static bool isPaused;
+    public static bool IsGameOver;
+    public static bool IsPaused;
+    public static bool CanPause = true;
     private int _highScore;
 
     void Awake()
@@ -75,7 +76,7 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        isGameOver = true;
+        IsGameOver = true;
         pauseInputAction.Disable();
         
         ChatManager.Instance.EnableGameOverChatInfo();
@@ -112,12 +113,12 @@ public class GameManager : MonoBehaviour
 
     public void TogglePauseScreen()
     {
-        if (ExperienceManager.Instance.isLevelingUp) return;
+        if (ExperienceManager.Instance.isLevelingUp || !CanPause) return;
         
-        isPaused = !isPaused;
-        ui.pauseScreen.SetActive(isPaused);
+        IsPaused = !IsPaused;
+        ui.pauseScreen.SetActive(IsPaused);
 
-        if (isPaused)
+        if (IsPaused)
         {
             Pause();
             ui.cancelButton.Select();
@@ -130,7 +131,7 @@ public class GameManager : MonoBehaviour
 
     public void SubmitHighScore()
     {
-        var nickname = ui.nicknameInputField.text;
+        var nickname = ui.nicknameInputField.text.Trim();
         if (nickname == string.Empty) return;
         
         ui.ToggleButtons(false);

@@ -1,4 +1,5 @@
 using System.Collections;
+using Audio;
 using UnityEngine;
 
 public class IntroManager : TextManager
@@ -10,7 +11,9 @@ public class IntroManager : TextManager
 
     protected override IEnumerator WaitBeforeDisplayingText()
     {
-        yield return new WaitForSeconds(0.625f);
+        yield return new WaitForSeconds(1.0f); // buffer time {suggested by @atrgv}
+        AudioManager.Instance.musicSource.Play();
+        yield return new WaitForSeconds(0.625f); // slide animation time
         introSlides[currentSlide].SetActive(true);
         yield return new WaitForSeconds(initialDelay - 0.625f);
         ContinueStory();

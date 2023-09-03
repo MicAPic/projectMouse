@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 namespace Audio
@@ -9,40 +10,36 @@ namespace Audio
         [SerializeField] 
         private string exposedVolumeName;
 
-        private float _maxVolumeModifier;
-        private const float MaxVolume = 0.994f;
+        private float _volumeModifier;
+        private const float MaxVolume = 0.0f;
+        private const float MinVolume = -80.0f;
 
         // Start is called before the first frame update
         void Start()
         {
-            _maxVolumeModifier = PlayerPrefs.GetFloat(prefsVolumeName, 1.0f);
+            _volumeModifier = PlayerPrefs.GetFloat(prefsVolumeName, 1.0f);
             
-            AudioManager.Instance.audioMixer.SetFloat(exposedVolumeName, Mathf.Log10(0.0001f) * 20);
+            AudioManager.Instance.audioMixer.SetFloat(exposedVolumeName, MinVolume);
             FadeIn(fadeInDuration);
         }
 
         public void FadeIn(float duration)
         {
-            StartCoroutine(FadeMixerGroup.StartFade
-                (
-                    AudioManager.Instance.audioMixer, 
-                    exposedVolumeName, 
-                    duration, 
-                    MaxVolume * _maxVolumeModifier
-                )
-            );
+            AudioManager.Instance.audioMixer.DOSetFloat(
+                exposedVolumeName, 
+                (1.0f - Mathf.Sqrt(_volumeModifier)) * -80f, 
+                duration).SetUpdate(true).SetEase(Ease.Linear);
         }
 
         public void FadeOut(float duration)
         {
-            StartCoroutine(FadeMixerGroup.StartFade
-                (
-                    AudioManager.Instance.audioMixer, 
-                    exposedVolumeName, 
-                    duration, 
-                    0.0001f
-                )
-            );
+            StartCoroutine(FadeMixerGroup.StartFade(
+                AudioManager.Instance.audioMixer,
+                exposedVolumeName,
+                duration,
+                MinVolume,
+                MinVolume
+                ));
         }
 
         public void SetVolumeModifier(float volumeMod)
@@ -50,7 +47,7 @@ namespace Audio
             PlayerPrefs.SetFloat(prefsVolumeName, volumeMod);
             AudioManager.Instance.audioMixer.SetFloat(
                 exposedVolumeName, 
-                Mathf.Log10(MaxVolume * volumeMod) * 20);
+                (1.0f - Mathf.Sqrt(volumeMod)) * -80f);
         }
     }
 }

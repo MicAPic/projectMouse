@@ -164,6 +164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthPoints: 100
+  hitSoundEffect: {fileID: 8300000, guid: 7dd138210c42edd4885cc381167fd910, type: 3}
 --- !u!61 &1503931617821190945
 BoxCollider2D:
   m_ObjectHideFlags: 0

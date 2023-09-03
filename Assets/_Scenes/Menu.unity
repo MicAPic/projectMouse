@@ -483,7 +483,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 0}
-  clickSoundEffect: {fileID: 8300000, guid: c973be746aedfd04aa57576d6a79bdce, type: 3}
+  selectSoundEffect: {fileID: 8300000, guid: c973be746aedfd04aa57576d6a79bdce, type: 3}
+  submitSoundEffect: {fileID: 8300000, guid: 4a81e06196d279e48895af9949f7f233, type: 3}
   silence: {fileID: 8300000, guid: 5de423fc61d56e84cb31fcec96b15c1b, type: 3}
 --- !u!225 &167351227
 CanvasGroup:
@@ -1803,7 +1804,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 0}
-  clickSoundEffect: {fileID: 8300000, guid: c973be746aedfd04aa57576d6a79bdce, type: 3}
+  selectSoundEffect: {fileID: 8300000, guid: c973be746aedfd04aa57576d6a79bdce, type: 3}
+  submitSoundEffect: {fileID: 8300000, guid: 4a81e06196d279e48895af9949f7f233, type: 3}
   silence: {fileID: 8300000, guid: 5de423fc61d56e84cb31fcec96b15c1b, type: 3}
 --- !u!114 &1180045690
 MonoBehaviour:
@@ -2044,7 +2046,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 0}
-  clickSoundEffect: {fileID: 8300000, guid: c973be746aedfd04aa57576d6a79bdce, type: 3}
+  selectSoundEffect: {fileID: 8300000, guid: c973be746aedfd04aa57576d6a79bdce, type: 3}
+  submitSoundEffect: {fileID: 8300000, guid: 4a81e06196d279e48895af9949f7f233, type: 3}
   silence: {fileID: 8300000, guid: 5de423fc61d56e84cb31fcec96b15c1b, type: 3}
 --- !u!225 &1264353637
 CanvasGroup:
@@ -2371,7 +2374,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 0}
-  clickSoundEffect: {fileID: 8300000, guid: c973be746aedfd04aa57576d6a79bdce, type: 3}
+  selectSoundEffect: {fileID: 8300000, guid: c973be746aedfd04aa57576d6a79bdce, type: 3}
+  submitSoundEffect: {fileID: 8300000, guid: 4a81e06196d279e48895af9949f7f233, type: 3}
   silence: {fileID: 8300000, guid: 5de423fc61d56e84cb31fcec96b15c1b, type: 3}
 --- !u!225 &1642079661
 CanvasGroup:
@@ -2634,7 +2638,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 0}
-  clickSoundEffect: {fileID: 8300000, guid: c973be746aedfd04aa57576d6a79bdce, type: 3}
+  selectSoundEffect: {fileID: 8300000, guid: c973be746aedfd04aa57576d6a79bdce, type: 3}
+  submitSoundEffect: {fileID: 8300000, guid: 4a81e06196d279e48895af9949f7f233, type: 3}
   silence: {fileID: 8300000, guid: 5de423fc61d56e84cb31fcec96b15c1b, type: 3}
 --- !u!225 &1723811378
 CanvasGroup:
@@ -4057,7 +4062,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 0}
-  clickSoundEffect: {fileID: 8300000, guid: c973be746aedfd04aa57576d6a79bdce, type: 3}
+  selectSoundEffect: {fileID: 8300000, guid: c973be746aedfd04aa57576d6a79bdce, type: 3}
+  submitSoundEffect: {fileID: 8300000, guid: 4a81e06196d279e48895af9949f7f233, type: 3}
   silence: {fileID: 8300000, guid: 5de423fc61d56e84cb31fcec96b15c1b, type: 3}
 --- !u!114 &5145069998966809297
 MonoBehaviour:
@@ -4354,10 +4360,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5984613781777134194, guid: ee1eb64418e524647b5d95ed5ac22211, type: 3}
+      propertyPath: fadeInDuration
+      value: 0.75
+      objectReference: {fileID: 0}
     - target: {fileID: 6559364474083155281, guid: ee1eb64418e524647b5d95ed5ac22211, type: 3}
       propertyPath: fadeInDuration
       value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 6669997877656732541, guid: ee1eb64418e524647b5d95ed5ac22211, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 4eda684d5014d554eae20b948d12e791, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ee1eb64418e524647b5d95ed5ac22211, type: 3}
 --- !u!1 &5924841718227936109
@@ -4474,7 +4488,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 0}
-  clickSoundEffect: {fileID: 8300000, guid: c973be746aedfd04aa57576d6a79bdce, type: 3}
+  selectSoundEffect: {fileID: 8300000, guid: c973be746aedfd04aa57576d6a79bdce, type: 3}
+  submitSoundEffect: {fileID: 8300000, guid: 4a81e06196d279e48895af9949f7f233, type: 3}
   silence: {fileID: 8300000, guid: 5de423fc61d56e84cb31fcec96b15c1b, type: 3}
 --- !u!114 &7830417407278389304
 MonoBehaviour:

@@ -67,6 +67,10 @@ public class TutorialManager : TextManager
             };
             playerInput.actions[inputName].performed += _inputHandler;
         });
+        story.BindExternalFunction("ActivateTutorialTrigger", () =>
+        {
+            FindObjectOfType<TutorialCollider>().Toggle();
+        });
         story.BindExternalFunction("EngendrarMiguel", () =>
         {
             miguelSpawnPoint.gameObject.SetActive(false);

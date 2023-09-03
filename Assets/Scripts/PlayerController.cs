@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
     [FormerlySerializedAs("_shootAngel")]
     [SerializeField] 
     private float shootAngle = 20;
-    private bool _shotgunPowerUpEnabled;
+    public bool _shotgunPowerUpEnabled;
     
     [Header("Shooting/Magic Bullets")]
     [FormerlySerializedAs("_numberOfBullets")]
@@ -68,6 +68,10 @@ public class PlayerController : MonoBehaviour
     [Header("Audio")]
     [SerializeField]
     private AudioClip shootingSoundEffect;
+    [SerializeField]
+    private AudioClip dodgeSoundEffect;
+    [SerializeField]
+    private AudioClip invincibilityEndSoundEffect;
 
     [Header("Visuals & Animation")]
     public float appearanceDuration = 1.0f;
@@ -207,7 +211,7 @@ public class PlayerController : MonoBehaviour
             }
         }
         
-        if (GameManager.isGameOver || GameManager.isPaused) return;
+        if (GameManager.IsGameOver || GameManager.IsPaused) return;
 
         // Input processing
         if (playerInput.actions["Shoot"].IsPressed() && Time.time - _lastFireTime >= fireRate)
@@ -292,6 +296,7 @@ public class PlayerController : MonoBehaviour
         
         if (isPowerUp)
         {
+            AudioManager.Instance.sfxSource.PlayOneShot(invincibilityEndSoundEffect);
             // Colour the sprite gray; pulsate
             flashingSequence.AppendCallback(() => _sprite.material.color = flashingColour);
             flashingSequence.Append(_sprite.material.DOColor(defaultMatColour, individualFlashTime));
@@ -380,9 +385,9 @@ public class PlayerController : MonoBehaviour
     private void Dodge()
     {
         if (_movementValue == Vector2.zero) return;
-        // Debug.Log("Dodged");
-        
+
         _isDodging = true;
+        AudioManager.Instance.sfxSource.PlayOneShot(dodgeSoundEffect);
         Physics2D.IgnoreLayerCollision(_playerLayer, enemyLayer, true);
         Physics2D.IgnoreLayerCollision(_playerLayer, enemyBulletLayer, true);
         

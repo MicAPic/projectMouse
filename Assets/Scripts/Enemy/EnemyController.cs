@@ -1,3 +1,4 @@
+using Audio;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -17,6 +18,10 @@ namespace Enemy
         private Vector3 _reversedShootingPointPos;
 
         private PointEffector2D _pointEffector;
+        
+        // [Header("Audio")]
+        // [SerializeField]
+        // private AudioClip shotSoundEffect;
 
         [Header("Animation & Visuals")]
         [SerializeField]
@@ -48,7 +53,7 @@ namespace Enemy
 
         protected State _currentState;
 
-        [Header("Chasing")]
+        [Header("Behind Camera")]
         [SerializeField] private float _behindCameraSpeed = 30;
         [SerializeField] private float _behindCameraDistance = 35;
 
@@ -129,7 +134,14 @@ namespace Enemy
         }
 
         protected float _lastFireTime = 0f;
-        protected abstract void Shoot();
+
+        protected virtual void Shoot()
+        {
+            if (!AudioManager.Instance.enemyShotSource.isPlaying)
+            {
+                AudioManager.Instance.enemyShotSource.Play();
+            }
+        }
 
         protected bool _firstShoot = true;
         protected float _blunderAngel = 30;

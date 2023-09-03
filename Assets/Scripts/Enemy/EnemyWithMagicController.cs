@@ -122,6 +122,7 @@ namespace Enemy
                 _bullets[_currentBulletIndex].EnableBulletForce(direction, _firePower);
                 _bullets[_currentBulletIndex] = null;
                 ++_currentBulletIndex;
+                base.Shoot(); // play sfx
             }
             
             _lastFireTime = Time.time;

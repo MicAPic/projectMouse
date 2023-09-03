@@ -1,6 +1,7 @@
 using Audio;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace UI
@@ -9,8 +10,11 @@ namespace UI
     {
         public Button button;
         
+        [FormerlySerializedAs("clickSoundEffect")]
         [SerializeField]
-        private AudioClip clickSoundEffect;
+        private AudioClip selectSoundEffect;
+        [SerializeField]
+        private AudioClip submitSoundEffect;
         [SerializeField]
         private AudioClip silence;
 
@@ -19,7 +23,8 @@ namespace UI
         void Awake()
         {
             button = GetComponent<Button>();
-            _currentClip = clickSoundEffect;
+            button.onClick.AddListener(() => AudioManager.Instance.sfxSource.PlayOneShot(submitSoundEffect));
+            _currentClip = selectSoundEffect;
         }
 
         public void OnPointerEnter(PointerEventData eventData)
@@ -29,13 +34,12 @@ namespace UI
 
         public void OnDeselect(BaseEventData eventData)
         {
-            Debug.Log(eventData.selectedObject.name);
             AudioManager.Instance.sfxSource.PlayOneShot(_currentClip);
         }
 
         public void ToggleSoundEffect(bool state)
         {
-            _currentClip = state ? clickSoundEffect : silence;
+            _currentClip = state ? selectSoundEffect : silence;
         }
     }
 }

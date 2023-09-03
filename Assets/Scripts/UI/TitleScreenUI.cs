@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Audio;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -20,6 +21,9 @@ namespace UI
         private Animator spotlightAnimator;
         [SerializeField]
         private GameObject cursorOverlayTrigger;
+        
+        [SerializeField] 
+        private AudioClip submitSoundEffect;
         
         [SerializeField] 
         private TMP_Text flashingText;
@@ -45,6 +49,7 @@ namespace UI
             if (inputModule.actions["Skip"].WasPressedThisFrame() && !_cutsceneIsFinished)
             {
                 director.time = director.duration;
+                AudioManager.Instance.musicSource.Stop();
                 spotlightAnimator.enabled = false;
                 spotlightAnimator.GetComponent<RectTransform>().DOSizeDelta(Vector2.one * 1000f, 1.0f);
                 cursorOverlayTrigger.SetActive(true);
@@ -57,7 +62,10 @@ namespace UI
             _eventListener = InputSystem.onAnyButtonPress.Call(_ =>
             {
                 if (_cutsceneIsFinished)
+                {
                     SceneManager.LoadScene("Menu");
+                    AudioManager.Instance.sfxSource.PlayOneShot(submitSoundEffect);
+                }
             });
         }
 

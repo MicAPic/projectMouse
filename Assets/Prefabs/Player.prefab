@@ -153,6 +153,8 @@ MonoBehaviour:
   radius: 5
   bulletsRotationSpeed: 180
   shootingSoundEffect: {fileID: 8300000, guid: e915b90b4c95cdd44998fed2a0828a50, type: 3}
+  dodgeSoundEffect: {fileID: 8300000, guid: 504f3a8878e085046816ca808a6cabc6, type: 3}
+  invincibilityEndSoundEffect: {fileID: 8300000, guid: 96270e79556a846228f624d9e00db714, type: 3}
   appearanceDuration: 1
   shadowRenderer: {fileID: 2367274219943639513}
   isFlashing: 0
@@ -181,6 +183,7 @@ MonoBehaviour:
   criticalThreshold: 0.1
   canDie: 1
   healSoundEffect: {fileID: 8300000, guid: 184450627b6844271b23d26b8f517bc0, type: 3}
+  hitSoundEffect: {fileID: 8300000, guid: c8bac4e78e286a348acfcb60c057cbda, type: 3}
   heartPrefab: {fileID: 2597685922690783564, guid: cdd48978a25414543bd59954d7ac8a8f, type: 3}
   heartSprite: {fileID: 21300000, guid: 84f3075cf66c3ce4ca660e8dcd62af79, type: 3}
   brokenHeartSprite: {fileID: 21300000, guid: 6005f3860deab974bb218f7d6f264540, type: 3}

@@ -60,6 +60,7 @@ GameObject:
   - component: {fileID: 8027089056036410924}
   - component: {fileID: 8544873057081932659}
   - component: {fileID: 6147000154913089303}
+  - component: {fileID: 8954429478686625343}
   m_Layer: 9
   m_Name: Fountain
   m_TagString: Untagged
@@ -167,3 +168,24 @@ CircleCollider2D:
   m_Offset: {x: -0.038923264, y: 0.038924217}
   serializedVersion: 2
   m_Radius: 10.859651
+--- !u!95 &8954429478686625343
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8027089056036410926}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5da037eff4d8448a6bb2f882fe3853db, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
