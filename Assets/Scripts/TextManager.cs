@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Audio;
 using Ink.Runtime;
 using TMPro;
 using UI;
@@ -35,17 +34,18 @@ public class TextManager : MonoBehaviour
     
     private const string AutoTag = "auto";
     
-    // [Header("Audio")]
-    // [SerializeField]
-    // private DialogueAudioInfo audioInfo;
-    // [Range(1, 5)]
-    // [SerializeField] 
-    // private int frequencyLevel = 2;
-    // private AudioSource _audioSource;
-    // [SerializeField]
-    // private bool stopAudioSource;
+    [Header("Audio")]
+    [SerializeField]
+    private DialogueAudioInfo audioInfo;
+    [Range(1, 5)]
+    [SerializeField] 
+    private int frequencyLevel = 2;
+    [SerializeField]
+    private AudioSource audioSource;
+    [SerializeField]
+    private bool stopAudioSource;
     
-    protected bool isPlaying;
+    public bool isPlaying;
     protected bool canContinue;
     protected bool isDisplayingRichText;
     private int _maxLineLength;
@@ -104,7 +104,6 @@ public class TextManager : MonoBehaviour
 
     public void Transition()
     {
-        Debug.Log(Time.time);
         transitionController.TransitionAndLoadScene(nextSceneName);
     }
 
@@ -153,8 +152,8 @@ public class TextManager : MonoBehaviour
             {
                 _maxLineLength--;
             }
-            //
-            // PlayDialogueSound(i, dialogueText.text[i]);
+            
+            PlayDialogueSound(i, dialogueText.text[i]);
             dialogueText.maxVisibleCharacters++;
             yield return dialogueText.text[i] == ' ' && dialogueText.text[i - 1] == '.'
                 ? new WaitForSecondsRealtime(autoModeWaitTime)
@@ -169,38 +168,39 @@ public class TextManager : MonoBehaviour
         _currentFinishDisplayLineCoroutine = StartCoroutine(FinishDisplayingLine());
     }
 
-    // private void PlayDialogueSound(int currentLineLength, char currentCharacter)
-    // {
-    //     if (currentLineLength % frequencyLevel != 0) return;
-    //     
-    //     var typingAudioClips = _currentAudioInfo.typingAudioClips;
-    //     var minPitch = _currentAudioInfo.minPitch;
-    //     var maxPitch = _currentAudioInfo.maxPitch;
-    //
-    //     if (stopAudioSource)
-    //     {
-    //         _audioSource.Stop();
-    //     }
-    //
-    //     // clip
-    //     var characterHash = currentCharacter.GetHashCode();
-    //     var audioClip = typingAudioClips[characterHash % typingAudioClips.Length];
-    //     
-    //     // pitch
-    //     var maxPitchInt = (int) maxPitch * 100;
-    //     var minPitchInt = (int) minPitch * 100;
-    //     var pitchRange = maxPitchInt - minPitchInt;
-    //     if (pitchRange != 0)
-    //     {
-    //         _audioSource.pitch = (characterHash % pitchRange + minPitchInt) / 100f; 
-    //     }
-    //     else
-    //     {
-    //         _audioSource.pitch = minPitch;
-    //     }
-    //     
-    //     _audioSource.PlayOneShot(audioClip);
-    // }
+    private void PlayDialogueSound(int currentLineLength, char currentCharacter)
+    {
+        if (currentLineLength % frequencyLevel != 0 || audioInfo == null) return;
+        if (!char.IsLetter(currentCharacter)) return;
+        
+        var typingAudioClips = audioInfo.typingAudioClips;
+        var minPitch = audioInfo.minPitch;
+        var maxPitch = audioInfo.maxPitch;
+    
+        if (stopAudioSource)
+        {
+            audioSource.Stop();
+        }
+    
+        // clip
+        var characterHash = currentCharacter.GetHashCode();
+        var audioClip = typingAudioClips[characterHash % typingAudioClips.Length];
+        
+        // pitch
+        var maxPitchInt = (int) maxPitch * 100;
+        var minPitchInt = (int) minPitch * 100;
+        var pitchRange = maxPitchInt - minPitchInt;
+        if (pitchRange != 0)
+        {
+            audioSource.pitch = (characterHash % pitchRange + minPitchInt) / 100f; 
+        }
+        else
+        {
+            audioSource.pitch = minPitch;
+        }
+        
+        audioSource.PlayOneShot(audioClip);
+    }
 
     private void HandleTags(List<string> currentTags)
     {

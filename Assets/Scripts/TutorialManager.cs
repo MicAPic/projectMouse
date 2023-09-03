@@ -69,7 +69,7 @@ public class TutorialManager : TextManager
         });
         story.BindExternalFunction("ActivateTutorialTrigger", () =>
         {
-            FindObjectOfType<TutorialTrigger>().Toggle();
+            FindObjectOfType<TutorialCollider>().Toggle();
         });
         story.BindExternalFunction("EngendrarMiguel", () =>
         {

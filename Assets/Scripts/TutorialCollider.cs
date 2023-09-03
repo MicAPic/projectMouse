@@ -2,7 +2,7 @@ using System.Collections;
 using HealthControllers;
 using UnityEngine;
 
-public class TutorialTrigger : MonoBehaviour
+public class TutorialCollider : MonoBehaviour
 {
     [SerializeField] 
     private TutorialManager tutorialManager;
@@ -21,6 +21,10 @@ public class TutorialTrigger : MonoBehaviour
         yield return new WaitForSeconds(0.1f); //small delay to make sure the player's hp is all set
         var playerHealth = col.GetComponent<PlayerHealth>();
         if (tutorialManager.story.currentChoices.Count == 0) yield break;
+        if (tutorialManager.isPlaying)
+        {
+            yield return new WaitUntil(() => !tutorialManager.isPlaying);
+        }
         tutorialManager.story.ChooseChoiceIndex(playerHealth.GetCurrentHealth() < playerHealth.MaxHealth ? 0 : 1);
         tutorialManager.ContinueStory();
 

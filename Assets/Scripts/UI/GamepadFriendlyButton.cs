@@ -34,7 +34,6 @@ namespace UI
 
         public void OnDeselect(BaseEventData eventData)
         {
-            Debug.Log(eventData.selectedObject.name);
             AudioManager.Instance.sfxSource.PlayOneShot(_currentClip);
         }
 
