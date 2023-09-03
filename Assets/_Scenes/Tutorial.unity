@@ -1600,8 +1600,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.46089998, y: -0.38424993, z: 0}
-    m_Extent: {x: 1.37, y: 5.3243504, z: 0}
+    m_Center: {x: 0.4694, y: -0.37960005, z: 0}
+    m_Extent: {x: 1.3652999, y: 5.3269, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -2983,7 +2983,7 @@ MonoBehaviour:
   eventSystem: {fileID: 1581940387}
   initialDelay: 1.4
   textSpeed: 0.08
-  autoModeWaitTime: 1.5
+  autoModeWaitTime: 1.25
   nextSceneName: Menu
   dialogueText: {fileID: 302200897}
   transitionController: {fileID: 1456602268}
@@ -3527,8 +3527,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.28975, y: -1.02685, z: 0}
-    m_Extent: {x: 1.07525, y: 2.02665, z: 0}
+    m_Center: {x: 0.28735003, y: -1.02545, z: 0}
+    m_Extent: {x: 1.07355, y: 2.01975, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0

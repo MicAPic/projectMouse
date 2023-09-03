@@ -16,8 +16,8 @@ public class TutorialCollider : MonoBehaviour
     private IEnumerator OnTriggerStay2D(Collider2D col)
     {
         if (!col.CompareTag("Player")) yield break;
-        
-        Toggle();
+
+        _collider.enabled = false;
         yield return new WaitForSeconds(0.1f); //small delay to make sure the player's hp is all set
         var playerHealth = col.GetComponent<PlayerHealth>();
         if (tutorialManager.story.currentChoices.Count == 0) yield break;
