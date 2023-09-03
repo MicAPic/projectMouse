@@ -97,10 +97,10 @@ public class PlayerController : MonoBehaviour
     private float _timeFromStartBulletAnim;
     private bool _bulletSetUpStarted = false;
     //
-    
+
+    public bool isInvincible;
     private SpriteRenderer _sprite;
     private Animator _animator;
-    private bool _isInvincible;
     private bool _isMoving;
     private bool _isAttacking;
     
@@ -280,8 +280,8 @@ public class PlayerController : MonoBehaviour
     
     public void ToggleInvincibilityMaterial()
     {
-        _isInvincible = !_isInvincible;
-        _sprite.material = _isInvincible ? invincibilityMaterial : _defaultMaterial;
+        isInvincible = !isInvincible;
+        _sprite.material = isInvincible ? invincibilityMaterial : _defaultMaterial;
     }
     
     public void ActivateFlashing(float duration, int noOfFlashes=3, bool isPowerUp=true)

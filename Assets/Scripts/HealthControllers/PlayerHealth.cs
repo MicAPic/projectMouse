@@ -192,7 +192,14 @@ namespace HealthControllers
             PlayerController.Instance.ActivateFlashing(flashingTime, isPowerUp: isPowerUp);
             yield return new WaitUntil(() => PlayerController.Instance.isFlashing == false);
             
-            if (isPowerUp) PlayerController.Instance.ToggleInvincibilityMaterial();
+            if (isPowerUp)
+            {
+                PlayerController.Instance.ToggleInvincibilityMaterial();
+            }
+            else
+            {
+                if (PlayerController.Instance.isInvincible) yield break; // if the player got a power up
+            }
             defenceModifier = 1.0f;
         }
     }
