@@ -672,6 +672,14 @@ MonoBehaviour:
       m_Groups: 
       m_Action: Pause Input
       m_Flags: 0
+    - m_Name: 
+      m_Id: 1bfb0a6e-04f5-4a7f-93c1-64e0b0baf20f
+      m_Path: <Keyboard>/tab
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Pause Input
+      m_Flags: 0
     m_Flags: 0
   dialogueBox: {fileID: 1655930498}
   tungstenRat: {fileID: 576234221}
@@ -1592,8 +1600,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.45999998, y: -0.38115, z: 0}
-    m_Extent: {x: 1.3596001, y: 5.31855, z: 0}
+    m_Center: {x: 0.4631, y: -0.38330007, z: 0}
+    m_Extent: {x: 1.3671, y: 5.3240004, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -3263,7 +3271,7 @@ PrefabInstance:
     - target: {fileID: 6669997877656732541, guid: ee1eb64418e524647b5d95ed5ac22211, type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: a60d0c87f57c3bb41bdd4a2edc336481, type: 3}
+      objectReference: {fileID: 8300000, guid: 819114b3ee056da4b994dea7a2dbf44d, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ee1eb64418e524647b5d95ed5ac22211, type: 3}
 --- !u!1 &1430998208
@@ -3514,8 +3522,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.28549996, y: -1.02635, z: 0}
-    m_Extent: {x: 1.0712, y: 2.02125, z: 0}
+    m_Center: {x: 0.2826, y: -1.0193999, z: 0}
+    m_Extent: {x: 1.0679, y: 2.0262, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0

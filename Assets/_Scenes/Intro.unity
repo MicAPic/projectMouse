@@ -731,6 +731,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6669997877656732541, guid: ee1eb64418e524647b5d95ed5ac22211, type: 3}
+      propertyPath: Loop
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6669997877656732541, guid: ee1eb64418e524647b5d95ed5ac22211, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 522339fa56e5f5a49977c2620ca3e9d1, type: 3}
+    - target: {fileID: 6669997877656732541, guid: ee1eb64418e524647b5d95ed5ac22211, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ee1eb64418e524647b5d95ed5ac22211, type: 3}
 --- !u!1001 &1223108732
@@ -1258,6 +1270,7 @@ MonoBehaviour:
   skipText: {fileID: 120649973}
   skipTextAppearanceDuration: 0.75
   skipTextStayDuration: 1
+  skipToMusicTrackTime: 30.65599
 --- !u!114 &1815299553
 MonoBehaviour:
   m_ObjectHideFlags: 0

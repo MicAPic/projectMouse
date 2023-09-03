@@ -1,4 +1,5 @@
 using System;
+using Audio;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -21,6 +22,8 @@ namespace UI
         private float skipTextAppearanceDuration;
         [SerializeField]
         private float skipTextStayDuration;
+        [SerializeField]
+        private float skipToMusicTrackTime = 30.65599f;
         private IDisposable _eventListener;
         private Tween _skipTextAppearanceTween;
         private Tween _skipTextFadeTween;
@@ -34,6 +37,7 @@ namespace UI
         {
             if (inputModule.actions["Skip"].WasPressedThisFrame())
             {
+                AudioManager.Instance.musicSource.time = skipToMusicTrackTime;
                 introTextManager.Transition();
             }
         }
