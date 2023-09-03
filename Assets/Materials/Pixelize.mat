@@ -27,6 +27,6 @@ Material:
     m_Ints: []
     m_Floats:
     - _FadeScale: 8
-    - _PixelSize: 0.15
+    - _PixelSize: 0
     m_Colors: []
   m_BuildTextureStacks: []
