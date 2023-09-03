@@ -154,6 +154,7 @@ MonoBehaviour:
   bulletsRotationSpeed: 180
   shootingSoundEffect: {fileID: 8300000, guid: e915b90b4c95cdd44998fed2a0828a50, type: 3}
   dodgeSoundEffect: {fileID: 8300000, guid: 504f3a8878e085046816ca808a6cabc6, type: 3}
+  invincibilityEndSoundEffect: {fileID: 8300000, guid: 96270e79556a846228f624d9e00db714, type: 3}
   appearanceDuration: 1
   shadowRenderer: {fileID: 2367274219943639513}
   isFlashing: 0

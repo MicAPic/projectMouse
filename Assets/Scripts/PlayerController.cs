@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
     [FormerlySerializedAs("_shootAngel")]
     [SerializeField] 
     private float shootAngle = 20;
-    private bool _shotgunPowerUpEnabled;
+    public bool _shotgunPowerUpEnabled;
     
     [Header("Shooting/Magic Bullets")]
     [FormerlySerializedAs("_numberOfBullets")]
@@ -70,6 +70,8 @@ public class PlayerController : MonoBehaviour
     private AudioClip shootingSoundEffect;
     [SerializeField]
     private AudioClip dodgeSoundEffect;
+    [SerializeField]
+    private AudioClip invincibilityEndSoundEffect;
 
     [Header("Visuals & Animation")]
     public float appearanceDuration = 1.0f;
@@ -293,6 +295,7 @@ public class PlayerController : MonoBehaviour
         
         if (isPowerUp)
         {
+            AudioManager.Instance.sfxSource.PlayOneShot(invincibilityEndSoundEffect);
             // Colour the sprite gray; pulsate
             flashingSequence.AppendCallback(() => _sprite.material.color = flashingColour);
             flashingSequence.Append(_sprite.material.DOColor(defaultMatColour, individualFlashTime));

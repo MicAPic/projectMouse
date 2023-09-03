@@ -107,16 +107,14 @@ public class ExperienceManager : MonoBehaviour
         {
             Destroy(powerUp.gameObject);
         }
-        
-        ChatManager.Instance.EnableGeneralChatInfo();
-        
-        GameManager.Instance.Unpause();
-        
-        PixelPerfectCursor.Instance.Toggle();
-        
+
         ReevaluateExpGoal();
         StartCoroutine(FillExperienceBar());
 
+        ChatManager.Instance.EnableGeneralChatInfo();
+        GameManager.Instance.Unpause();
+        PixelPerfectCursor.Instance.Toggle();
+        
         if (TextManager.Instance != null)
         {
             FindObjectOfType<TutorialUI>().ToggleDialogueBox(true, 0.0f)
@@ -241,13 +239,12 @@ public class ExperienceManager : MonoBehaviour
             yield return new WaitForSeconds(animationDuration - levelUpSoundEffectDelay);
             if (!GameManager.IsGameOver && !isLevelingUp)
             {
-                Debug.Log("sound");
                 AudioManager.Instance.sfxSource.PlayOneShot(levelUpSoundEffect);
             }
         }
     }
 
-    private void  AnimateExperienceGain(float expToAdd)
+    private void AnimateExperienceGain(float expToAdd)
     {
         if (!_experienceCircles.TryDequeue(out var result))
         {
@@ -264,26 +261,43 @@ public class ExperienceManager : MonoBehaviour
         sequence.Append(result.DOAnchorPos(experienceCircleDestination.anchoredPosition, 
                                            circleAnimationDuration - 0.5f)
             .SetEase(Ease.InExpo)
-            .OnComplete(() =>
-            {
-                var fromValue = TotalExperiencePoints * 100;
-                var endValue = (TotalExperiencePoints + expToAdd) * 100;
-                var duration = expToAdd / _experienceToLevelUp * experienceGainAnimationMaxDuration;
-                TotalExperiencePoints += expToAdd;
-                
-                currentExperienceText.DOCounter((int)fromValue, (int)endValue, duration);
-                
-                experiencePercentageText.DOCounter(
-                    (int)((fromValue - _previousExperienceToLevelUp * 100) / (_experienceToLevelUp - _previousExperienceToLevelUp)),
-                    (int)((endValue - _previousExperienceToLevelUp * 100) / (_experienceToLevelUp - _previousExperienceToLevelUp)),
-                    duration);
-
-                StartCoroutine(FillExperienceBar());
-                result.gameObject.SetActive(false);
-                _experienceCircles.Enqueue(result);
-            }));
+            .OnComplete(() => StartCoroutine(AnimateExperienceText(expToAdd, result))));
     }
-    
+
+    private IEnumerator AnimateExperienceText(float expToAdd, RectTransform result)
+    {
+        var fromValue = TotalExperiencePoints * 100;
+        var endValue = (TotalExperiencePoints + expToAdd) * 100;
+        var duration = expToAdd / _experienceToLevelUp * experienceGainAnimationMaxDuration;
+        if (!GameManager.CanPause)
+        {
+            // if we can't pause, that means some other exp ball already on its way to trigger leveling up
+            // used to prevent a visual bug
+            yield return new WaitUntil(() => GameManager.CanPause);
+            experiencePercentageText.DOCounter(
+                0,
+                (int) ((endValue - _previousExperienceToLevelUp * 100) / 
+                                                      (_experienceToLevelUp - _previousExperienceToLevelUp)) - 100,
+                duration);
+        }
+        else
+        {
+            experiencePercentageText.DOCounter(
+                (int) ((fromValue - _previousExperienceToLevelUp * 100) / 
+                                                      (_experienceToLevelUp - _previousExperienceToLevelUp)),
+                (int) ((endValue - _previousExperienceToLevelUp * 100) / 
+                                                      (_experienceToLevelUp - _previousExperienceToLevelUp)),
+                duration);
+        }
+        TotalExperiencePoints += expToAdd;
+
+        currentExperienceText.DOCounter((int) fromValue, (int) endValue, duration);
+
+        StartCoroutine(FillExperienceBar());
+        result.gameObject.SetActive(false);
+        _experienceCircles.Enqueue(result);
+    }
+
     public int GetCurrentLevel()
     {
         return _currentLevel;
