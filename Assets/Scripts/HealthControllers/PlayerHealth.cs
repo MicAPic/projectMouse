@@ -59,6 +59,7 @@ namespace HealthControllers
         [SerializeField] 
         private float intervalBetweenHeartFills = 0.5f;
         private Sequence _fullHealSequence;
+        private static readonly int IsDead = Animator.StringToHash("IsDead");
 
         private const int HealthPointToHeartRatio = 30;
 
@@ -164,6 +165,7 @@ namespace HealthControllers
         protected override void Die() 
         {
             GameManager.Instance.GameOver();
+            PlayerController.Instance.animator.SetTrigger(IsDead);
         }
 
         private void AddAHeart()

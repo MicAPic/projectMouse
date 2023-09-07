@@ -12,19 +12,19 @@ namespace UI
         
         [FormerlySerializedAs("clickSoundEffect")]
         [SerializeField]
-        private AudioClip selectSoundEffect;
+        protected AudioClip selectSoundEffect;
         [SerializeField]
-        private AudioClip submitSoundEffect;
+        protected AudioClip submitSoundEffect;
         [SerializeField]
         private AudioClip silence;
 
-        private AudioClip _currentClip;
+        protected AudioClip currentClip;
 
-        void Awake()
+        protected virtual void Awake()
         {
             button = GetComponent<Button>();
             button.onClick.AddListener(() => AudioManager.Instance.sfxSource.PlayOneShot(submitSoundEffect));
-            _currentClip = selectSoundEffect;
+            currentClip = selectSoundEffect;
         }
 
         public void OnPointerEnter(PointerEventData eventData)
@@ -34,12 +34,12 @@ namespace UI
 
         public void OnDeselect(BaseEventData eventData)
         {
-            AudioManager.Instance.sfxSource.PlayOneShot(_currentClip);
+            AudioManager.Instance.sfxSource.PlayOneShot(currentClip);
         }
 
         public void ToggleSoundEffect(bool state)
         {
-            _currentClip = state ? selectSoundEffect : silence;
+            currentClip = state ? selectSoundEffect : silence;
         }
     }
 }

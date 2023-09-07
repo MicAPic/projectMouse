@@ -99,8 +99,8 @@ public class PlayerController : MonoBehaviour
     //
 
     public bool isInvincible;
+    public Animator animator;
     private SpriteRenderer _sprite;
-    private Animator _animator;
     private bool _isMoving;
     private bool _isAttacking;
     
@@ -133,7 +133,7 @@ public class PlayerController : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         _sprite = GetComponentInChildren<SpriteRenderer>();
         _defaultMaterial = _sprite.material;
-        _animator = GetComponentInChildren<Animator>();
+        animator = GetComponentInChildren<Animator>();
 
         _playerLayer = gameObject.layer;
         
@@ -180,7 +180,7 @@ public class PlayerController : MonoBehaviour
         // a big block of semi-repeated code, it's this way to not set Animators every Update
         if (playerInput.actions["Move"].WasPressedThisFrame())
         {
-            _animator.SetBool(IsMoving, true);
+            animator.SetBool(IsMoving, true);
             foreach (var trailElementAnimator in _trailElementAnimators)
             {
                 trailElementAnimator.SetBool(IsMoving, true);
@@ -188,7 +188,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (playerInput.actions["Move"].WasReleasedThisFrame() || !playerInput.enabled)
         {
-            _animator.SetBool(IsMoving, false);
+            animator.SetBool(IsMoving, false);
             foreach (var trailElementAnimator in _trailElementAnimators)
             {
                 trailElementAnimator.SetBool(IsMoving, false);
@@ -196,7 +196,7 @@ public class PlayerController : MonoBehaviour
         }
         if (playerInput.actions["Shoot"].WasPressedThisFrame())
         {
-            _animator.SetBool(IsAttacking, true);
+            animator.SetBool(IsAttacking, true);
             foreach (var trailElementAnimator in _trailElementAnimators)
             {
                 trailElementAnimator.SetBool(IsAttacking, true);
@@ -204,7 +204,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (playerInput.actions["Shoot"].WasReleasedThisFrame() || !playerInput.enabled)
         {
-            _animator.SetBool(IsAttacking, false);
+            animator.SetBool(IsAttacking, false);
             foreach (var trailElementAnimator in _trailElementAnimators)
             {
                 trailElementAnimator.SetBool(IsAttacking, false);
