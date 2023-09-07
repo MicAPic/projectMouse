@@ -16,7 +16,16 @@ public class TutorialManager : TextManager
     private GameObject miguelPrefab;
     [SerializeField]
     private Transform miguelSpawnPoint;
-    private TutorialUI tutorialUI;
+    [Space]
+    [SerializeField]
+    private InputAction fastForwardInputAction;
+    [SerializeField]
+    private float fastForwardTextSpeed = 0.04f;
+    private float _fastForwardAutoModeWaitTime;
+    private float _defaultTextSpeed;
+    private float _defaultAutoModeWaitTime;
+    
+    private TutorialUI _tutorialUI;
 
     private Action<InputAction.CallbackContext> _inputHandler;
     private GameObject _miguel;
@@ -24,12 +33,40 @@ public class TutorialManager : TextManager
     protected override void Awake()
     {
         base.Awake();
-        tutorialUI = FindObjectOfType<TutorialUI>();
+        _tutorialUI = FindObjectOfType<TutorialUI>();
+        _defaultTextSpeed = textSpeed;
+        _defaultAutoModeWaitTime = autoModeWaitTime;
+        _fastForwardAutoModeWaitTime = autoModeWaitTime / 2.0f;
+    }
+    
+    void OnEnable()
+    {
+        fastForwardInputAction.Enable();
+    }
+        
+    void OnDisable()
+    {
+        fastForwardInputAction.Disable();
     }
 
     void Start()
     {
         StartDialogue();
+    }
+    
+    void Update() 
+    {
+        // Fast-forwarding the text
+        if (fastForwardInputAction.WasPressedThisFrame())
+        {
+            textSpeed = fastForwardTextSpeed;
+            autoModeWaitTime = _fastForwardAutoModeWaitTime;
+        }
+        else if (fastForwardInputAction.WasReleasedThisFrame())
+        {
+            textSpeed = _defaultTextSpeed;
+            autoModeWaitTime = _defaultAutoModeWaitTime;
+        }
     }
 
     public override void StartDialogue()
@@ -45,7 +82,7 @@ public class TutorialManager : TextManager
         });
         story.BindExternalFunction("UnlockSelection", () =>
         {
-            tutorialUI.ToggleDialogueBox(false, 0.0f).OnComplete(() =>
+            _tutorialUI.ToggleDialogueBox(false, 0.0f).OnComplete(() =>
             {
                 eventSystem.SetActive(true);
                 FindFirstObjectByType<Button>().Select();

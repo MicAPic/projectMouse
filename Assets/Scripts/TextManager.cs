@@ -15,7 +15,7 @@ public class TextManager : MonoBehaviour
     [SerializeField]
     protected float initialDelay = 1.05f;
     [SerializeField]
-    private float textSpeed = 0.08f;
+    protected float textSpeed = 0.08f;
     [SerializeField]
     protected float autoModeWaitTime = 1.25f;
     [SerializeField] 

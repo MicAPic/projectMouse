@@ -1600,8 +1600,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.46715, y: -0.37715006, z: 0}
-    m_Extent: {x: 1.36055, y: 5.32765, z: 0}
+    m_Center: {x: 0.4588, y: -0.38485003, z: 0}
+    m_Extent: {x: 1.3613, y: 5.32315, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -2982,7 +2982,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventSystem: {fileID: 1581940387}
   initialDelay: 1.4
-  textSpeed: 0.08
+  textSpeed: 0.07
   autoModeWaitTime: 1.25
   nextSceneName: Menu
   dialogueText: {fileID: 302200897}
@@ -2996,6 +2996,24 @@ MonoBehaviour:
   playerInput: {fileID: 1824196158}
   miguelPrefab: {fileID: 6130020129705232454, guid: e3b6b3437a0164f709f95a85098749d3, type: 3}
   miguelSpawnPoint: {fileID: 114712581}
+  fastForwardInputAction:
+    m_Name: Fast Forward Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 069e3b03-645e-4361-a96c-b4f0c08aa4e1
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 930312b5-af46-427e-982a-281ee444f056
+      m_Path: <Keyboard>/f
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Fast Forward Input
+      m_Flags: 0
+    m_Flags: 0
+  fastForwardTextSpeed: 0.035
 --- !u!1 &1276856759
 GameObject:
   m_ObjectHideFlags: 0
@@ -3527,8 +3545,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.28045002, y: -1.0274999, z: 0}
-    m_Extent: {x: 1.06815, y: 2.0325, z: 0}
+    m_Center: {x: 0.28065002, y: -1.0272499, z: 0}
+    m_Extent: {x: 1.06735, y: 2.0225499, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
