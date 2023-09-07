@@ -1600,8 +1600,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.46415004, y: -0.37689996, z: 0}
-    m_Extent: {x: 1.36305, y: 5.3194, z: 0}
+    m_Center: {x: 0.4659, y: -0.37574983, z: 0}
+    m_Extent: {x: 1.3615999, y: 5.32425, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -3567,7 +3567,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'TIP: Hold F to fast forward'
+  m_text: '[Hold F to fast forward]'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b03c9232660d42445afc4db3f4ad9f0c, type: 2}
   m_sharedMaterial: {fileID: 6743481130521176009, guid: b03c9232660d42445afc4db3f4ad9f0c, type: 2}
@@ -3700,8 +3700,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.28855, y: -1.0281, z: 0}
-    m_Extent: {x: 1.0653499, y: 2.0214999, z: 0}
+    m_Center: {x: 0.28805003, y: -1.03265, z: 0}
+    m_Extent: {x: 1.06415, y: 2.02925, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0

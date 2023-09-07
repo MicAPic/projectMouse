@@ -22,7 +22,7 @@ namespace HealthControllers
             }
             else
             {
-                healthPoints = 100.0f;
+                healthPoints = 200.0f;
             }
         }
 
