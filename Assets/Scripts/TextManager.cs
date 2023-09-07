@@ -39,7 +39,7 @@ public class TextManager : MonoBehaviour
     private DialogueAudioInfo audioInfo;
     [Range(1, 5)]
     [SerializeField] 
-    private int frequencyLevel = 2;
+    protected int frequencyLevel = 2;
     [SerializeField]
     private AudioSource audioSource;
     [SerializeField]
