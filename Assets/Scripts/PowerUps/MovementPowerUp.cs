@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace PowerUps
 {
-    public class MovementPowerUp : PowerUpBase
+    public class MovementPowerUp : UpgradablePowerUp<MovementPowerUp>
     {
         [SerializeField]
         private float modifier = 1.10f;
@@ -16,7 +16,10 @@ namespace PowerUps
             if (PlayerController.Instance.movementSpeed > maxSpeed)
             {
                 ExperienceManager.Instance.RemoveFromPowerUps(this);
+                return;
             }
+            
+            base.Activate();
         }
     }
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace PowerUps
 {
-    public class FireRatePowerUp : PowerUpBase
+    public class FireRatePowerUp : UpgradablePowerUp<FireRatePowerUp>
     {
         [SerializeField]
         private float modifier = 0.9f;
@@ -17,7 +17,10 @@ namespace PowerUps
             if (PlayerController.Instance.fireRate <= maxFireRate)
             {
                 ExperienceManager.Instance.RemoveFromPowerUps(this);
+                return;
             }
+            
+            base.Activate();
         }
     }
 }

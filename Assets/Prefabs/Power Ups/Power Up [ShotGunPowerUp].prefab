@@ -129,10 +129,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _coefficient: 1
+  titleText: {fileID: 4759093804619610474}
+  descriptionText: {fileID: 5343756367828021517}
   descriptionTMP: {fileID: 5343756367828021517}
-  newDescription: 'Add bullet for shoot
+  newDescription: 'Fire in one more direction
 
-    Make you look hornier'
+    The more the merrier!'
+  maxBulletsToShoot: 5
+--- !u!114 &4759093804619610474 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8416702152856493180, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
+  m_PrefabInstance: {fileID: 3946719639766820118}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5343756367828021517 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9001928748618290203, guid: 4ba321776b79994478d339e7a1466f27, type: 3}

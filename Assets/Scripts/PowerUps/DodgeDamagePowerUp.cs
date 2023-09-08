@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace PowerUps
 {
-    public class DodgeDamagePowerUp : PowerUpBase
+    public class DodgeDamagePowerUp : UpgradablePowerUp<DodgeDamagePowerUp>
     {
         [SerializeField]
         private float initialValue = 10.0f;
@@ -43,7 +43,10 @@ namespace PowerUps
             if (PlayerController.Instance.dodgeDamage > maxDamageToDeal)
             {
                 ExperienceManager.Instance.RemoveFromPowerUps(this);
+                return;
             }
+            
+            base.Activate();
         }
     }
 }

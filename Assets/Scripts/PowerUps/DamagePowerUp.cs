@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace PowerUps
 {
-    public class DamagePowerUp : PowerUpBase
+    public class DamagePowerUp : UpgradablePowerUp<DamagePowerUp>
     {
         [SerializeField]
         private float modifier = 1.15f;
@@ -16,7 +16,10 @@ namespace PowerUps
             if (PlayerController.Instance.damageToDeal > maxDamageToDeal)
             {
                 ExperienceManager.Instance.RemoveFromPowerUps(this);
+                return;
             }
+            
+            base.Activate();
         }
     }
 }

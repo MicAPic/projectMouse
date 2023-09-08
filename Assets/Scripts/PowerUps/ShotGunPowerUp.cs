@@ -1,16 +1,15 @@
 using UnityEngine;
-using TMPro;
 
 namespace PowerUps
 {
-    public class ShotGunPowerUp : PowerUpBase
+    public class ShotGunPowerUp : UpgradablePowerUp<ShotGunPowerUp>
     {
         [SerializeField]
-        private TMP_Text descriptionTMP;
+        private string newDescription = "Fire in one more direction\nThe more the merrier!";
         [SerializeField]
-        private string newDescription = "Add bullet for shoot";
+        private int maxBulletsToShoot = 5;
 
-        private bool _wasActivated = false;
+        private bool _wasActivated;
 
         protected override void Awake()
         {
@@ -18,7 +17,7 @@ namespace PowerUps
             if (PlayerController.Instance.ShotgunPowerUpEnabled)
             {
                 _wasActivated = true;
-                descriptionTMP.text = newDescription;
+                descriptionText.text = newDescription;
             }
         }
 
@@ -32,6 +31,14 @@ namespace PowerUps
             {
                 PlayerController.Instance.AddShotgunBullet();
             }
+            
+            if (PlayerController.Instance.bulletsInShotgun > maxBulletsToShoot)
+            {
+                ExperienceManager.Instance.RemoveFromPowerUps(this);
+                return;
+            }
+            
+            base.Activate();
         }
     }
 }

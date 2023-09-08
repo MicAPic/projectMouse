@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace PowerUps
 {
-    public class DodgePowerUp : PowerUpBase
+    public class DodgePowerUp : UpgradablePowerUp<DodgePowerUp>
     {
         [SerializeField]
         private float modifier = 1.10f;
@@ -16,7 +16,10 @@ namespace PowerUps
             if (PlayerController.Instance.dodgeSpeedModifier > maxSpeed)
             {
                 ExperienceManager.Instance.RemoveFromPowerUps(this);
+                return;
             }
+            
+            base.Activate();
         }
     }
 }

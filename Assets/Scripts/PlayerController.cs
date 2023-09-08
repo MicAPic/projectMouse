@@ -348,10 +348,10 @@ public class PlayerController : MonoBehaviour
         ShotgunPowerUpEnabled = true;
     }
 
-    private int _bulletsInShootGun = 2;
+    public int bulletsInShotgun = 2;
     public void AddShotgunBullet()
     {
-        ++_bulletsInShootGun;
+        ++bulletsInShotgun;
     }
     
     public void EnableMagicBullets()
@@ -360,10 +360,10 @@ public class PlayerController : MonoBehaviour
         SetUpBullets();
     }
 
-    private int _numOfMagicBullets = 3;
+    public int numOfMagicBullets = 3;
     public void AddMagicBullet()
     {
-        ++_numOfMagicBullets;
+        ++numOfMagicBullets;
         _bullets.Add(null);
     }
 
@@ -378,10 +378,10 @@ public class PlayerController : MonoBehaviour
 
         if (ShotgunPowerUpEnabled)
         {
-            var additionalDirections = new Vector3[_bulletsInShootGun];
+            var additionalDirections = new Vector3[bulletsInShotgun];
             additionalDirections[0] = Quaternion.AngleAxis(shootAngle, Vector3.forward) * direction; // left
             additionalDirections[1] = Quaternion.AngleAxis(-shootAngle, Vector3.forward) * direction; // right
-            for(int i = 2; i < _bulletsInShootGun; ++i)
+            for(int i = 2; i < bulletsInShotgun; ++i)
             {
                 if(i % 2 == 0)
                     additionalDirections[i] = Quaternion.AngleAxis(shootAngle/(i+2 / 2), Vector3.forward) * direction;
@@ -438,7 +438,7 @@ public class PlayerController : MonoBehaviour
     // Magic shield-related methods:
     private void SetUpBullets()
     {
-        numberOfBullets = _numOfMagicBullets;
+        numberOfBullets = numOfMagicBullets;
         for (int i = 0; i < numberOfBullets; ++i)
         {
             _bullets[i] = BulletPool.Instance.GetBulletFromPool(0);

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace PowerUps
 {
-    public class BulletScalePowerUp : PowerUpBase
+    public class BulletScalePowerUp : UpgradablePowerUp<BulletScalePowerUp>
     {
         [SerializeField]
         private float modifier = 1.10f;
@@ -16,7 +16,10 @@ namespace PowerUps
             if (PlayerController.Instance.bulletScaleModifier > maxScale)
             {
                 ExperienceManager.Instance.RemoveFromPowerUps(this);
+                return;
             }
+            
+            base.Activate();
         }
     }
 }

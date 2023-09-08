@@ -1,24 +1,22 @@
 using UnityEngine;
-using TMPro;
+
 namespace PowerUps
 {
-
-    public class MagicBulletsPowerUp : PowerUpBase
+    public class MagicBulletsPowerUp : UpgradablePowerUp<MagicBulletsPowerUp>
     {
-
-        [SerializeField]
-        private TMP_Text descriptionTMP;
         [SerializeField]
         private string newDescription = "Add bullet for next magic circle";
+        [SerializeField]
+        private int maxBulletsInShield = 5;
 
-        private bool _wasActivated = false;
+        private bool _wasActivated;
         protected override void Awake()
         {
             base.Awake();
             if (PlayerController.Instance.MagicBulletsEnabled)
             {
                 _wasActivated = true;
-                descriptionTMP.text = newDescription;
+                descriptionText.text = newDescription;
             }
         }
         protected override void Activate()
@@ -31,6 +29,14 @@ namespace PowerUps
             {
                 PlayerController.Instance.AddMagicBullet();
             }
+            
+            if (PlayerController.Instance.numOfMagicBullets > maxBulletsInShield)
+            {
+                ExperienceManager.Instance.RemoveFromPowerUps(this);
+                return;
+            }
+            
+            base.Activate();
         }
     }
 }
