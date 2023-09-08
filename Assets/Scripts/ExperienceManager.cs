@@ -64,6 +64,10 @@ public class ExperienceManager : MonoBehaviour
     private float circleAnimationDuration;
     [SerializeField]
     private float powerUpAppearanceDuration;
+    [SerializeField]
+    private ParticleSystem[] appearanceParticles;
+    [SerializeField]
+    private RectTransform uiParticlesTransform;
 
     private Queue<RectTransform> _experienceCircles = new();
 
@@ -169,7 +173,6 @@ public class ExperienceManager : MonoBehaviour
         // Animate level up screen & set up navigation
         _powerUpSelectionLayoutGroup.enabled = false;
         
-        // var currentDelay = 0.0f;
         var currentPosY = -_powerUpButtonSpacingY;
         Tween fadeTween = null;
         for (var i = 0; i < buttons.Count; i++)
@@ -195,6 +198,10 @@ public class ExperienceManager : MonoBehaviour
 
         fadeTween.OnComplete(() =>
         {
+            foreach (var particle in appearanceParticles)
+            {
+                particle.Play();
+            }
             _powerUpSelectionLayoutGroup.enabled = true;
             buttons[^2].Select();
         });

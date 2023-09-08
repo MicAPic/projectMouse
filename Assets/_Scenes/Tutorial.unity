@@ -656,6 +656,8 @@ MonoBehaviour:
   buttons: []
   offlineSign: {fileID: 0}
   leaderboardEntries: []
+  statistics: {fileID: 0}
+  statisticsPopUp: {fileID: 0}
   pauseInputAction:
     m_Name: Pause Input
     m_Type: 0
@@ -1600,8 +1602,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.4616, y: -0.3749001, z: 0}
-    m_Extent: {x: 1.3618, y: 5.3185997, z: 0}
+    m_Center: {x: 0.46405, y: -0.37864995, z: 0}
+    m_Extent: {x: 1.36625, y: 5.3161497, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -2487,8 +2489,17 @@ PrefabInstance:
       propertyPath: focusPoint
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7136893291037799306, guid: 1f2259667d4c67242ad96772283b3117, type: 3}
+      propertyPath: orthographic size
+      value: 16.875
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1f2259667d4c67242ad96772283b3117, type: 3}
+--- !u!20 &1121953185 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 7136893291037799306, guid: 1f2259667d4c67242ad96772283b3117, type: 3}
+  m_PrefabInstance: {fileID: 1121953184}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1125396369
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3700,8 +3711,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.28895, y: -1.03275, z: 0}
-    m_Extent: {x: 1.07035, y: 2.0313501, z: 0}
+    m_Center: {x: 0.28735, y: -1.0269499, z: 0}
+    m_Extent: {x: 1.07095, y: 2.02195, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -4329,6 +4340,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 37924853}
     m_Modifications:
+    - target: {fileID: 3293637992941651915, guid: 377c7c070ffcd7f4aa62c11971e842f2, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1121953185}
     - target: {fileID: 4237592085075078672, guid: 377c7c070ffcd7f4aa62c11971e842f2, type: 3}
       propertyPath: m_RootOrder
       value: 1
