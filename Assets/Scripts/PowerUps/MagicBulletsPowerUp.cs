@@ -1,20 +1,36 @@
 using UnityEngine;
+using TMPro;
 namespace PowerUps
 {
+
     public class MagicBulletsPowerUp : PowerUpBase
     {
-        [SerializeField] private ShotGunPowerUp _shotGunPowerUp;
+
+        [SerializeField]
+        private TMP_Text descriptionTMP;
+        [SerializeField]
+        private string newDescription = "Add bullet for next magic circle";
+
+        private bool _wasActivated = false;
+        protected override void Awake()
+        {
+            base.Awake();
+            if (PlayerController.Instance.MagicBulletsEnabled)
+            {
+                _wasActivated = true;
+                descriptionTMP.text = newDescription;
+            }
+        }
         protected override void Activate()
         {
-            PlayerController.Instance.EnableMagicBullets();
-            var powerUpName = _shotGunPowerUp.GetType().Name;
-            foreach (var pair in ExperienceManager.Instance.PowerUpsWithCounters)
+            if (!_wasActivated)
             {
-                if (!pair.Key.name.Contains(powerUpName)) continue;
-                ExperienceManager.Instance.PowerUpsWithCounters[pair.Key] += 1;
-                break;
+                PlayerController.Instance.EnableMagicBullets();
             }
-            ExperienceManager.Instance.RemoveFromPowerUps(this);
+            else
+            {
+                PlayerController.Instance.AddMagicBullet();
+            }
         }
     }
 }

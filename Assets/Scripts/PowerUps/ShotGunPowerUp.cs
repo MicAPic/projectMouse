@@ -1,20 +1,37 @@
 using UnityEngine;
+using TMPro;
+
 namespace PowerUps
 {
     public class ShotGunPowerUp : PowerUpBase
     {
-        [SerializeField] private MagicBulletsPowerUp _magicBulletsPowerUp;
+        [SerializeField]
+        private TMP_Text descriptionTMP;
+        [SerializeField]
+        private string newDescription = "Add bullet for shoot";
+
+        private bool _wasActivated = false;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            if (PlayerController.Instance.ShotgunPowerUpEnabled)
+            {
+                _wasActivated = true;
+                descriptionTMP.text = newDescription;
+            }
+        }
+
         protected override void Activate()
         {
-            PlayerController.Instance.EnableShotgun();
-            var powerUpName = _magicBulletsPowerUp.GetType().Name;
-            foreach (var pair in ExperienceManager.Instance.PowerUpsWithCounters)
+            if (!_wasActivated)
             {
-                if (!pair.Key.name.Contains(powerUpName)) continue;
-                ExperienceManager.Instance.PowerUpsWithCounters[pair.Key] += 1;
-                break;
+                PlayerController.Instance.EnableShotgun();
             }
-            ExperienceManager.Instance.RemoveFromPowerUps(this);
+            else
+            {
+                PlayerController.Instance.AddShotgunBullet();
+            }
         }
     }
 }

@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
     [FormerlySerializedAs("_shootAngel")]
     [SerializeField] 
     private float shootAngle = 20;
-    public bool _shotgunPowerUpEnabled;
+    public bool ShotgunPowerUpEnabled { get; private set; }
     
     [Header("Shooting/Magic Bullets")]
     [FormerlySerializedAs("_numberOfBullets")]
@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
     [FormerlySerializedAs("_bulletsRotationSpeed")]
     [SerializeField] 
     private float bulletsRotationSpeed = 2f;
-    private bool _magicBulletsEnabled = false;
+    public bool MagicBulletsEnabled { get; private set; } = false;
     private List<Bullet> _bullets;
     private Vector3 _mainRotationVector;
 
@@ -230,7 +230,7 @@ public class PlayerController : MonoBehaviour
         }
         
         // Handle the bullet shield
-        if (_magicBulletsEnabled)
+        if (MagicBulletsEnabled)
         {
             RotateBullets();
             MagicBulletsEnableCheck();
@@ -346,13 +346,26 @@ public class PlayerController : MonoBehaviour
 
     public void EnableShotgun()
     {
-        _shotgunPowerUpEnabled = true;
+        ShotgunPowerUpEnabled = true;
+    }
+
+    private int _bulletsInShootGun = 2;
+    public void AddShotgunBullet()
+    {
+        ++_bulletsInShootGun;
     }
     
     public void EnableMagicBullets()
     {
-        _magicBulletsEnabled = true;
+        MagicBulletsEnabled = true;
         SetUpBullets();
+    }
+
+    private int _numOfMagicBullets = 3;
+    public void AddMagicBullet()
+    {
+        ++_numOfMagicBullets;
+        _bullets.Add(null);
     }
 
     private void Shoot()
@@ -364,11 +377,18 @@ public class PlayerController : MonoBehaviour
         bullet.transform.position = sPosition;
         bullet.Enable(direction, firePower, damageToDeal, bulletScaleModifier);
 
-        if (_shotgunPowerUpEnabled)
+        if (ShotgunPowerUpEnabled)
         {
-            var additionalDirections = new Vector3[2];
+            var additionalDirections = new Vector3[_bulletsInShootGun];
             additionalDirections[0] = Quaternion.AngleAxis(shootAngle, Vector3.forward) * direction; // left
             additionalDirections[1] = Quaternion.AngleAxis(-shootAngle, Vector3.forward) * direction; // right
+            for(int i = 2; i < _bulletsInShootGun; ++i)
+            {
+                if(i % 2 == 0)
+                    additionalDirections[i] = Quaternion.AngleAxis(shootAngle/(i+2 / 2), Vector3.forward) * direction;
+                else
+                    additionalDirections[i] = Quaternion.AngleAxis(-shootAngle/(i+2 / 2), Vector3.forward) * direction;
+            }
 
             foreach (var additionalDirection in additionalDirections)
             {
@@ -419,6 +439,7 @@ public class PlayerController : MonoBehaviour
     // Magic shield-related methods:
     private void SetUpBullets()
     {
+        numberOfBullets = _numOfMagicBullets;
         for (int i = 0; i < numberOfBullets; ++i)
         {
             _bullets[i] = BulletPool.Instance.GetBulletFromPool(0);
@@ -433,7 +454,7 @@ public class PlayerController : MonoBehaviour
         _mainRotationVector = Vector3.up * radius;
         while (_timeFromStartBulletAnim / _animTimeScaler < 1)
         {
-            for (int i = 0; i < _bullets.Capacity; ++i)
+            for (int i = 0; i < numberOfBullets; ++i)
             {
                 Vector3 offset = Quaternion.Euler(0, 0, 360 / numberOfBullets * i) * _mainRotationVector;
                 if (_bullets[i] != null)
@@ -447,7 +468,7 @@ public class PlayerController : MonoBehaviour
             yield return null;
         }
 
-        for (int i = 0; i < _bullets.Capacity; ++i)
+        for (int i = 0; i < numberOfBullets; ++i)
         {
             Vector3 offset = Quaternion.Euler(0, 0, 360 / numberOfBullets * i) * _mainRotationVector;
             if (_bullets[i] != null)
@@ -491,7 +512,7 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator StartSetUpBullets()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(3);
         SetUpBullets();
         _bulletSetUpStarted = false;
     }
