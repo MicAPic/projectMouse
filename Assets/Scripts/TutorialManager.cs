@@ -2,6 +2,7 @@ using System;
 using DG.Tweening;
 using Enemy;
 using HealthControllers;
+using TMPro;
 using UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -16,7 +17,29 @@ public class TutorialManager : TextManager
     private GameObject miguelPrefab;
     [SerializeField]
     private Transform miguelSpawnPoint;
-    private TutorialUI tutorialUI;
+    [Space]
+    [SerializeField]
+    private RectTransform tipPopUp;
+    [SerializeField]
+    private float tipPopUpDuration;
+    [SerializeField]
+    private float tipPopUpDelay = 0.0f;
+    [SerializeField]
+    private float tipToggledPosY;
+    private float tipDefaultPosY;
+    [Space]
+    [SerializeField]
+    private InputAction fastForwardInputAction;
+    [SerializeField]
+    private float fastForwardTextSpeed = 0.04f;
+    [SerializeField]
+    private int fastForwardSoundFrequency = 3;
+    private float _fastForwardAutoModeWaitTime;
+    private float _defaultTextSpeed;
+    private int _defaultSoundFrequency;
+    private float _defaultAutoModeWaitTime;
+    
+    private TutorialUI _tutorialUI;
 
     private Action<InputAction.CallbackContext> _inputHandler;
     private GameObject _miguel;
@@ -24,12 +47,45 @@ public class TutorialManager : TextManager
     protected override void Awake()
     {
         base.Awake();
-        tutorialUI = FindObjectOfType<TutorialUI>();
+        _tutorialUI = FindObjectOfType<TutorialUI>();
+        _defaultTextSpeed = textSpeed;
+        _defaultSoundFrequency = frequencyLevel;
+        _defaultAutoModeWaitTime = autoModeWaitTime;
+        _fastForwardAutoModeWaitTime = autoModeWaitTime / 2.0f;
+
+        tipDefaultPosY = tipPopUp.anchoredPosition.y;
+    }
+    
+    void OnEnable()
+    {
+        fastForwardInputAction.Enable();
+    }
+        
+    void OnDisable()
+    {
+        fastForwardInputAction.Disable();
     }
 
     void Start()
     {
         StartDialogue();
+    }
+    
+    void Update() 
+    {
+        // Fast-forwarding the text
+        if (fastForwardInputAction.WasPressedThisFrame())
+        {
+            textSpeed = fastForwardTextSpeed;
+            frequencyLevel = fastForwardSoundFrequency;
+            autoModeWaitTime = _fastForwardAutoModeWaitTime;
+        }
+        else if (fastForwardInputAction.WasReleasedThisFrame())
+        {
+            textSpeed = _defaultTextSpeed;
+            frequencyLevel = _defaultSoundFrequency;
+            autoModeWaitTime = _defaultAutoModeWaitTime;
+        }
     }
 
     public override void StartDialogue()
@@ -45,7 +101,7 @@ public class TutorialManager : TextManager
         });
         story.BindExternalFunction("UnlockSelection", () =>
         {
-            tutorialUI.ToggleDialogueBox(false, 0.0f).OnComplete(() =>
+            _tutorialUI.ToggleDialogueBox(false, 0.0f).OnComplete(() =>
             {
                 eventSystem.SetActive(true);
                 FindFirstObjectByType<Button>().Select();
@@ -81,6 +137,22 @@ public class TutorialManager : TextManager
             _miguel.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
             _miguel.GetComponent<EnemyController>().enabled = true;
             _miguel.GetComponent<Health>().enabled = true;
+        });
+        story.BindExternalFunction("ToggleTip", (bool state) =>
+        {
+            var tipText = tipPopUp.GetComponent<TMP_Text>();
+            if (state)
+            {
+                autoModeWaitTime = 0.0f;
+                tipPopUp.DOAnchorPosY(tipToggledPosY, tipPopUpDuration).SetDelay(tipPopUpDelay);
+                tipText.DOFade(1.0f, tipPopUpDuration).SetDelay(tipPopUpDelay);
+            }
+            else
+            {
+                autoModeWaitTime = _defaultAutoModeWaitTime;
+                tipPopUp.DOAnchorPosY(tipDefaultPosY, tipPopUpDuration);
+                tipText.DOFade(0.0f, tipPopUpDuration);
+            }
         });
     }
 }

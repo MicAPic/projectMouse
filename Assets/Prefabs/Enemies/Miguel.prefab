@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 101048798ea847999282c80bd339d25e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthPoints: 100
+  healthPoints: 200
   hitSoundEffect: {fileID: 8300000, guid: 7dd138210c42edd4885cc381167fd910, type: 3}
 --- !u!212 &6779208012490824151 stripped
 SpriteRenderer:

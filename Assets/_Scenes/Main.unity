@@ -217,8 +217,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.28814998, y: -1.0242, z: 0}
-    m_Extent: {x: 1.07385, y: 2.0314, z: 0}
+    m_Center: {x: 0.28940004, y: -1.0272, z: 0}
+    m_Extent: {x: 1.0694001, y: 2.0233, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -329,8 +329,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.34575003, y: -0.56725, z: 0}
-    m_Extent: {x: 1.56685, y: 5.2508497, z: 0}
+    m_Center: {x: 0.34885, y: -0.5669501, z: 0}
+    m_Extent: {x: 1.56235, y: 5.25535, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -1411,8 +1411,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.28315002, y: -1.0272, z: 0}
-    m_Extent: {x: 1.06685, y: 2.0264, z: 0}
+    m_Center: {x: 0.293, y: -1.02905, z: 0}
+    m_Extent: {x: 1.0628, y: 2.02535, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -2169,8 +2169,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.42055, y: -0.57305, z: 0}
-    m_Extent: {x: 1.55915, y: 5.24875, z: 0}
+    m_Center: {x: 0.4087, y: -0.56764984, z: 0}
+    m_Extent: {x: 1.5568, y: 5.24685, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -2581,15 +2581,7 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8572246696384434245, guid: 2371b6c28a0a64c43b82b2a327798105, type: 3}
-      propertyPath: m_OnDeselect.m_PersistentCalls.m_Calls.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8572246696384434245, guid: 2371b6c28a0a64c43b82b2a327798105, type: 3}
       propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8572246696384434245, guid: 2371b6c28a0a64c43b82b2a327798105, type: 3}
-      propertyPath: m_OnDeselect.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8572246696384434245, guid: 2371b6c28a0a64c43b82b2a327798105, type: 3}
@@ -2597,15 +2589,7 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1356616593}
     - target: {fileID: 8572246696384434245, guid: 2371b6c28a0a64c43b82b2a327798105, type: 3}
-      propertyPath: m_OnDeselect.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1356616593}
-    - target: {fileID: 8572246696384434245, guid: 2371b6c28a0a64c43b82b2a327798105, type: 3}
       propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8572246696384434245, guid: 2371b6c28a0a64c43b82b2a327798105, type: 3}
-      propertyPath: m_OnDeselect.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8572246696384434245, guid: 2371b6c28a0a64c43b82b2a327798105, type: 3}
@@ -2613,23 +2597,11 @@ PrefabInstance:
       value: UpdateInputField
       objectReference: {fileID: 0}
     - target: {fileID: 8572246696384434245, guid: 2371b6c28a0a64c43b82b2a327798105, type: 3}
-      propertyPath: m_OnDeselect.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: UpdateInputField
-      objectReference: {fileID: 0}
-    - target: {fileID: 8572246696384434245, guid: 2371b6c28a0a64c43b82b2a327798105, type: 3}
       propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: UI.InGameUI, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8572246696384434245, guid: 2371b6c28a0a64c43b82b2a327798105, type: 3}
-      propertyPath: m_OnDeselect.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UI.InGameUI, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 8572246696384434245, guid: 2371b6c28a0a64c43b82b2a327798105, type: 3}
       propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 8572246696384434245, guid: 2371b6c28a0a64c43b82b2a327798105, type: 3}
-      propertyPath: m_OnDeselect.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8572246696385169252, guid: 2371b6c28a0a64c43b82b2a327798105, type: 3}
@@ -2865,6 +2837,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d2e53875cee4771b804b8dbd77cbdbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1402553446 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8572246695770297298, guid: 2371b6c28a0a64c43b82b2a327798105, type: 3}
+  m_PrefabInstance: {fileID: 1356616592}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1402553451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1402553446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d269d14d9699647aba5fa3eeff733bba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 0}
+  selectSoundEffect: {fileID: 8300000, guid: c973be746aedfd04aa57576d6a79bdce, type: 3}
+  submitSoundEffect: {fileID: 8300000, guid: 4a81e06196d279e48895af9949f7f233, type: 3}
+  silence: {fileID: 8300000, guid: 5de423fc61d56e84cb31fcec96b15c1b, type: 3}
 --- !u!1001 &1440268220
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2931,6 +2924,27 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2006752002710373818, guid: f3dbc4dcadf3245d487d1c12254221e2, type: 3}
   m_PrefabInstance: {fileID: 1440268220}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1651056256 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8572246696161732750, guid: 2371b6c28a0a64c43b82b2a327798105, type: 3}
+  m_PrefabInstance: {fileID: 1356616592}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1651056261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1651056256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d269d14d9699647aba5fa3eeff733bba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 0}
+  selectSoundEffect: {fileID: 8300000, guid: c973be746aedfd04aa57576d6a79bdce, type: 3}
+  submitSoundEffect: {fileID: 8300000, guid: 4a81e06196d279e48895af9949f7f233, type: 3}
+  silence: {fileID: 8300000, guid: 5de423fc61d56e84cb31fcec96b15c1b, type: 3}
 --- !u!1001 &1664783283
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3440,8 +3454,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.32424998, y: -0.5080998, z: 0}
-    m_Extent: {x: 1.56705, y: 5.3155003, z: 0}
+    m_Center: {x: 0.32674998, y: -0.5016, z: 0}
+    m_Extent: {x: 1.56515, y: 5.3135996, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -3699,6 +3713,27 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5699185728138957647, guid: b65ba4350caa87d4a9e38bca2aced1b0, type: 3}
   m_PrefabInstance: {fileID: 1918813921}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1932402328 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8572246696258519667, guid: 2371b6c28a0a64c43b82b2a327798105, type: 3}
+  m_PrefabInstance: {fileID: 1356616592}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1932402333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1932402328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d269d14d9699647aba5fa3eeff733bba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 0}
+  selectSoundEffect: {fileID: 8300000, guid: c973be746aedfd04aa57576d6a79bdce, type: 3}
+  submitSoundEffect: {fileID: 8300000, guid: 4a81e06196d279e48895af9949f7f233, type: 3}
+  silence: {fileID: 8300000, guid: 5de423fc61d56e84cb31fcec96b15c1b, type: 3}
 --- !u!1 &1956015853
 GameObject:
   m_ObjectHideFlags: 0
@@ -4099,6 +4134,27 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4237592085075078672, guid: 377c7c070ffcd7f4aa62c11971e842f2, type: 3}
   m_PrefabInstance: {fileID: 2124930896}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2131332404 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8572246696384434243, guid: 2371b6c28a0a64c43b82b2a327798105, type: 3}
+  m_PrefabInstance: {fileID: 1356616592}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2131332409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2131332404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0363f8ba6cec4a9eb828bbdf92f6b72d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 0}
+  selectSoundEffect: {fileID: 8300000, guid: c973be746aedfd04aa57576d6a79bdce, type: 3}
+  submitSoundEffect: {fileID: 8300000, guid: 4a81e06196d279e48895af9949f7f233, type: 3}
+  silence: {fileID: 8300000, guid: 5de423fc61d56e84cb31fcec96b15c1b, type: 3}
 --- !u!4 &1152505718606368274 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5699185728138957647, guid: b65ba4350caa87d4a9e38bca2aced1b0, type: 3}

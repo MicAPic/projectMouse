@@ -108,7 +108,7 @@ public class GameManager : MonoBehaviour
 
         ui.highScoreText.text = "High score: " + _highScore.ToString("N0", CultureInfo.InvariantCulture);
         
-        PingLeaderboard();
+        PingLeaderboard(score);
     }
 
     public void TogglePauseScreen()
@@ -152,7 +152,7 @@ public class GameManager : MonoBehaviour
             });
     }
 
-    private void PingLeaderboard()
+    private void PingLeaderboard(int currentScore)
     {
         LeaderboardCreator.Ping(isOnline =>
         {
@@ -162,7 +162,7 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                ui.UpdateLeaderboardContent(publicKey);
+                ui.UpdateLeaderboardContent(publicKey, currentScore);
                 ui.buttons[0].interactable = true;
                 ui.nicknameInputField.interactable = true;
             }

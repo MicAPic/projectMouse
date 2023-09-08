@@ -15,7 +15,7 @@ public class TextManager : MonoBehaviour
     [SerializeField]
     protected float initialDelay = 1.05f;
     [SerializeField]
-    private float textSpeed = 0.08f;
+    protected float textSpeed = 0.08f;
     [SerializeField]
     protected float autoModeWaitTime = 1.25f;
     [SerializeField] 
@@ -39,7 +39,7 @@ public class TextManager : MonoBehaviour
     private DialogueAudioInfo audioInfo;
     [Range(1, 5)]
     [SerializeField] 
-    private int frequencyLevel = 2;
+    protected int frequencyLevel = 2;
     [SerializeField]
     private AudioSource audioSource;
     [SerializeField]
