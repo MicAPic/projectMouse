@@ -14,8 +14,7 @@ namespace PowerUps
 
         private static int _currentLevel = 1;
         private string _defaultTitle;
-        private IDisposable _resetEvent;
-        
+
         protected override void Awake()
         {
             base.Awake();
