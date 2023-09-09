@@ -211,7 +211,8 @@ public class ExperienceManager : MonoBehaviour
         _previousExperienceToLevelUp = _experienceToLevelUp;
         _experienceToLevelUp = experienceCurve.Evaluate(_currentLevel);
 
-        experiencePercentageText.text = "0";
+        experiencePercentageText.text = ((TotalExperiencePoints - _previousExperienceToLevelUp) * 100 
+                                         / (_experienceToLevelUp - _previousExperienceToLevelUp)).ToString("N0");
         
         experienceGoalText.DOCounter(
             (int)(_previousExperienceToLevelUp * 100), 

@@ -105,7 +105,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9001928748618290203, guid: 4ba321776b79994478d339e7a1466f27, type: 3}
       propertyPath: m_text
-      value: 'Deal 15% more damage
+      value: 'Deal ?% more damage
 
         Apes together strong!'
       objectReference: {fileID: 0}

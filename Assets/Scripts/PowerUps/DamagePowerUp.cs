@@ -8,7 +8,15 @@ namespace PowerUps
         private float modifier = 50f;
         [SerializeField]
         private float maxDamageToDeal = float.MaxValue;
-        
+
+        protected override void Awake()
+        {
+            base.Awake();
+            descriptionText.text = descriptionText.text.Replace("?", 
+                                                                (modifier * 100 / PlayerController.Instance.damageToDeal)
+                                                                .ToString("N0"));
+        }
+
         protected override void Activate()
         {
             PlayerController.Instance.damageToDeal += modifier;

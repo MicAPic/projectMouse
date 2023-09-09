@@ -27,7 +27,7 @@ namespace UI
             currentClip = selectSoundEffect;
         }
 
-        public void OnPointerEnter(PointerEventData eventData)
+        public virtual void OnPointerEnter(PointerEventData eventData)
         {
             button.Select();
         }
