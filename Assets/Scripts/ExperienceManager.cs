@@ -83,8 +83,8 @@ public class ExperienceManager : MonoBehaviour
         }
         PowerUpsWithCounters = powerUps.ToDictionary(powerUp => powerUp, _ => 0f);
         // This is required to prevent the following power-ups from appearing too soon 
-        PowerUpsWithCounters[powerUps[^2]] = 0.5f; // shotgun power up
-        PowerUpsWithCounters[powerUps[^1]] = 0.5f; // magic bullets power up
+        //PowerUpsWithCounters[powerUps[^2]] = 0.5f; // shotgun power up
+        //PowerUpsWithCounters[powerUps[^1]] = 0.5f; // magic bullets power up
 
         _powerUpSelectionLayoutGroup = powerUpSelection.GetComponent<VerticalLayoutGroup>();
         _powerUpButtonSpacingY = powerUps[0].GetComponent<RectTransform>().sizeDelta.y + 

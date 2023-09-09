@@ -131,7 +131,7 @@ MonoBehaviour:
   _coefficient: 1
   titleText: {fileID: 4759093804619610474}
   descriptionText: {fileID: 5343756367828021517}
-  modifier: 1.15
+  modifier: 50
   maxDamageToDeal: 3.4028235e+38
 --- !u!114 &4759093804619610474 stripped
 MonoBehaviour:
