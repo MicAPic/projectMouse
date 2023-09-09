@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Audio;
 using DG.Tweening;
+using HealthControllers;
 using PowerUps;
 using TMPro;
 using UI;
@@ -71,6 +72,8 @@ public class ExperienceManager : MonoBehaviour
 
     private Queue<RectTransform> _experienceCircles = new();
 
+    private PlayerHealth playerHealth;
+
     void Awake()
     {
         if (Instance != null)
@@ -93,6 +96,8 @@ public class ExperienceManager : MonoBehaviour
         _powerUpSelectionLayoutGroup = powerUpSelection.GetComponent<VerticalLayoutGroup>();
         _powerUpButtonSpacingY = powerUps[0].GetComponent<RectTransform>().sizeDelta.y + 
                                  _powerUpSelectionLayoutGroup.spacing;
+        
+        playerHealth = FindObjectOfType<PlayerHealth>();
     }
 
     // Start is called before the first frame update
@@ -115,6 +120,8 @@ public class ExperienceManager : MonoBehaviour
 
         ReevaluateExpGoal();
         StartCoroutine(FillExperienceBar());
+        
+        playerHealth.GrantInvincibilityOnLevelUp();
 
         ChatManager.Instance.EnableGeneralChatInfo();
         GameManager.Instance.Unpause();

@@ -18,6 +18,9 @@ namespace HealthControllers
         [Tooltip("For how long the player is going to be invincible after taking damage (in seconds)")]
         [SerializeField] 
         private float hitInvincibilityDuration = 1.0f;
+        [Tooltip("For how long the player is going to be invincible after leveling up (in seconds)")]
+        [SerializeField] 
+        private float levelUpInvincibilityDuration = 0.05f;
         
         [SerializeField] 
         [Tooltip("Everything below this percentage is considered low HP")]
@@ -59,7 +62,6 @@ namespace HealthControllers
         [SerializeField] 
         private float intervalBetweenHeartFills = 0.5f;
         private Sequence _fullHealSequence;
-        private static readonly int IsDead = Animator.StringToHash("IsDead");
 
         private const int HealthPointToHeartRatio = 30;
 
@@ -74,6 +76,12 @@ namespace HealthControllers
             {
                 AddAHeart();
             }
+        }
+
+        public void GrantInvincibilityOnLevelUp()
+        {
+            if (PlayerController.Instance.isFlashing) return;
+            GrantInvincibility(levelUpInvincibilityDuration, 0.0f, false);
         }
 
         public void GrantInvincibility(float duration, float flashingTime, bool isPowerUp=true)
@@ -165,7 +173,7 @@ namespace HealthControllers
         protected override void Die() 
         {
             GameManager.Instance.GameOver();
-            PlayerController.Instance.animator.SetTrigger(IsDead);
+            PlayerController.Instance.SetDeathSprite();
         }
 
         private void AddAHeart()

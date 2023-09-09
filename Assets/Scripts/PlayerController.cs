@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
     [FormerlySerializedAs("_bulletsRotationSpeed")]
     [SerializeField] 
     private float bulletsRotationSpeed = 2f;
-    public bool MagicBulletsEnabled { get; private set; } = false;
+    public bool MagicBulletsEnabled { get; private set; }
     private List<Bullet> _bullets;
     private Vector3 _mainRotationVector;
 
@@ -106,6 +106,7 @@ public class PlayerController : MonoBehaviour
     
     private static readonly int IsMoving = Animator.StringToHash("IsMoving");
     private static readonly int IsAttacking = Animator.StringToHash("IsAttacking");
+    private static readonly int IsDead = Animator.StringToHash("IsDead");
     
     [Header("Layers")]
     [SerializeField] 
@@ -258,7 +259,7 @@ public class PlayerController : MonoBehaviour
         _rb.velocity = _movementValue * movementSpeed;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
         // Contact damage to enemies
         if (collision.gameObject.TryGetComponent(out EnemyHealth enemyHealth) && _isDodging && dodgeDamage > 0 && collision.isTrigger)
@@ -281,6 +282,15 @@ public class PlayerController : MonoBehaviour
     {
         isInvincible = !isInvincible;
         _sprite.material = isInvincible ? invincibilityMaterial : _defaultMaterial;
+    }
+
+    public void SetDeathSprite()
+    {
+        animator.SetTrigger(IsDead);
+        foreach (var trailAnimator in _trailElementAnimators)
+        {
+            trailAnimator.SetTrigger(IsDead);
+        }
     }
     
     public void ActivateFlashing(float duration, int noOfFlashes=3, bool isPowerUp=true)
