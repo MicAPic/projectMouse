@@ -1131,6 +1131,7 @@ Transform:
   - {fileID: 907929395}
   - {fileID: 693674065}
   - {fileID: 1632096414}
+  - {fileID: 605782866}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1551,6 +1552,68 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1001 &605782865
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 475449774}
+    m_Modifications:
+    - target: {fileID: 5406809207888808900, guid: 34e14aecf91ba47e8ab6201cdd8c3b3b, type: 3}
+      propertyPath: m_RootOrder
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5406809207888808900, guid: 34e14aecf91ba47e8ab6201cdd8c3b3b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 48.569
+      objectReference: {fileID: 0}
+    - target: {fileID: 5406809207888808900, guid: 34e14aecf91ba47e8ab6201cdd8c3b3b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 18.862
+      objectReference: {fileID: 0}
+    - target: {fileID: 5406809207888808900, guid: 34e14aecf91ba47e8ab6201cdd8c3b3b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5406809207888808900, guid: 34e14aecf91ba47e8ab6201cdd8c3b3b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5406809207888808900, guid: 34e14aecf91ba47e8ab6201cdd8c3b3b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5406809207888808900, guid: 34e14aecf91ba47e8ab6201cdd8c3b3b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5406809207888808900, guid: 34e14aecf91ba47e8ab6201cdd8c3b3b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5406809207888808900, guid: 34e14aecf91ba47e8ab6201cdd8c3b3b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5406809207888808900, guid: 34e14aecf91ba47e8ab6201cdd8c3b3b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5406809207888808900, guid: 34e14aecf91ba47e8ab6201cdd8c3b3b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5406809207888808903, guid: 34e14aecf91ba47e8ab6201cdd8c3b3b, type: 3}
+      propertyPath: m_Name
+      value: Fireflies (Particle System)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 34e14aecf91ba47e8ab6201cdd8c3b3b, type: 3}
+--- !u!4 &605782866 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5406809207888808900, guid: 34e14aecf91ba47e8ab6201cdd8c3b3b, type: 3}
+  m_PrefabInstance: {fileID: 605782865}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &693674063
 GameObject:
   m_ObjectHideFlags: 0
@@ -1602,8 +1665,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.46405, y: -0.37864995, z: 0}
-    m_Extent: {x: 1.36625, y: 5.3161497, z: 0}
+    m_Center: {x: 0.4639, y: -0.3778999, z: 0}
+    m_Extent: {x: 1.3723, y: 5.3178997, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -3711,8 +3774,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.28735, y: -1.0269499, z: 0}
-    m_Extent: {x: 1.07095, y: 2.02195, z: 0}
+    m_Center: {x: 0.29065004, y: -1.0339501, z: 0}
+    m_Extent: {x: 1.06815, y: 2.02525, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
