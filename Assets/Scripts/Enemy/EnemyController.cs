@@ -18,10 +18,6 @@ namespace Enemy
         private Vector3 _reversedShootingPointPos;
 
         private PointEffector2D _pointEffector;
-        
-        // [Header("Audio")]
-        // [SerializeField]
-        // private AudioClip shotSoundEffect;
 
         [Header("Animation & Visuals")]
         [SerializeField]
@@ -34,8 +30,6 @@ namespace Enemy
         // Damage animation:
         private float damageFlashDuration = 0.2f;
         // Death animation:
-        [SerializeField]
-        protected Material dissolveMaterial;
         [SerializeField]
         protected float dissolveDuration = 0.5f;
         private Animator _animator;
@@ -119,7 +113,6 @@ namespace Enemy
         public void Dissolve()
         {
             _shadowRenderer.DOFade(0.0f, dissolveDuration * 0.5f);
-            _spriteRenderer.material = new Material(dissolveMaterial);
             _spriteRenderer.material.SetFloat("_Threshold", 0.39f); // 0.39 is when pixels start to dissolve
             _spriteRenderer.material.DOFloat(1.01f, "_Threshold", dissolveDuration)
                 .OnComplete(() => Destroy(gameObject));

@@ -165,14 +165,4 @@ public class SpawnManager : MonoBehaviour
     {
         return _maxEnemiesOnLevel.Evaluate(ExperienceManager.Instance.GetCurrentLevel());
     }
-
-
-    
-
-
-
-
-
-
-
 }

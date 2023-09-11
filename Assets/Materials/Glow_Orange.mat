@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Glow_Orange
-  m_Shader: {fileID: -6465566751694194690, guid: cf72cc59ff30a47d3926fb9c24bc0181, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 36252702f581b42b7a1c446d16fdf30b, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -20,6 +20,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _DissolutionTex:
+        m_Texture: {fileID: 2800000, guid: bf8910743e1b14b43a7c43e2d6fc0495, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Emission:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -43,6 +47,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _FlashAmount: 0
+    - _Threshold: 0
     m_Colors:
     - _GlowColor: {r: 2.0078433, g: 0.6431373, b: 0.10980392, a: 1}
   m_BuildTextureStacks: []

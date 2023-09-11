@@ -18,10 +18,7 @@ namespace HealthControllers
         {
             base.TakeDamage(damagePoints);
             AudioManager.Instance.sfxSource.PlayOneShot(hitSoundEffect);
-            if (healthPoints > 0)
-            {
-                _enemyController.Flash();
-            }
+            _enemyController.Flash();
         }
 
         protected override void Die()
