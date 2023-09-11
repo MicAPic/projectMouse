@@ -44,7 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eedc2925b716f1e4eaacc2c488ac1eb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInputs: []
   pauseInputAction:
     m_Name: Pause Input
     m_Type: 0
@@ -61,10 +60,23 @@ MonoBehaviour:
       m_Groups: 
       m_Action: Pause Input
       m_Flags: 0
+    - m_Name: 
+      m_Id: ab05db88-50dd-4fe5-903d-0cd8b81f2f6b
+      m_Path: <Keyboard>/tab
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Pause Input
+      m_Flags: 0
+    - m_Name: 
+      m_Id: 1dee345d-2865-4e76-a897-de0704a7e973
+      m_Path: <Gamepad>/start
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Pause Input
+      m_Flags: 0
     m_Flags: 0
-  pauseScreen: {fileID: 0}
-  gameOverScreen: {fileID: 0}
-  scoreText: {fileID: 0}
-  highScoreText: {fileID: 0}
+  ui: {fileID: 0}
   scoreCountDuration: 1
   publicKey: 

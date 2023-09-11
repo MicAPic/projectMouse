@@ -1,18 +1,20 @@
 using System;
 using CameraShake;
+using UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class CameraController : MonoBehaviour
 {
     public static CameraController Instance { get; private set; }
     
     [Header("Camera Follow")]
-    public Vector3 mousePos;
+    public Camera _camera;
     [Range(0, 1)] 
     public float focusPoint = 0.5f;
-
-    public float defaultFocusPoint { get; private set; }
+    public float DefaultFocusPoint { get; private set; }
+    public Vector3 reticlePos;
 
     [SerializeField]
     private Transform player;
@@ -27,7 +29,6 @@ public class CameraController : MonoBehaviour
 
     private Vector3 _velocity = Vector3.zero;
     private float _defaultZCoordinate;
-    private Camera _camera;
 
     private void Awake()
     {
@@ -47,7 +48,7 @@ public class CameraController : MonoBehaviour
         }
 
         _camera = GetComponentInChildren<Camera>();
-        defaultFocusPoint = focusPoint;
+        DefaultFocusPoint = focusPoint;
 
         if (!Convert.ToBoolean(PlayerPrefs.GetInt("ShakeCamera", 1)))
         {
@@ -64,9 +65,11 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        mousePos = _camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        reticlePos = _camera.ScreenToWorldPoint(InputManager.Instance.isUsingGamepad 
+            ? PixelPerfectCursor.Instance.gamepadModeReticlePos 
+            : PlayerController.Instance.aimDirection);
         Vector2 playerPosition = player.position;
-        var midpoint = Vector2.Lerp(playerPosition, mousePos, focusPoint);
+        var midpoint = Vector2.Lerp(playerPosition, reticlePos, focusPoint);
 
         var difference = midpoint - playerPosition;
         difference = Vector2.ClampMagnitude(difference, maxDistanceFromPlayer);

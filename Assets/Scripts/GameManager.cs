@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
 
     public void Pause()
     {
-        PlayerController.Instance.playerInput.enabled = false;
+        PlayerController.Instance.playerInput.SwitchCurrentActionMap("UI");
         AudioManager.Instance.ToggleLowpass(true);
 
         Time.timeScale = 0.0f;
@@ -67,11 +67,11 @@ public class GameManager : MonoBehaviour
     
     public void Unpause()
     {
-        PlayerController.Instance.playerInput.enabled = true;
+        PlayerController.Instance.playerInput.SwitchCurrentActionMap("InGame");
         AudioManager.Instance.ToggleLowpass(false);
 
         Time.timeScale = 1.0f;
-        CameraController.Instance.focusPoint = CameraController.Instance.defaultFocusPoint;
+        CameraController.Instance.focusPoint = CameraController.Instance.DefaultFocusPoint;
     }
 
     public void GameOver()

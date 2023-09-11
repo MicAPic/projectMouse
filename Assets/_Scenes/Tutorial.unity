@@ -158,6 +158,7 @@ Transform:
   - {fileID: 1784373231}
   - {fileID: 1956397328268013442}
   - {fileID: 334488537}
+  - {fileID: 1507225306}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -677,6 +678,14 @@ MonoBehaviour:
     - m_Name: 
       m_Id: 1bfb0a6e-04f5-4a7f-93c1-64e0b0baf20f
       m_Path: <Keyboard>/tab
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Pause Input
+      m_Flags: 0
+    - m_Name: 
+      m_Id: 8e3bd878-2f65-4e2a-9588-f62e139c4eb8
+      m_Path: <Gamepad>/start
       m_Interactions: 
       m_Processors: 
       m_Groups: 
@@ -1665,8 +1674,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.4639, y: -0.3778999, z: 0}
-    m_Extent: {x: 1.3723, y: 5.3178997, z: 0}
+    m_Center: {x: 0.47079998, y: -0.3847499, z: 0}
+    m_Extent: {x: 1.3657999, y: 5.32615, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -2808,7 +2817,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4564406451029399688, guid: f40b61363b3d4324a9a93a3e90dc9e06, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: f40b61363b3d4324a9a93a3e90dc9e06, type: 3}
 --- !u!4 &1131259113 stripped
 Transform:
@@ -3085,6 +3095,14 @@ MonoBehaviour:
     - m_Name: 
       m_Id: 930312b5-af46-427e-982a-281ee444f056
       m_Path: <Keyboard>/f
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Fast Forward Input
+      m_Flags: 0
+    - m_Name: 
+      m_Id: 9f2a9f03-6e11-4abc-a0a3-7b0c77c4ac9d
+      m_Path: <Gamepad>/buttonNorth
       m_Interactions: 
       m_Processors: 
       m_Groups: 
@@ -3568,6 +3586,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47de4da5901162344819bbf07cdc59a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1507225305
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1507225306}
+  - component: {fileID: 1507225307}
+  m_Layer: 0
+  m_Name: InputManager [Independent]
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1507225306
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1507225305}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 37924853}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1507225307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1507225305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ddeb01e08107e34984af4f106f2be77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isUsingGamepad: 0
 --- !u!1 &1558638675
 GameObject:
   m_ObjectHideFlags: 0
@@ -3774,8 +3837,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.29065004, y: -1.0339501, z: 0}
-    m_Extent: {x: 1.06815, y: 2.02525, z: 0}
+    m_Center: {x: 0.28710002, y: -1.0258, z: 0}
+    m_Extent: {x: 1.0692999, y: 2.023, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -4253,7 +4316,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7434023018259043841, guid: 74e853823cd0ea34fb4ad69a143c92c8, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7434023018259043841, guid: 74e853823cd0ea34fb4ad69a143c92c8, type: 3}
+      propertyPath: m_DefaultActionMap
+      value: 045edf26-1d4e-47c1-b638-17b34149f091
       objectReference: {fileID: 0}
     - target: {fileID: 8826732396876333723, guid: 74e853823cd0ea34fb4ad69a143c92c8, type: 3}
       propertyPath: canDie
@@ -4280,7 +4347,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 1824196155}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 

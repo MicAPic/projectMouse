@@ -320,6 +320,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6233966915742074666, guid: f40b61363b3d4324a9a93a3e90dc9e06, type: 3}
   m_PrefabInstance: {fileID: 480293528}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &480293530 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6233966915742074669, guid: f40b61363b3d4324a9a93a3e90dc9e06, type: 3}
+  m_PrefabInstance: {fileID: 480293528}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 480293529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &606873517 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7525618276513717963, guid: 1b7da5d42f0e848219436151d0470c7d, type: 3}
@@ -1285,7 +1296,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: e9e73a84e092e5f47983ff2681a4021a, type: 3}
   m_NotificationBehavior: 0
-  m_UIInputModule: {fileID: 0}
+  m_UIInputModule: {fileID: 480293530}
   m_DeviceLostEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -1298,7 +1309,7 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: InGame
+  m_DefaultActionMap: b2f5cc58-e4b5-4577-8d4f-0cff3cbbb464
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!114 &2414931901261295447
@@ -1435,6 +1446,11 @@ MonoBehaviour:
   dialogueText: {fileID: 1694925600}
   transitionController: {fileID: 5037135231217184138}
   inkScript: {fileID: 4900000, guid: 5137e461ca1d945bf929ae987cd7cc2c, type: 3}
+  audioInfo: {fileID: 0}
+  frequencyLevel: 2
+  audioSource: {fileID: 0}
+  stopAudioSource: 0
+  isPlaying: 0
   introSlides:
   - {fileID: 7525618275911580008}
   - {fileID: 1223108735}

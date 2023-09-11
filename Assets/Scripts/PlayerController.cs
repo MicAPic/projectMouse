@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using HealthControllers;
@@ -7,11 +8,15 @@ using Bullets;
 using System.Collections;
 using Audio;
 using UI;
+using UnityEngine.InputSystem.Users;
 using UnityEngine.Serialization;
 
 public class PlayerController : MonoBehaviour
 {
     public static PlayerController Instance { get; private set; }
+
+    [Header("Aiming")]
+    public Vector2 aimDirection;
 
     [Header("Physics & Movement")] 
     public float movementSpeed;
@@ -170,7 +175,7 @@ public class PlayerController : MonoBehaviour
                 }
                 _sprite.material = _defaultMaterial;
                 if (activateAimOnLoad)
-                    CameraController.Instance.focusPoint = CameraController.Instance.defaultFocusPoint;
+                    CameraController.Instance.focusPoint = CameraController.Instance.DefaultFocusPoint;
             });
     }
 
@@ -187,7 +192,7 @@ public class PlayerController : MonoBehaviour
                 trailElementAnimator.SetBool(IsMoving, true);
             }
         }
-        else if (playerInput.actions["Move"].WasReleasedThisFrame() || !playerInput.enabled)
+        else if (playerInput.actions["Move"].WasReleasedThisFrame() || playerInput.currentActionMap.name == "UI")
         {
             animator.SetBool(IsMoving, false);
             foreach (var trailElementAnimator in _trailElementAnimators)
@@ -203,7 +208,7 @@ public class PlayerController : MonoBehaviour
                 trailElementAnimator.SetBool(IsAttacking, true);
             }
         }
-        else if (playerInput.actions["Shoot"].WasReleasedThisFrame() || !playerInput.enabled)
+        else if (playerInput.actions["Shoot"].WasReleasedThisFrame() || playerInput.currentActionMap.name == "UI")
         {
             animator.SetBool(IsAttacking, false);
             foreach (var trailElementAnimator in _trailElementAnimators)
@@ -223,6 +228,9 @@ public class PlayerController : MonoBehaviour
         {
             _lastDodgePressedTime = Time.time;
         }
+        
+        // Aim
+        aimDirection = playerInput.actions["Aim"].ReadValue<Vector2>();
 
         // Dodge
         if (!_isDodging && Time.time - _lastDodgePressedTime <= DodgeInputBufferTime)
@@ -240,9 +248,14 @@ public class PlayerController : MonoBehaviour
         
         // Rotate the shooting point
         shootingPoint.right = Mouse.current.position.ReadValue() - (Vector2)shootingPoint.position;
-        
+    }
+
+    void LateUpdate()
+    {
         // Flip the sprite towards the mouse
-        var spriteFlipCheck = CameraController.Instance.mousePos.x < transform.position.x;
+        var spriteFlipCheck = InputManager.Instance.isUsingGamepad
+            ? aimDirection.x < 0.0f
+            : CameraController.Instance.reticlePos.x < transform.position.x;
         if (_sprite.flipX == spriteFlipCheck) return;
         _sprite.flipX = spriteFlipCheck;
         foreach (var trailElement in _trailElementSprites)
@@ -276,6 +289,16 @@ public class PlayerController : MonoBehaviour
             return;
         }
         _movementValue = _cachedMovementValue;
+    }
+
+    void OnAim(InputValue value)
+    {
+        if (!InputManager.Instance.isUsingGamepad) return;
+        // Hide the reticle when not aiming in gamepad mode
+        PixelPerfectCursor.Instance.canvasGroup.DOFade(
+            value.Get<Vector2>() == Vector2.zero ? 0.0f : 1.0f, 
+            0.1f
+            );
     }
     
     public void ToggleInvincibilityMaterial()
@@ -381,8 +404,11 @@ public class PlayerController : MonoBehaviour
     {
         var bullet = BulletPool.Instance.GetBulletFromPool(0);
         var sPosition = shootingPoint.transform.position;
-        var direction = CameraController.Instance.mousePos - sPosition;
-        
+        Vector3 direction = InputManager.Instance.isUsingGamepad 
+            ? aimDirection
+            : CameraController.Instance.reticlePos - sPosition;
+        if (direction == Vector3.zero) return;
+
         bullet.transform.position = sPosition;
         bullet.Enable(direction, firePower, damageToDeal, bulletScaleModifier);
 

@@ -70,7 +70,6 @@ namespace UI
                 var noOfPeople = 0;
                 for (var j = entries.Length - 1; j >= 0; j--)
                 {
-                    Debug.Log(entries[j].Score);
                     if (score >= entries[j].Score)
                     {
                         noOfPeople++;

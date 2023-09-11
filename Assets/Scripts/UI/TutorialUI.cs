@@ -101,8 +101,8 @@ namespace UI
                 _activateEventSystemOnUnpause = TextManager.Instance.eventSystem.activeInHierarchy;
                 TextManager.Instance.eventSystem.SetActive(true);
 
-                _activatePlayerInputOnUnpause = PlayerController.Instance.playerInput.enabled;
-                PlayerController.Instance.playerInput.enabled = false;
+                _activatePlayerInputOnUnpause = PlayerController.Instance.playerInput.currentActionMap.name == "InGame";
+                PlayerController.Instance.playerInput.SwitchCurrentActionMap("UI");
 
                 Time.timeScale = 0.0f;
                 CameraController.Instance.focusPoint = 0.0f;
@@ -115,10 +115,10 @@ namespace UI
                 TextManager.Instance.eventSystem.SetActive(_activateEventSystemOnUnpause);
                 
                 if (_activatePlayerInputOnUnpause)
-                    PlayerController.Instance.playerInput.enabled = true;
+                    PlayerController.Instance.playerInput.SwitchCurrentActionMap("InGame");
 
                 Time.timeScale = 1.0f;
-                CameraController.Instance.focusPoint = CameraController.Instance.defaultFocusPoint;
+                CameraController.Instance.focusPoint = CameraController.Instance.DefaultFocusPoint;
             }
         }
     }

@@ -93,7 +93,7 @@ public class TutorialManager : TextManager
         base.StartDialogue();
         story.BindExternalFunction("UnlockControls", () =>
         {
-            playerInput.enabled = true;
+            playerInput.SwitchCurrentActionMap("InGame");
         });
         story.BindExternalFunction("UnlockAim", () =>
         {
