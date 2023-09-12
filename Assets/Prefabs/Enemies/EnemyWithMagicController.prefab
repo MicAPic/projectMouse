@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe3ab406890de7f439729bee5963476a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  experiencePointWorth: 10
+  experiencePointWorth: 11
   damageToDeal: 34
   shootingPoint: {fileID: 7369684614652633588}
   _firePower: 20

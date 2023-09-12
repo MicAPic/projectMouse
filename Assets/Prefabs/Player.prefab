@@ -149,7 +149,6 @@ MonoBehaviour:
   activateAimOnLoad: 1
   shootingPoint: {fileID: 1490496431234418896}
   shootAngle: 20
-  _shotgunPowerUpEnabled: 0
   numberOfBullets: 3
   radius: 5
   bulletsRotationSpeed: 180
@@ -163,9 +162,13 @@ MonoBehaviour:
   invincibilityMaterial: {fileID: 2100000, guid: ea6c48cbc3ecbbe4998c4a5b3d3d6a5f, type: 2}
   dissolveMaterial: {fileID: 2100000, guid: 43f24006ded202b49bad6dcbc094b0e9, type: 2}
   dropShadow: {fileID: 2367274219943639513}
+  isInvincible: 0
+  animator: {fileID: 0}
   enemyLayer: 6
   enemyBulletLayer: 8
   playerInput: {fileID: 0}
+  bulletsInShotgun: 2
+  numOfMagicBullets: 3
 --- !u!114 &8826732396876333723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,7 +181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f1b33aeb3cf4cfdb640ac041ee0f671, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthPoints: 120
+  healthPoints: 150
   defenceModifier: 1
   hitInvincibilityDuration: 0.75
   criticalThreshold: 0.3
