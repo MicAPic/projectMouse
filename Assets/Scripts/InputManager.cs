@@ -56,10 +56,10 @@ public class InputManager : MonoBehaviour
             "Shoot",
             new Dictionary<Device, string>
             {
-                {Device.KeyboardAndMouse, "the Left Mouse Button"},
-                {Device.ProController, "R or ZR"},
-                {Device.DualShock, "R1 or R2"},
-                {Device.XInputController, "RB or RT"}
+                {Device.KeyboardAndMouse, "the <u>Left Mouse Button"},
+                {Device.ProController, "<u>R or ZR"},
+                {Device.DualShock, "<u>R1 or R2"},
+                {Device.XInputController, "<u>RB or RT"}
             }
         },
         {
@@ -76,10 +76,10 @@ public class InputManager : MonoBehaviour
             "DodgeAlt",
             new Dictionary<Device, string>
             {
-                {Device.KeyboardAndMouse, "the Right Mouse Button"},
-                {Device.ProController, "ZL"},
-                {Device.DualShock, "L2"},
-                {Device.XInputController, "LT"}
+                {Device.KeyboardAndMouse, "the <u>Right Mouse Button"},
+                {Device.ProController, "<u>ZL"},
+                {Device.DualShock, "<u>L2"},
+                {Device.XInputController, "<u>LT"}
             }
         },
         {
@@ -101,7 +101,17 @@ public class InputManager : MonoBehaviour
                 {Device.DualShock, "Triangle"},
                 {Device.XInputController, "Y"}
             }
-        }
+        },
+        {
+            "Select",
+            new Dictionary<Device, string>
+            {
+                {Device.KeyboardAndMouse, "Space"},
+                {Device.ProController, "A"},
+                {Device.DualShock, "Cross"},
+                {Device.XInputController, "A"}
+            }
+        },
     };
 
     void Awake()

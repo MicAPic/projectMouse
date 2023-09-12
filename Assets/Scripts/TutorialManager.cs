@@ -106,6 +106,10 @@ public class TutorialManager : TextManager
     public override void StartDialogue()
     {
         base.StartDialogue();
+        story.BindExternalFunction("GetBindingNameFor", (string actionName) =>
+        {
+            return InputManager.Instance.GetBindingNameFor(actionName);
+        });
         story.BindExternalFunction("UnlockControls", () =>
         {
             playerInput.SwitchCurrentActionMap("InGame");

@@ -1,3 +1,4 @@
+EXTERNAL GetBindingNameFor(actionName)
 EXTERNAL UnlockControls()
 EXTERNAL UnlockAim()
 EXTERNAL UnlockSelection()
@@ -18,10 +19,10 @@ Conqueror of the Underworld, and King of all Demonkind,#auto:
 {ToggleTip(false)}could let you go into action right away? Don't make me laugh!#auto: 
 Okay, I'll unlock your controls right about... now.#auto:  #portrait:bubi_default
 ~ UnlockControls()
-{WaitForInput("Move")}Alright, you can move freely. Use the <u>WASD</u> or the <u>Arrow keys</u>.
+{WaitForInput("Move")}Alright, you can move freely. Use the <u>{GetBindingNameFor("Move")}</u> or the <u>{GetBindingNameFor("MoveAlt")}</u>.
 Impressive, you're already getting used to it.#auto: 
 See the wall of bullets on the right? No way you're passing that.#auto:  #portrait:bubi_smug
-{ActivateTutorialTrigger()}Good thing you can dash right through. Just press <u>Space</u> or the <u>Right Mouse Button</u>. #portrait:bubi_default
+{ActivateTutorialTrigger()}Good thing you can dash right through. Just press <u>{GetBindingNameFor("Dodge")}</u> or {GetBindingNameFor("DodgeAlt")}</u>. #portrait:bubi_default
 * [get hurt]
     Well, that works too, I suppose.#auto: 
     ->tutorial_p2
@@ -38,11 +39,11 @@ Defeat him in battle, and we will wrap it up.#auto:
 Oh, you're worried about hurting my subordinate?#auto:  #portrait:bubi_surprised
 Don't sweat it, that bird brain sold his soul to me a long time ago.#auto:  #portrait:bubi_smug
 ~ UnlockAim()
-Aim with your mouse and shoot by holding the <u>Left Mouse Button</u>. Go ahead! {ActivarMiguel()} #portrait:bubi_default
+Aim with your <u>{GetBindingNameFor("Aim")}</u> and shoot by holding {GetBindingNameFor("Shoot")}</u>. Go ahead! {ActivarMiguel()} #portrait:bubi_default
 That will teach him a lesson or two!#auto:  #portrait:bubi_smug
 Look! Somebody from your chat donated $100, and it was enough to meet the stream goal.#auto:  #portrait:bubi_surprised
 Each time this happens, you can choose one of the three random power-ups.#auto:  #portrait:bubi_default 
-Navigate through them and use <u>Space</u> to make the choice.#auto: 
+Navigate through them and use <u>{GetBindingNameFor("Select")}</u> to make the choice.#auto: 
 ...{UnlockSelection()}
 Glad you're putting my powers to good use.#auto: 
 Can't believe I'm saying this, but... Show them what you're made of!#auto:  #portrait:bubi_smug 
