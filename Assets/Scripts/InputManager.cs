@@ -12,6 +12,12 @@ public class InputManager : MonoBehaviour
     public static InputManager Instance { get; private set; }
     public bool isUsingGamepad;
 
+    // For setting and resetting DS4 / DualSense light bar
+    [SerializeField]
+    private Color lightBarColour = new(0.667f, 0.20f, 0.416f);
+    private bool _lightBarWasSet;
+    //
+    
     private enum Device
     {
         KeyboardAndMouse,
@@ -20,7 +26,7 @@ public class InputManager : MonoBehaviour
         XInputController
     }
     private Device _currentDevice;
-    private Dictionary<string, Dictionary<Device, string>> _actionToBindingNameTable = new() 
+    private readonly Dictionary<string, Dictionary<Device, string>> _actionToBindingNameTable = new() 
     {
         {
             "Move",
@@ -136,6 +142,12 @@ public class InputManager : MonoBehaviour
         InputUser.onChange -= ChangeInputBehaviour;
     }
 
+    void OnApplicationQuit()
+    {
+        if (!_lightBarWasSet) return;
+        DualShockGamepad.current.SetLightBarColor(Color.black);
+    }
+
     public string GetBindingNameFor(string actionName)
     {
         return _actionToBindingNameTable[actionName][_currentDevice];
@@ -158,12 +170,22 @@ public class InputManager : MonoBehaviour
         }
         
         if (device == null) return;
-        _currentDevice = device switch
+        switch (device)
         {
-            SwitchProControllerHID => Device.ProController,
-            DualShockGamepad => Device.DualShock,
-            XInputController => Device.XInputController,
-            _ => Device.KeyboardAndMouse
-        };
+            case SwitchProControllerHID:
+                _currentDevice = Device.ProController;
+                break;
+            case DualShockGamepad dualShock:
+                _currentDevice = Device.DualShock;
+                dualShock.SetLightBarColor(lightBarColour);
+                _lightBarWasSet = true;
+                break;
+            case XInputController:
+                _currentDevice = Device.XInputController;
+                break;
+            default:
+                _currentDevice = Device.KeyboardAndMouse;
+                break;
+        }
     }
 }

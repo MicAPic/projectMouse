@@ -5,6 +5,7 @@ using DG.Tweening;
 using UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Haptics;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -63,6 +64,8 @@ public class GameManager : MonoBehaviour
 
         Time.timeScale = 0.0f;
         CameraController.Instance.focusPoint = 0.0f;
+        
+        InputSystem.PauseHaptics();
     }
     
     public void Unpause()
@@ -72,6 +75,8 @@ public class GameManager : MonoBehaviour
 
         Time.timeScale = 1.0f;
         CameraController.Instance.focusPoint = CameraController.Instance.DefaultFocusPoint;
+        
+        InputSystem.ResumeHaptics();
     }
 
     public void GameOver()

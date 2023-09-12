@@ -109,6 +109,8 @@ namespace UI
 
                 Time.timeScale = 0.0f;
                 CameraController.Instance.focusPoint = 0.0f;
+                
+                InputSystem.PauseHaptics();
         
                 cancelButton.Select();
             }
@@ -122,6 +124,8 @@ namespace UI
 
                 Time.timeScale = 1.0f;
                 CameraController.Instance.focusPoint = CameraController.Instance.DefaultFocusPoint;
+                
+                InputSystem.ResumeHaptics();
             }
         }
     }

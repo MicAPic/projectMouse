@@ -5,6 +5,7 @@ using CameraShake;
 using DG.Tweening;
 using UI;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace HealthControllers
@@ -132,6 +133,7 @@ namespace HealthControllers
         public override void TakeDamage(float damagePoints)
         {
             CameraShaker.Presets.Explosion2D(rotationStrength:0.1f);
+            // Gamepad.current.SetMotorSpeeds(0.25f, 0.75f);
             if (defenceModifier <= 0.0f) return;
             
             if (_fullHealSequence is { active: true })
