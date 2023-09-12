@@ -24,12 +24,15 @@ namespace UI
         private float skipTextStayDuration;
         [SerializeField]
         private float skipToMusicTrackTime = 30.65599f;
+
+        private string _defaultSkipText;
         private IDisposable _eventListener;
         private Tween _skipTextAppearanceTween;
         private Tween _skipTextFadeTween;
 
         void Start()
         {
+            _defaultSkipText = skipText.text;
             introTextManager.StartDialogue();
         }
 
@@ -48,7 +51,9 @@ namespace UI
             {
                 _skipTextAppearanceTween.Kill();
                 _skipTextFadeTween.Kill();
-                
+                skipText.text = _defaultSkipText.Replace(
+                    "_",
+                    InputManager.Instance.GetBindingNameFor("Skip").ToUpper());
                 _skipTextAppearanceTween = skipText.rectTransform.DOAnchorPosY(0.0f, skipTextAppearanceDuration);
                 _skipTextFadeTween = skipText.DOFade(0.5f, skipTextAppearanceDuration)
                     .OnComplete(() =>

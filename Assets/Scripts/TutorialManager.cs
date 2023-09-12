@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using Enemy;
@@ -156,18 +155,21 @@ public class TutorialManager : TextManager
         });
         story.BindExternalFunction("ToggleTip", (bool state) =>
         {
-            var tipText = tipPopUp.GetComponent<TMP_Text>();
+            var tipTMPText = tipPopUp.GetComponent<TMP_Text>();
             if (state)
             {
+                tipTMPText.text = tipTMPText.text.Replace(
+                    "F",
+                    InputManager.Instance.GetBindingNameFor("FastForward"));
                 autoModeWaitTime = 0.0f;
                 tipPopUp.DOAnchorPosY(tipToggledPosY, tipPopUpDuration).SetDelay(tipPopUpDelay);
-                tipText.DOFade(1.0f, tipPopUpDuration).SetDelay(tipPopUpDelay);
+                tipTMPText.DOFade(1.0f, tipPopUpDuration).SetDelay(tipPopUpDelay);
             }
             else
             {
                 autoModeWaitTime = _defaultAutoModeWaitTime;
                 tipPopUp.DOAnchorPosY(tipDefaultPosY, tipPopUpDuration);
-                tipText.DOFade(0.0f, tipPopUpDuration);
+                tipTMPText.DOFade(0.0f, tipPopUpDuration);
             }
         });
     }
