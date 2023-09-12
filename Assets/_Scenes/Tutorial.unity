@@ -692,10 +692,10 @@ MonoBehaviour:
       m_Action: Pause Input
       m_Flags: 0
     m_Flags: 0
+  bubiImage: {fileID: 576234221}
   dialogueBox: {fileID: 1655930498}
-  tungstenRat: {fileID: 576234221}
-  ratAppearanceDuration: 0.75
-  ratDialoguePosY: 50
+  bubiAppearanceDuration: 0.75
+  bubiDialoguePosY: 0
 --- !u!1 &302200895
 GameObject:
   m_ObjectHideFlags: 0
@@ -1386,7 +1386,7 @@ GameObject:
   - component: {fileID: 576234222}
   - component: {fileID: 576234221}
   m_Layer: 5
-  m_Name: Rat
+  m_Name: Bubi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1409,8 +1409,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 132, y: 36}
-  m_SizeDelta: {x: 398, y: 224}
+  m_AnchoredPosition: {x: 0, y: -15}
+  m_SizeDelta: {x: 90, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &576234221
 MonoBehaviour:
@@ -1432,7 +1432,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 72c69081f97cc4ef28cab51ffe3d9529, type: 3}
+  m_Sprite: {fileID: 540854907, guid: bd337b4fcbf9f4d278ee2f3ea6dd93f8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1674,8 +1674,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.47079998, y: -0.3847499, z: 0}
-    m_Extent: {x: 1.3657999, y: 5.32615, z: 0}
+    m_Center: {x: 0.46615, y: -0.37724996, z: 0}
+    m_Extent: {x: 1.3626499, y: 5.32335, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -3084,6 +3084,14 @@ MonoBehaviour:
   tipPopUpDuration: 1
   tipPopUpDelay: 1.47
   tipToggledPosY: 50
+  bubiSprites:
+  - {fileID: 540854907, guid: bd337b4fcbf9f4d278ee2f3ea6dd93f8, type: 3}
+  - {fileID: 272361576, guid: bd337b4fcbf9f4d278ee2f3ea6dd93f8, type: 3}
+  - {fileID: -647354187, guid: bd337b4fcbf9f4d278ee2f3ea6dd93f8, type: 3}
+  bubiSpriteNames:
+  - bubi_default
+  - bubi_smug
+  - bubi_surprised
   fastForwardInputAction:
     m_Name: Fast Forward Input
     m_Type: 0
@@ -3837,8 +3845,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.28710002, y: -1.0258, z: 0}
-    m_Extent: {x: 1.0692999, y: 2.023, z: 0}
+    m_Center: {x: 0.2858, y: -1.0302, z: 0}
+    m_Extent: {x: 1.0734, y: 2.0275, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0

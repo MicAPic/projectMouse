@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using Enemy;
 using HealthControllers;
@@ -17,7 +19,9 @@ public class TutorialManager : TextManager
     private GameObject miguelPrefab;
     [SerializeField]
     private Transform miguelSpawnPoint;
+    
     [Space]
+    
     [SerializeField]
     private RectTransform tipPopUp;
     [SerializeField]
@@ -27,7 +31,16 @@ public class TutorialManager : TextManager
     [SerializeField]
     private float tipToggledPosY;
     private float tipDefaultPosY;
+    
     [Space]
+    
+    [SerializeField]
+    private Sprite[] bubiSprites;
+    [SerializeField]
+    private string[] bubiSpriteNames = {"bubi_default", "bubi_smug", "bubi_surprised"};
+
+    [Space]
+    
     [SerializeField]
     private InputAction fastForwardInputAction;
     [SerializeField]
@@ -54,6 +67,9 @@ public class TutorialManager : TextManager
         _fastForwardAutoModeWaitTime = autoModeWaitTime / 2.0f;
 
         tipDefaultPosY = tipPopUp.anchoredPosition.y;
+        
+        speakerSpriteDictionary = Enumerable.Range(0, bubiSprites.Length)
+                                            .ToDictionary(i => bubiSpriteNames[i], j => bubiSprites[j]);
     }
     
     void OnEnable()
@@ -154,5 +170,10 @@ public class TutorialManager : TextManager
                 tipText.DOFade(0.0f, tipPopUpDuration);
             }
         });
+    }
+
+    protected override void SwitchPortrait(string title)
+    {
+        _tutorialUI.bubiImage.sprite = speakerSpriteDictionary[title];
     }
 }
