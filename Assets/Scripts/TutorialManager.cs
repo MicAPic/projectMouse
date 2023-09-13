@@ -165,6 +165,7 @@ public class TutorialManager : TextManager
                 tipTMPText.text = tipTMPText.text.Replace(
                     "F",
                     InputManager.Instance.GetBindingNameFor("FastForward"));
+                
                 autoModeWaitTime = 0.0f;
                 tipPopUp.DOAnchorPosY(tipToggledPosY, tipPopUpDuration).SetDelay(tipPopUpDelay);
                 tipTMPText.DOFade(1.0f, tipPopUpDuration).SetDelay(tipPopUpDelay);

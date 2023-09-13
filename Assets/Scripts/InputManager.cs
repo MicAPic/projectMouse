@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UI;
 using UnityEngine;
@@ -16,7 +17,8 @@ public class InputManager : MonoBehaviour
     [SerializeField]
     private Color lightBarColour = new(0.667f, 0.20f, 0.416f);
     private bool _lightBarWasSet;
-    //
+    // Vibration
+    private Coroutine _vibrationCoroutine;
     
     private enum Device
     {
@@ -146,6 +148,18 @@ public class InputManager : MonoBehaviour
     {
         if (!_lightBarWasSet) return;
         DualShockGamepad.current.SetLightBarColor(Color.black);
+        ForceStopVibration();
+    }
+
+    public void ForceStopVibration()
+    {
+        StopCoroutine(_vibrationCoroutine);
+        Gamepad.current.SetMotorSpeeds(0.0f, 0.0f); // since ResetHaptics doesnt work well
+    }
+
+    public void ExecuteDamageHaptics()
+    {
+        _vibrationCoroutine = StartCoroutine(Vibrate(0.0f, 0.2f, 0.1f));
     }
 
     public string GetBindingNameFor(string actionName)
@@ -187,5 +201,12 @@ public class InputManager : MonoBehaviour
                 _currentDevice = Device.KeyboardAndMouse;
                 break;
         }
+    }
+
+    private IEnumerator Vibrate(float lowFrequency, float highFrequency, float duration)
+    {
+        Gamepad.current.SetMotorSpeeds(lowFrequency, highFrequency);
+        yield return new WaitForSecondsRealtime(duration);
+        Gamepad.current.SetMotorSpeeds(0.0f, 0.0f);
     }
 }

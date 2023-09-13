@@ -5,7 +5,6 @@ using DG.Tweening;
 using UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Haptics;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -64,8 +63,6 @@ public class GameManager : MonoBehaviour
 
         Time.timeScale = 0.0f;
         CameraController.Instance.focusPoint = 0.0f;
-        
-        InputSystem.PauseHaptics();
     }
     
     public void Unpause()
@@ -75,8 +72,6 @@ public class GameManager : MonoBehaviour
 
         Time.timeScale = 1.0f;
         CameraController.Instance.focusPoint = CameraController.Instance.DefaultFocusPoint;
-        
-        InputSystem.ResumeHaptics();
     }
 
     public void GameOver()
@@ -144,13 +139,14 @@ public class GameManager : MonoBehaviour
         LeaderboardCreator.UploadNewEntry(publicKey, nickname, _highScore,
             _ =>
             {
-                ui.UpdateLeaderboardContent(publicKey);
+                ui.UpdateLeaderboardContent(publicKey, updateStatistics:false);
                 ui.nicknameInputField.text = string.Empty;
                 ui.ToggleButtons(true);
             },
             error =>
             {
                 if (error != null)
+                    // TODO: if "409: Username already exists!", show this to the player
                     Debug.LogError(error);
                 ui.ToggleButtons(true);
                 ui.ToggleOfflineMode();
