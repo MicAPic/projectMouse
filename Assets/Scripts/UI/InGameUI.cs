@@ -18,13 +18,12 @@ namespace UI
         public TMP_Text highScoreText;
         public TMP_InputField nicknameInputField;
         public Button[] buttons;
+        public GameObject loadingCircle;
         [Space]
         [SerializeField]
         private GameObject offlineSign;
         [SerializeField]
         private LeaderboardEntry[] leaderboardEntries;
-        [SerializeField]
-        private CanvasGroup statistics;
         [SerializeField]
         private TMP_Text statisticsPopUp;
 
@@ -39,6 +38,7 @@ namespace UI
             buttons[0].interactable = false;
             nicknameInputField.interactable = false;
             offlineSign.SetActive(true);
+            loadingCircle.SetActive(false);
         }
         
         public void ToggleButtons(bool state)
@@ -63,6 +63,8 @@ namespace UI
                 {
                     leaderboardEntries[i].PopulateEntryFields(entries[i].Username, entries[i].Score);
                 }
+                
+                loadingCircle.SetActive(false);
                 
                 if (!updateStatistics) return;
                 // Calculate statistics

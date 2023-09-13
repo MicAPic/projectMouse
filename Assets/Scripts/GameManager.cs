@@ -21,6 +21,14 @@ public class GameManager : MonoBehaviour
     [Header("Animation")]
     [SerializeField]
     private float scoreCountDuration;
+    [SerializeField] 
+    private float shakeDuration = 0.485f;
+    [SerializeField] 
+    private Vector2 shakeStrength = new(0.0f, 0.004341f);
+    [SerializeField] 
+    private int shakeVibratio = 12;
+    [SerializeField] 
+    private float shakeRandomness;
 
     [Header("Leaderboards")]
     [SerializeField]
@@ -145,11 +153,30 @@ public class GameManager : MonoBehaviour
             },
             error =>
             {
-                if (error != null)
-                    // TODO: if "409: Username already exists!", show this to the player
-                    Debug.LogError(error);
+                switch (error)
+                {
+                    case null:
+                        break;
+                    case "403: Username is profane!":
+                    case "409: Username already exists!":
+                        ui.nicknameInputField.GetComponent<RectTransform>()
+                                             .DOShakeAnchorPos(
+                                                 shakeDuration,
+                                                 shakeStrength,
+                                                 shakeVibratio,
+                                                 shakeRandomness,
+                                                 false,
+                                                 true,
+                                                 ShakeRandomnessMode.Harmonic
+                                            )
+                                            .SetUpdate(true);
+                        break;
+                    default:
+                        Debug.LogError(error); 
+                        ui.ToggleOfflineMode();
+                        break;
+                }
                 ui.ToggleButtons(true);
-                ui.ToggleOfflineMode();
             });
     }
 

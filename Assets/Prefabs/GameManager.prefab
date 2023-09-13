@@ -79,4 +79,8 @@ MonoBehaviour:
     m_Flags: 0
   ui: {fileID: 0}
   scoreCountDuration: 1
+  shakeDuration: 0.485
+  shakeStrength: {x: 1.75, y: 0}
+  shakeVibratio: 20
+  shakeRandomness: 0
   publicKey: 
