@@ -655,9 +655,9 @@ MonoBehaviour:
   highScoreText: {fileID: 0}
   nicknameInputField: {fileID: 0}
   buttons: []
+  loadingCircle: {fileID: 0}
   offlineSign: {fileID: 0}
   leaderboardEntries: []
-  statistics: {fileID: 0}
   statisticsPopUp: {fileID: 0}
   pauseInputAction:
     m_Name: Pause Input
@@ -693,6 +693,10 @@ MonoBehaviour:
       m_Flags: 0
     m_Flags: 0
   bubiImage: {fileID: 576234221}
+  bubiEyelids: {fileID: 651116352}
+  blinkTime: 0.1
+  minBlinkingWaitTime: 2.8
+  maxBlinkingWaitTime: 10
   dialogueBox: {fileID: 1655930498}
   bubiAppearanceDuration: 0.75
   bubiDialoguePosY: 0
@@ -1403,7 +1407,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 651116350}
   m_Father: {fileID: 146953773}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1623,6 +1628,82 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5406809207888808900, guid: 34e14aecf91ba47e8ab6201cdd8c3b3b, type: 3}
   m_PrefabInstance: {fileID: 605782865}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &651116349
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 651116350}
+  - component: {fileID: 651116351}
+  - component: {fileID: 651116352}
+  m_Layer: 5
+  m_Name: Eyelids
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &651116350
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 651116349}
+  m_LocalRotation: {x: -0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 576234220}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 90, y: 90}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &651116351
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 651116349}
+  m_CullTransparentMesh: 1
+--- !u!114 &651116352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 651116349}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: -936629590, guid: c9706f7e3749c49469043cd5befa0b02, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &693674063
 GameObject:
   m_ObjectHideFlags: 0
@@ -1674,8 +1755,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.46615, y: -0.37724996, z: 0}
-    m_Extent: {x: 1.3626499, y: 5.32335, z: 0}
+    m_Center: {x: 0.46395, y: -0.37304997, z: 0}
+    m_Extent: {x: 1.37035, y: 5.32325, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -3088,6 +3169,10 @@ MonoBehaviour:
   - {fileID: 540854907, guid: bd337b4fcbf9f4d278ee2f3ea6dd93f8, type: 3}
   - {fileID: 272361576, guid: bd337b4fcbf9f4d278ee2f3ea6dd93f8, type: 3}
   - {fileID: -647354187, guid: bd337b4fcbf9f4d278ee2f3ea6dd93f8, type: 3}
+  bubiEyelids:
+  - {fileID: -936629590, guid: c9706f7e3749c49469043cd5befa0b02, type: 3}
+  - {fileID: 540444565, guid: c9706f7e3749c49469043cd5befa0b02, type: 3}
+  - {fileID: 1532309700, guid: c9706f7e3749c49469043cd5befa0b02, type: 3}
   bubiSpriteNames:
   - bubi_default
   - bubi_smug
@@ -3639,6 +3724,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isUsingGamepad: 0
+  lightBarColour: {r: 0.667, g: 0.2, b: 0.416, a: 1}
 --- !u!1 &1558638675
 GameObject:
   m_ObjectHideFlags: 0
@@ -3845,8 +3931,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.2858, y: -1.0302, z: 0}
-    m_Extent: {x: 1.0734, y: 2.0275, z: 0}
+    m_Center: {x: 0.28714997, y: -1.03475, z: 0}
+    m_Extent: {x: 1.0724499, y: 2.02665, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0

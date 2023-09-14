@@ -1,3 +1,4 @@
+using System.Collections;
 using Audio;
 using DG.Tweening;
 using UnityEngine;
@@ -17,6 +18,15 @@ namespace UI
         [Header("Dialogue Animation")]
         [FormerlySerializedAs("tungstenRat")]
         public Image bubiImage;
+        // Blinking
+        public Image bubiEyelids;
+        [SerializeField] 
+        private float blinkTime = 0.1f;
+        [SerializeField] 
+        private float minBlinkingWaitTime = 5.0f;
+        [SerializeField] 
+        private float maxBlinkingWaitTime = 10.0f;
+        //
         [SerializeField]
         private CanvasGroup dialogueBox;
         [FormerlySerializedAs("ratAppearanceDuration")] 
@@ -50,6 +60,8 @@ namespace UI
             dialogueBox.alpha = 0.0f;
             bubiImage.color = new Color(1, 1, 1, 0);
             ToggleDialogueBox(true, TransitionController.Instance.transitionDuration * 1.33f);
+            
+            StartCoroutine(WaitAndBlink());
         }
 
         public Tween ToggleDialogueBox(bool state, float delay)
@@ -123,6 +135,16 @@ namespace UI
                 Time.timeScale = 1.0f;
                 CameraController.Instance.focusPoint = CameraController.Instance.DefaultFocusPoint;
             }
+        }
+
+        private IEnumerator WaitAndBlink()
+        {
+            var cooldown = Random.Range(minBlinkingWaitTime, maxBlinkingWaitTime);
+            yield return new WaitForSeconds(cooldown);
+            bubiEyelids.enabled = true;
+            yield return new WaitForSeconds(blinkTime);
+            bubiEyelids.enabled = false;
+            StartCoroutine(WaitAndBlink());
         }
     }
 }

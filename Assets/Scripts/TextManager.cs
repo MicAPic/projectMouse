@@ -48,6 +48,7 @@ public class TextManager : MonoBehaviour
     
     [Header("Speaker Data")]
     protected Dictionary<string, Sprite> speakerSpriteDictionary;
+    protected Dictionary<string, Sprite> speakerEyelidDictionary;
     
     public bool isPlaying;
     protected bool canContinue;

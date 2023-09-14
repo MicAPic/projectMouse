@@ -36,6 +36,8 @@ public class TutorialManager : TextManager
     [SerializeField]
     private Sprite[] bubiSprites;
     [SerializeField]
+    private Sprite[] bubiEyelids;
+    [SerializeField]
     private string[] bubiSpriteNames = {"bubi_default", "bubi_smug", "bubi_surprised"};
 
     [Space]
@@ -69,6 +71,8 @@ public class TutorialManager : TextManager
         
         speakerSpriteDictionary = Enumerable.Range(0, bubiSprites.Length)
                                             .ToDictionary(i => bubiSpriteNames[i], j => bubiSprites[j]);
+        speakerEyelidDictionary = Enumerable.Range(0, bubiEyelids.Length)
+                                            .ToDictionary(i => bubiSpriteNames[i], j => bubiEyelids[j]);
     }
     
     void OnEnable()
@@ -182,5 +186,6 @@ public class TutorialManager : TextManager
     protected override void SwitchPortrait(string title)
     {
         _tutorialUI.bubiImage.sprite = speakerSpriteDictionary[title];
+        _tutorialUI.bubiEyelids.sprite = speakerEyelidDictionary[title];
     }
 }
