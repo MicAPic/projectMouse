@@ -5,7 +5,9 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Users;
 using UnityEngine.InputSystem.DualShock;
+#if UNITY_EDITOR || UNITY_STANDALONE_WIN || UNITY_STANDALONE_OSX || UNITY_WSA || PACKAGE_DOCS_GENERATION
 using UnityEngine.InputSystem.Switch;
+#endif
 using UnityEngine.InputSystem.XInput;
 
 public class InputManager : MonoBehaviour
@@ -186,9 +188,11 @@ public class InputManager : MonoBehaviour
         if (device == null) return;
         switch (device)
         {
+            #if UNITY_EDITOR || UNITY_STANDALONE_WIN || UNITY_STANDALONE_OSX || UNITY_WSA || PACKAGE_DOCS_GENERATION
             case SwitchProControllerHID:
                 _currentDevice = Device.ProController;
                 break;
+            #endif
             case DualShockGamepad dualShock:
                 _currentDevice = Device.DualShock;
                 dualShock.SetLightBarColor(lightBarColour);
