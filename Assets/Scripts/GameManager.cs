@@ -21,6 +21,14 @@ public class GameManager : MonoBehaviour
     [Header("Animation")]
     [SerializeField]
     private float scoreCountDuration;
+    [SerializeField] 
+    private float shakeDuration = 0.485f;
+    [SerializeField] 
+    private Vector2 shakeStrength = new(0.0f, 0.004341f);
+    [SerializeField] 
+    private int shakeVibratio = 12;
+    [SerializeField] 
+    private float shakeRandomness;
 
     [Header("Leaderboards")]
     [SerializeField]
@@ -58,7 +66,7 @@ public class GameManager : MonoBehaviour
 
     public void Pause()
     {
-        PlayerController.Instance.playerInput.enabled = false;
+        PlayerController.Instance.playerInput.SwitchCurrentActionMap("UI");
         AudioManager.Instance.ToggleLowpass(true);
 
         Time.timeScale = 0.0f;
@@ -67,11 +75,11 @@ public class GameManager : MonoBehaviour
     
     public void Unpause()
     {
-        PlayerController.Instance.playerInput.enabled = true;
+        PlayerController.Instance.playerInput.SwitchCurrentActionMap("InGame");
         AudioManager.Instance.ToggleLowpass(false);
 
         Time.timeScale = 1.0f;
-        CameraController.Instance.focusPoint = CameraController.Instance.defaultFocusPoint;
+        CameraController.Instance.focusPoint = CameraController.Instance.DefaultFocusPoint;
     }
 
     public void GameOver()
@@ -139,16 +147,36 @@ public class GameManager : MonoBehaviour
         LeaderboardCreator.UploadNewEntry(publicKey, nickname, _highScore,
             _ =>
             {
-                ui.UpdateLeaderboardContent(publicKey);
+                ui.UpdateLeaderboardContent(publicKey, updateStatistics:false);
                 ui.nicknameInputField.text = string.Empty;
                 ui.ToggleButtons(true);
             },
             error =>
             {
-                if (error != null)
-                    Debug.LogError(error);
+                switch (error)
+                {
+                    case null:
+                        break;
+                    case "403: Username is profane!":
+                    case "409: Username already exists!":
+                        ui.nicknameInputField.GetComponent<RectTransform>()
+                                             .DOShakeAnchorPos(
+                                                 shakeDuration,
+                                                 shakeStrength,
+                                                 shakeVibratio,
+                                                 shakeRandomness,
+                                                 false,
+                                                 true,
+                                                 ShakeRandomnessMode.Harmonic
+                                            )
+                                            .SetUpdate(true);
+                        break;
+                    default:
+                        Debug.LogError(error); 
+                        ui.ToggleOfflineMode();
+                        break;
+                }
                 ui.ToggleButtons(true);
-                ui.ToggleOfflineMode();
             });
     }
 

@@ -18,13 +18,12 @@ namespace UI
         public TMP_Text highScoreText;
         public TMP_InputField nicknameInputField;
         public Button[] buttons;
+        public GameObject loadingCircle;
         [Space]
         [SerializeField]
         private GameObject offlineSign;
         [SerializeField]
         private LeaderboardEntry[] leaderboardEntries;
-        [SerializeField]
-        private CanvasGroup statistics;
         [SerializeField]
         private TMP_Text statisticsPopUp;
 
@@ -39,6 +38,7 @@ namespace UI
             buttons[0].interactable = false;
             nicknameInputField.interactable = false;
             offlineSign.SetActive(true);
+            loadingCircle.SetActive(false);
         }
         
         public void ToggleButtons(bool state)
@@ -51,7 +51,7 @@ namespace UI
             buttons[1].Select();
         }
 
-        public void UpdateLeaderboardContent(string publicKey, int score=0)
+        public void UpdateLeaderboardContent(string publicKey, int score=0, bool updateStatistics=true)
         {
             LeaderboardCreator.GetLeaderboard(publicKey, entries =>
             {
@@ -64,27 +64,32 @@ namespace UI
                     leaderboardEntries[i].PopulateEntryFields(entries[i].Username, entries[i].Score);
                 }
                 
-                if (score == 0) return;
+                loadingCircle.SetActive(false);
                 
+                if (!updateStatistics) return;
                 // Calculate statistics
-                var noOfPeople = 0;
-                for (var j = entries.Length - 1; j >= 0; j--)
+                var percentage = 0;
+                if (score != 0)
                 {
-                    Debug.Log(entries[j].Score);
-                    if (score >= entries[j].Score)
+                    var noOfPeople = 0;
+                    for (var j = entries.Length - 1; j >= 0; j--)
                     {
-                        noOfPeople++;
-                    }
-                    else
-                    {
-                        // statistics.DOFade(1.0f, 0.5f).SetUpdate(true);
-                        statisticsPopUp.DOCounter(
-                            0, 
-                            Mathf.RoundToInt(noOfPeople / (float)entries.Length * 100.0f), 
-                            1.0f).SetUpdate(true).SetEase(Ease.OutCirc);
-                        break;
+                        if (score >= entries[j].Score)
+                        {
+                            noOfPeople++;
+                        }
+                        else
+                        {
+                            percentage = Mathf.RoundToInt(noOfPeople / (float)entries.Length * 100.0f);
+                            break;
+                        }
                     }
                 }
+                
+                statisticsPopUp.DOCounter(
+                    0, 
+                    percentage, 
+                    1.0f).SetUpdate(true).SetEase(Ease.OutCirc);
             });
         }
 

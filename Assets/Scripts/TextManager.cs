@@ -33,6 +33,7 @@ public class TextManager : MonoBehaviour
     public Story story;
     
     private const string AutoTag = "auto";
+    private const string PortraitTag = "portrait";
     
     [Header("Audio")]
     [SerializeField]
@@ -44,6 +45,10 @@ public class TextManager : MonoBehaviour
     private AudioSource audioSource;
     [SerializeField]
     private bool stopAudioSource;
+    
+    [Header("Speaker Data")]
+    protected Dictionary<string, Sprite> speakerSpriteDictionary;
+    protected Dictionary<string, Sprite> speakerEyelidDictionary;
     
     public bool isPlaying;
     protected bool canContinue;
@@ -126,6 +131,11 @@ public class TextManager : MonoBehaviour
         yield return new WaitForSeconds(initialDelay);
         ContinueStory();
         // _isPlaying = true;
+    }
+
+    protected virtual void SwitchPortrait(string title)
+    {
+        Debug.LogWarning("Function should not be called in this context");
     }
 
     private IEnumerator DisplayLine(string line)
@@ -219,6 +229,9 @@ public class TextManager : MonoBehaviour
             {
                 case AutoTag:
                     canContinue = true;
+                    break;
+                case PortraitTag:
+                    SwitchPortrait(value);
                     break;
                 default:
                     Debug.LogWarning("Given tag is not implemented:" + key);

@@ -845,7 +845,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: e9e73a84e092e5f47983ff2681a4021a, type: 3}
   m_NotificationBehavior: 0
-  m_UIInputModule: {fileID: 0}
+  m_UIInputModule: {fileID: 480293529}
   m_DeviceLostEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -918,6 +918,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f40b61363b3d4324a9a93a3e90dc9e06, type: 3}
+--- !u!114 &480293529 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6233966915742074669, guid: f40b61363b3d4324a9a93a3e90dc9e06, type: 3}
+  m_PrefabInstance: {fileID: 480293528}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &776962489
 GameObject:
   m_ObjectHideFlags: 0

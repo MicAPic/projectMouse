@@ -49,5 +49,5 @@ Material:
     - _FlashAmount: 0
     - _Threshold: 0
     m_Colors:
-    - _GlowColor: {r: 2.8862746, g: 0.1882353, b: 0.1254902, a: 1}
+    - _GlowColor: {r: 2.8862743, g: 0.196448, b: 0.13600247, a: 1}
   m_BuildTextureStacks: []

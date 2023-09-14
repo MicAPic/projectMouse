@@ -87,6 +87,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f1ad6b1f96a946eca191bd8538c9763, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvasGroup: {fileID: 0}
+  gamepadModeReticleDistance: 325
+  gamepadModeReticlePos: {x: 0, y: 0, z: 0}
 --- !u!225 &9180681398668443388
 CanvasGroup:
   m_ObjectHideFlags: 0

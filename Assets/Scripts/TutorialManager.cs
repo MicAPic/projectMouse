@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using DG.Tweening;
 using Enemy;
 using HealthControllers;
@@ -17,7 +18,9 @@ public class TutorialManager : TextManager
     private GameObject miguelPrefab;
     [SerializeField]
     private Transform miguelSpawnPoint;
+    
     [Space]
+    
     [SerializeField]
     private RectTransform tipPopUp;
     [SerializeField]
@@ -27,7 +30,18 @@ public class TutorialManager : TextManager
     [SerializeField]
     private float tipToggledPosY;
     private float tipDefaultPosY;
+    
     [Space]
+    
+    [SerializeField]
+    private Sprite[] bubiSprites;
+    [SerializeField]
+    private Sprite[] bubiEyelids;
+    [SerializeField]
+    private string[] bubiSpriteNames = {"bubi_default", "bubi_smug", "bubi_surprised"};
+
+    [Space]
+    
     [SerializeField]
     private InputAction fastForwardInputAction;
     [SerializeField]
@@ -54,6 +68,11 @@ public class TutorialManager : TextManager
         _fastForwardAutoModeWaitTime = autoModeWaitTime / 2.0f;
 
         tipDefaultPosY = tipPopUp.anchoredPosition.y;
+        
+        speakerSpriteDictionary = Enumerable.Range(0, bubiSprites.Length)
+                                            .ToDictionary(i => bubiSpriteNames[i], j => bubiSprites[j]);
+        speakerEyelidDictionary = Enumerable.Range(0, bubiEyelids.Length)
+                                            .ToDictionary(i => bubiSpriteNames[i], j => bubiEyelids[j]);
     }
     
     void OnEnable()
@@ -91,9 +110,13 @@ public class TutorialManager : TextManager
     public override void StartDialogue()
     {
         base.StartDialogue();
+        story.BindExternalFunction("GetBindingNameFor", (string actionName) =>
+        {
+            return InputManager.Instance.GetBindingNameFor(actionName);
+        });
         story.BindExternalFunction("UnlockControls", () =>
         {
-            playerInput.enabled = true;
+            playerInput.SwitchCurrentActionMap("InGame");
         });
         story.BindExternalFunction("UnlockAim", () =>
         {
@@ -140,19 +163,29 @@ public class TutorialManager : TextManager
         });
         story.BindExternalFunction("ToggleTip", (bool state) =>
         {
-            var tipText = tipPopUp.GetComponent<TMP_Text>();
+            var tipTMPText = tipPopUp.GetComponent<TMP_Text>();
             if (state)
             {
+                tipTMPText.text = tipTMPText.text.Replace(
+                    "F",
+                    InputManager.Instance.GetBindingNameFor("FastForward"));
+                
                 autoModeWaitTime = 0.0f;
                 tipPopUp.DOAnchorPosY(tipToggledPosY, tipPopUpDuration).SetDelay(tipPopUpDelay);
-                tipText.DOFade(1.0f, tipPopUpDuration).SetDelay(tipPopUpDelay);
+                tipTMPText.DOFade(1.0f, tipPopUpDuration).SetDelay(tipPopUpDelay);
             }
             else
             {
                 autoModeWaitTime = _defaultAutoModeWaitTime;
                 tipPopUp.DOAnchorPosY(tipDefaultPosY, tipPopUpDuration);
-                tipText.DOFade(0.0f, tipPopUpDuration);
+                tipTMPText.DOFade(0.0f, tipPopUpDuration);
             }
         });
+    }
+
+    protected override void SwitchPortrait(string title)
+    {
+        _tutorialUI.bubiImage.sprite = speakerSpriteDictionary[title];
+        _tutorialUI.bubiEyelids.sprite = speakerEyelidDictionary[title];
     }
 }

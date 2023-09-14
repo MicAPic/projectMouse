@@ -51,9 +51,9 @@ namespace UI
                 director.time = director.duration;
                 AudioManager.Instance.musicSource.Stop();
                 spotlightAnimator.enabled = false;
-                spotlightAnimator.GetComponent<RectTransform>().DOSizeDelta(Vector2.one * 1000f, 1.0f);
                 cursorOverlayTrigger.SetActive(true);
-                _cutsceneIsFinished = true;
+                spotlightAnimator.GetComponent<RectTransform>().DOSizeDelta(Vector2.one * 1000f, 1.0f)
+                                 .OnComplete(() => _cutsceneIsFinished = true);
             }
         }
 

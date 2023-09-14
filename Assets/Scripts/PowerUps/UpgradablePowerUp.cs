@@ -19,7 +19,6 @@ namespace PowerUps
         {
             base.Awake();
             SceneManager.sceneLoaded += ResetCounter;
-            //TODO: set colour
             titleText.text += $" <color=#102447>Lv.{_currentLevel}";
         }
 
