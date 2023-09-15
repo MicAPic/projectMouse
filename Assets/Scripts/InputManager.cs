@@ -198,7 +198,7 @@ public class InputManager : MonoBehaviour
                 dualShock.SetLightBarColor(lightBarColour);
                 _lightBarWasSet = true;
                 break;
-            case XInputController:
+            case XInputController or Gamepad:
                 _currentDevice = Device.XInputController;
                 break;
             default:
